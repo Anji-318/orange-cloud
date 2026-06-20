@@ -1,0 +1,88 @@
+[
+  {
+    "version": "1.1",
+    "date": "2026.06.18",
+    "channel": "Google Play",
+    "items": [
+      {
+        "title": {
+          "zh-Hans": "从查看到管理",
+          "en": "From viewing to managing",
+          "zh-Hant": "從查看到管理",
+          "zh-HK": "從查看到管理",
+          "ja": "表示から管理へ",
+          "es-MX": "De ver a gestionar",
+          "ko": "보기에서 관리로",
+          "pt-BR": "De ver a gerenciar",
+          "pt-PT": "De ver a gerir"
+        },
+        "detail": {
+          "zh-Hans": "现在可以添加域名、新建并删除 D1 数据库与隧道，管理 Worker 变量/密钥/触发器/域名，以及隧道的公共主机名路由。",
+          "en": "You can now add domains, create and delete D1 databases and tunnels, manage Worker variables/secrets/triggers/domains, and a tunnel’s public hostname routes.",
+          "zh-Hant": "現在可以新增網域、建立並刪除 D1 資料庫與隧道，管理 Worker 變數/密鑰/觸發器/網域，以及隧道的公開主機名稱路由。",
+          "zh-HK": "現在可以新增域名、建立並刪除 D1 資料庫與隧道，管理 Worker 變數/密鑰/觸發器/域名，以及隧道的公開主機名稱路由。",
+          "ja": "ドメインの追加、D1 データベースとトンネルの作成・削除、Worker の変数/シークレット/トリガー/ドメイン、トンネルの公開ホスト名ルートを管理できるようになりました。",
+          "es-MX": "Ahora puedes añadir dominios, crear y eliminar bases de datos D1 y túneles, gestionar variables/secretos/activadores/dominios de Workers y las rutas de nombre de host público de un túnel.",
+          "ko": "이제 도메인 추가, D1 데이터베이스·터널 생성 및 삭제, Worker 변수/시크릿/트리거/도메인, 터널 공개 호스트 이름 경로를 관리할 수 있습니다.",
+          "pt-BR": "Agora você pode adicionar domínios, criar e excluir bancos de dados D1 e túneis, gerenciar variáveis/segredos/gatilhos/domínios de Workers e as rotas de nome de host público de um túnel.",
+          "pt-PT": "Agora pode adicionar domínios, criar e eliminar bases de dados D1 e túneis, gerir variáveis/segredos/acionadores/domínios de Workers e as rotas de nome de anfitrião público de um túnel."
+        }
+      }
+    ]
+  },
+  {
+    "version": "1.0",
+    "date": "2026.06.12",
+    "channel": "Google Play",
+    "items": [
+      {
+        "title": {
+          "zh-Hans": "OAuth 一键登录",
+          "en": "One-tap OAuth sign-in",
+          "zh-Hant": "OAuth 一鍵登入",
+          "zh-HK": "OAuth 一鍵登入",
+          "ja": "OAuth ワンタップログイン",
+          "es-MX": "Inicio de sesión OAuth con un toque",
+          "ko": "OAuth 원탭 로그인",
+          "pt-BR": "Login OAuth com um toque",
+          "pt-PT": "Início de sessão OAuth com um toque"
+        },
+        "detail": {
+          "zh-Hans": "用 Cloudflare 官方授权登录，无需手动粘贴 API Token。",
+          "en": "Sign in with Cloudflare's official authorization — no API tokens to paste.",
+          "zh-Hant": "用 Cloudflare 官方授權登入，無需手動貼上 API Token。",
+          "zh-HK": "用 Cloudflare 官方授權登入，無需手動貼上 API Token。",
+          "ja": "Cloudflare 公式の認証でログイン。API トークンの貼り付けは不要です。",
+          "es-MX": "Inicia sesión con la autorización oficial de Cloudflare, sin pegar tokens de API.",
+          "ko": "Cloudflare 공식 인증으로 로그인하며 API 토큰을 붙여넣을 필요가 없습니다.",
+          "pt-BR": "Entre com a autorização oficial da Cloudflare, sem colar tokens de API.",
+          "pt-PT": "Inicie sessão com a autorização oficial da Cloudflare, sem colar tokens de API."
+        }
+      },
+      {
+        "title": {
+          "zh-Hans": "域名 · Workers · 存储全覆盖",
+          "en": "Domains · Workers · Storage",
+          "zh-Hant": "網域 · Workers · 儲存全覆蓋",
+          "zh-HK": "域名 · Workers · 儲存全覆蓋",
+          "ja": "ドメイン · Workers · ストレージ",
+          "es-MX": "Dominios · Workers · Almacenamiento",
+          "ko": "도메인 · Workers · 스토리지",
+          "pt-BR": "Domínios · Workers · Armazenamento",
+          "pt-PT": "Domínios · Workers · Armazenamento"
+        },
+        "detail": {
+          "zh-Hans": "DNS、流量分析、WAF、Snippets、Workers 实时日志、R2/D1/KV 存储一应俱全。",
+          "en": "DNS, analytics, WAF, Snippets, Workers live logs, and R2/D1/KV storage — all in one place.",
+          "zh-Hant": "DNS、流量分析、WAF、Snippets、Workers 即時日誌、R2/D1/KV 儲存一應俱全。",
+          "zh-HK": "DNS、流量分析、WAF、Snippets、Workers 即時日誌、R2/D1/KV 儲存一應俱全。",
+          "ja": "DNS、トラフィック分析、WAF、Snippets、Workers リアルタイムログ、R2/D1/KV ストレージをすべて網羅。",
+          "es-MX": "DNS, analíticas, WAF, Snippets, registros en vivo de Workers y almacenamiento R2/D1/KV, todo en un solo lugar.",
+          "ko": "DNS, 트래픽 분석, WAF, Snippets, Workers 실시간 로그, R2/D1/KV 스토리지까지 한곳에서.",
+          "pt-BR": "DNS, análises, WAF, Snippets, logs ao vivo de Workers e armazenamento R2/D1/KV, tudo em um só lugar.",
+          "pt-PT": "DNS, análises, WAF, Snippets, logs ao vivo de Workers e armazenamento R2/D1/KV, tudo em um só lugar."
+        }
+      }
+    ]
+  }
+]

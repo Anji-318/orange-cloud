@@ -16,7 +16,9 @@
     "build": "turbo build",
     "deploy:web": "turbo deploy --filter=web",
     "preview:web": "turbo preview --filter=web",
-    "lint": "turbo lint"
+    "lint": "turbo lint",
+    "changelog:gen": "pnpm --filter @orange-cloud/changelog gen",
+    "changelog:check": "pnpm --filter @orange-cloud/changelog check"
   },
   "devDependencies": {
     "turbo": "^2.5.0"

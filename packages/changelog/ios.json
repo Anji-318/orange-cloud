@@ -1,0 +1,559 @@
+[
+  {
+    "version": "1.3.1",
+    "date": "2026.06.21",
+    "channel": "App Store",
+    "inApp": false,
+    "items": [
+      {
+        "icon": "sparkles",
+        "title": {
+          "zh-Hans": "全新应用图标",
+          "en": "New App Icon",
+          "zh-Hant": "全新應用程式圖示",
+          "zh-HK": "全新應用程式圖示",
+          "ja": "新しいAppアイコン",
+          "es-MX": "Nuevo ícono de la app",
+          "ko": "새로운 앱 아이콘",
+          "pt-BR": "Novo ícone do app",
+          "pt-PT": "Novo ícone da app"
+        },
+        "detail": {
+          "zh-Hans": "用 Icon Composer 重制的 Liquid Glass 图标，在 iOS 18 及更新系统上随明暗与着色自适应。",
+          "en": "A Liquid Glass icon rebuilt with Icon Composer that adapts to light, dark, and tinted modes on iOS 18 and later.",
+          "zh-Hant": "以 Icon Composer 重製的 Liquid Glass 圖示，在 iOS 18 及更新系統上隨明暗與著色自動調整。",
+          "zh-HK": "以 Icon Composer 重製的 Liquid Glass 圖示，在 iOS 18 及更新系統上隨明暗與著色自動調整。",
+          "ja": "Icon Composer で作り直した Liquid Glass アイコンが、iOS 18 以降でライト/ダーク/着色表示に合わせて変化します。",
+          "es-MX": "Un ícono Liquid Glass rehecho con Icon Composer que se adapta a los modos claro, oscuro y con tono en iOS 18 y versiones posteriores.",
+          "ko": "Icon Composer로 다시 만든 Liquid Glass 아이콘이 iOS 18 이상에서 라이트·다크·틴트 모드에 맞춰 바뀝니다.",
+          "pt-BR": "Um ícone Liquid Glass refeito com o Icon Composer que se adapta aos modos claro, escuro e colorido no iOS 18 e versões posteriores.",
+          "pt-PT": "Um ícone Liquid Glass refeito com o Icon Composer que se adapta aos modos claro, escuro e colorido no iOS 18 e versões posteriores."
+        }
+      },
+      {
+        "icon": "globe",
+        "title": {
+          "zh-Hans": "Worker 路由修复",
+          "en": "Worker Routes Fix",
+          "zh-Hant": "Worker 路由修復",
+          "zh-HK": "Worker 路由修復",
+          "ja": "Worker ルートの修正",
+          "es-MX": "Corrección de rutas de Worker",
+          "ko": "Worker 경로 수정",
+          "pt-BR": "Correção de rotas do Worker",
+          "pt-PT": "Correção de rotas do Worker"
+        },
+        "detail": {
+          "zh-Hans": "修复部分账号下 Worker 的域名与路由无法加载的问题。",
+          "en": "Fixed an issue where a Worker's domains and routes failed to load for some accounts.",
+          "zh-Hant": "修復部分帳號下 Worker 的網域與路由無法載入的問題。",
+          "zh-HK": "修復部分帳戶下 Worker 的域名與路由無法載入的問題。",
+          "ja": "一部のアカウントで Worker のドメインとルートが読み込めない問題を修正しました。",
+          "es-MX": "Se corrigió un problema por el que los dominios y rutas de un Worker no cargaban en algunas cuentas.",
+          "ko": "일부 계정에서 Worker의 도메인과 경로가 로드되지 않던 문제를 수정했습니다.",
+          "pt-BR": "Corrigimos um problema em que os domínios e rotas de um Worker não carregavam em algumas contas.",
+          "pt-PT": "Corrigimos um problema em que os domínios e rotas de um Worker não carregavam em algumas contas."
+        }
+      },
+      {
+        "icon": "checkmark.seal",
+        "title": {
+          "zh-Hans": "稳定性提升",
+          "en": "Stability Improvements",
+          "zh-Hant": "穩定性提升",
+          "zh-HK": "穩定性提升",
+          "ja": "安定性の向上",
+          "es-MX": "Mejoras de estabilidad",
+          "ko": "안정성 향상",
+          "pt-BR": "Melhorias de estabilidade",
+          "pt-PT": "Melhorias de estabilidade"
+        },
+        "detail": {
+          "zh-Hans": "修复极少数情况下因本地缓存异常导致的启动问题，并优化若干细节。",
+          "en": "Fixed a rare startup issue caused by a corrupted local cache, plus various refinements.",
+          "zh-Hant": "修復極少數情況下因本機快取異常導致的啟動問題，並優化若干細節。",
+          "zh-HK": "修復極少數情況下因本機緩存異常導致的啟動問題，並優化若干細節。",
+          "ja": "まれにローカルキャッシュの破損で起動できない問題を修正し、細部を改善しました。",
+          "es-MX": "Se corrigió un problema poco frecuente de inicio causado por una caché local dañada y se pulieron varios detalles.",
+          "ko": "드물게 로컬 캐시 손상으로 앱이 시작되지 않던 문제를 수정하고 여러 부분을 다듬었습니다.",
+          "pt-BR": "Corrigimos um problema raro de inicialização causado por um cache local corrompido e refinamos vários detalhes.",
+          "pt-PT": "Corrigimos um problema raro de arranque causado por uma cache local danificada e refinámos vários detalhes."
+        }
+      }
+    ]
+  },
+  {
+    "version": "1.3.0",
+    "date": "2026.06.20",
+    "channel": "App Store",
+    "live": true,
+    "items": [
+      {
+        "icon": "globe.badge.chevron.right",
+        "title": {
+          "zh-Hans": "添加域名",
+          "en": "Add Domain",
+          "zh-Hant": "新增網域",
+          "zh-HK": "新增域名",
+          "ja": "ドメインを追加",
+          "es-MX": "Agregar dominio",
+          "ko": "도메인 추가",
+          "pt-BR": "Adicionar domínio",
+          "pt-PT": "Adicionar domínio"
+        },
+        "detail": {
+          "zh-Hans": "在 App 里把已注册的域名加入账号，并拿到要去注册商处配置的名称服务器。",
+          "en": "Add a domain you already own to your account and get the name servers to set at your registrar.",
+          "zh-Hant": "將你已註冊的網域加入帳號，並取得要在註冊商處設定的名稱伺服器。",
+          "zh-HK": "將你已註冊的域名加入帳戶，並取得要在註冊商處設定的名稱伺服器。",
+          "ja": "取得済みのドメインをアカウントに追加し、レジストラで設定するネームサーバを取得します。",
+          "es-MX": "Agrega a tu cuenta un dominio que ya tengas y obtén los servidores de nombres para configurarlos en tu registrador.",
+          "ko": "이미 보유한 도메인을 계정에 추가하고 등록 대행자에 설정할 네임서버를 받으세요.",
+          "pt-BR": "Adicione à sua conta um domínio que você já tem e obtenha os servidores de nomes para configurar no seu registrador.",
+          "pt-PT": "Adicione à sua conta um domínio que já possui e obtenha os servidores de nomes para configurar no seu registador."
+        }
+      },
+      {
+        "icon": "network",
+        "title": {
+          "zh-Hans": "Tunnel 管理",
+          "en": "Tunnel Management",
+          "zh-Hant": "通道管理",
+          "zh-HK": "隧道管理",
+          "ja": "トンネル管理",
+          "es-MX": "Gestión de túneles",
+          "ko": "터널 관리",
+          "pt-BR": "Gerenciamento de túneis",
+          "pt-PT": "Gestão de túneis"
+        },
+        "detail": {
+          "zh-Hans": "不再只是查看——新建隧道、获取连接令牌与命令、配置公共主机名路由。",
+          "en": "More than viewing now — create tunnels, get connection tokens and commands, and configure public hostname routing.",
+          "zh-Hant": "不再只是檢視——建立通道、取得連線權杖與指令、設定公開主機名稱路由。",
+          "zh-HK": "不再只是查看——建立隧道、取得連線權杖與指令、設定公開主機名稱路由。",
+          "ja": "表示だけではなく、トンネルの作成、接続トークンとコマンドの取得、パブリックホスト名ルーティングの設定ができます。",
+          "es-MX": "Ya no solo para ver: crea túneles, obtén tokens y comandos de conexión y configura el enrutamiento por nombre de host público.",
+          "ko": "이제 보기만이 아니라 터널 생성, 연결 토큰과 명령 가져오기, 공개 호스트 이름 라우팅 구성까지.",
+          "pt-BR": "Não é mais só visualizar: crie túneis, obtenha tokens e comandos de conexão e configure o roteamento por nome de host público.",
+          "pt-PT": "Já não é só visualizar: crie túneis, obtenha tokens e comandos de ligação e configure o encaminhamento por nome de anfitrião público."
+        }
+      },
+      {
+        "icon": "cylinder.split.1x2",
+        "title": {
+          "zh-Hans": "D1 数据库管理",
+          "en": "D1 Database Management",
+          "zh-Hant": "D1 資料庫管理",
+          "zh-HK": "D1 資料庫管理",
+          "ja": "D1 データベース管理",
+          "es-MX": "Gestión de bases de datos D1",
+          "ko": "D1 데이터베이스 관리",
+          "pt-BR": "Gerenciamento de bancos de dados D1",
+          "pt-PT": "Gestão de bases de dados D1"
+        },
+        "detail": {
+          "zh-Hans": "直接新建 D1 数据库，或在原样确认库名后安全删除。",
+          "en": "Create a D1 database, or delete one safely after confirming its exact name.",
+          "zh-Hant": "直接建立 D1 資料庫，或在原樣確認資料庫名稱後安全刪除。",
+          "zh-HK": "直接建立 D1 資料庫，或在原樣確認資料庫名稱後安全刪除。",
+          "ja": "D1 データベースを作成したり、データベース名を正確に確認してから安全に削除したりできます。",
+          "es-MX": "Crea una base de datos D1, o elimínala de forma segura tras confirmar su nombre exacto.",
+          "ko": "D1 데이터베이스를 만들거나, 데이터베이스 이름을 그대로 확인한 뒤 안전하게 삭제하세요.",
+          "pt-BR": "Crie um banco de dados D1 ou exclua-o com segurança após confirmar o nome exato.",
+          "pt-PT": "Crie uma base de dados D1 ou elimine-a com segurança após confirmar o nome exato."
+        }
+      },
+      {
+        "icon": "key",
+        "title": {
+          "zh-Hans": "变量与密钥",
+          "en": "Variables & Secrets",
+          "zh-Hant": "變數與密鑰",
+          "zh-HK": "變數與密鑰",
+          "ja": "変数とシークレット",
+          "es-MX": "Variables y secretos",
+          "ko": "변수와 시크릿",
+          "pt-BR": "Variáveis e segredos",
+          "pt-PT": "Variáveis e segredos"
+        },
+        "detail": {
+          "zh-Hans": "管理 Worker 的环境变量与密钥，随手增删改。",
+          "en": "Manage a Worker’s environment variables and secrets — add, edit, and remove on the fly.",
+          "zh-Hant": "管理 Worker 的環境變數與密鑰，隨手增刪改。",
+          "zh-HK": "管理 Worker 的環境變數與密鑰，隨手增刪改。",
+          "ja": "Worker の環境変数とシークレットを管理し、いつでも追加・編集・削除できます。",
+          "es-MX": "Gestiona las variables de entorno y los secretos de un Worker: agrega, edita y elimina al instante.",
+          "ko": "Worker의 환경 변수와 시크릿을 관리하고 언제든 추가·편집·삭제하세요.",
+          "pt-BR": "Gerencie as variáveis de ambiente e os segredos de um Worker: adicione, edite e remova na hora.",
+          "pt-PT": "Faça a gestão das variáveis de ambiente e dos segredos de um Worker: adicione, edite e remova na hora."
+        }
+      },
+      {
+        "icon": "clock",
+        "title": {
+          "zh-Hans": "定时触发器",
+          "en": "Cron Triggers",
+          "zh-Hant": "定時觸發器",
+          "zh-HK": "定時觸發器",
+          "ja": "Cron トリガー",
+          "es-MX": "Activadores Cron",
+          "ko": "Cron 트리거",
+          "pt-BR": "Gatilhos Cron",
+          "pt-PT": "Gatilhos Cron"
+        },
+        "detail": {
+          "zh-Hans": "查看与增删 Cron 触发器，让 Worker 按计划自动运行。",
+          "en": "View, add, and remove Cron triggers so a Worker runs automatically on schedule.",
+          "zh-Hant": "檢視與增刪 Cron 觸發器，讓 Worker 按排程自動執行。",
+          "zh-HK": "查看與增刪 Cron 觸發器，讓 Worker 按排程自動執行。",
+          "ja": "Cron トリガーの表示・追加・削除を行い、Worker をスケジュールどおりに自動実行します。",
+          "es-MX": "Consulta, agrega y elimina activadores Cron para que un Worker se ejecute automáticamente según un horario.",
+          "ko": "Cron 트리거를 보고 추가·삭제하여 Worker가 일정에 따라 자동으로 실행되게 하세요.",
+          "pt-BR": "Veja, adicione e remova gatilhos Cron para que um Worker seja executado automaticamente conforme a programação.",
+          "pt-PT": "Veja, adicione e remova gatilhos Cron para que um Worker seja executado automaticamente conforme o agendamento."
+        }
+      },
+      {
+        "icon": "globe",
+        "title": {
+          "zh-Hans": "域名与路由",
+          "en": "Domains & Routes",
+          "zh-Hant": "網域與路由",
+          "zh-HK": "域名與路由",
+          "ja": "ドメインとルート",
+          "es-MX": "Dominios y rutas",
+          "ko": "도메인과 라우트",
+          "pt-BR": "Domínios e rotas",
+          "pt-PT": "Domínios e rotas"
+        },
+        "detail": {
+          "zh-Hans": "管理 workers.dev 子域、自定义域与路由，掌控 Worker 的访问入口。",
+          "en": "Manage the workers.dev subdomain, custom domains, and routes to control how a Worker is reached.",
+          "zh-Hant": "管理 workers.dev 子網域、自訂網域與路由，掌控 Worker 的存取入口。",
+          "zh-HK": "管理 workers.dev 子域、自訂域名與路由，掌控 Worker 的存取入口。",
+          "ja": "workers.dev サブドメイン、カスタムドメイン、ルートを管理し、Worker へのアクセス経路を制御します。",
+          "es-MX": "Gestiona el subdominio workers.dev, los dominios personalizados y las rutas para controlar cómo se accede a un Worker.",
+          "ko": "workers.dev 서브도메인, 사용자 지정 도메인, 라우트를 관리해 Worker 접근 경로를 제어하세요.",
+          "pt-BR": "Gerencie o subdomínio workers.dev, domínios personalizados e rotas para controlar como um Worker é acessado.",
+          "pt-PT": "Faça a gestão do subdomínio workers.dev, domínios personalizados e rotas para controlar como um Worker é acedido."
+        }
+      }
+    ]
+  },
+  {
+    "version": "1.2.1",
+    "date": "2026.06.18",
+    "channel": "App Store",
+    "live": true,
+    "items": [
+      {
+        "icon": "applewatch",
+        "title": {
+          "zh-Hans": "Apple Watch App",
+          "en": "Apple Watch app",
+          "zh-Hant": "Apple Watch App",
+          "zh-HK": "Apple Watch App",
+          "ja": "Apple Watch App",
+          "es-MX": "App de Apple Watch",
+          "ko": "Apple Watch 앱",
+          "pt-BR": "App do Apple Watch",
+          "pt-PT": "App do Apple Watch"
+        },
+        "detail": {
+          "zh-Hans": "把域名状态与流量概览带上手腕，还能添加到表盘复杂功能随时一瞥。",
+          "en": "Bring domain status and traffic overview to your wrist, with watch face complications for a glance anytime.",
+          "zh-Hant": "把網域狀態與流量概覽帶上手腕，還能加入錶面複雜功能隨時一瞥。",
+          "zh-HK": "把域名狀態與流量概覽帶上手腕，還能加入錶面複雜功能隨時一瞥。",
+          "ja": "ドメインの状態とトラフィック概要を手首で確認。文字盤のコンプリケーションでいつでもひと目で。",
+          "es-MX": "Lleva a tu muñeca el estado de los dominios y el resumen de tráfico, con complicaciones en la carátula para verlo de un vistazo.",
+          "ko": "도메인 상태와 트래픽 개요를 손목에서 확인하고, 시계 페이스 컴플리케이션으로 언제든 한눈에 볼 수 있어요.",
+          "pt-BR": "Leve o status dos domínios e o resumo de tráfego para o pulso, com complicações no mostrador para ver num relance.",
+          "pt-PT": "Leve o estado dos domínios e o resumo de tráfego para o pulso, com complicações no mostrador para ver num relance."
+        }
+      },
+      {
+        "icon": "curlybraces",
+        "title": {
+          "zh-Hans": "Snippets",
+          "en": "Snippets",
+          "zh-Hant": "Snippets",
+          "zh-HK": "Snippets",
+          "ja": "Snippets",
+          "es-MX": "Snippets",
+          "ko": "Snippets",
+          "pt-BR": "Snippets",
+          "pt-PT": "Snippets"
+        },
+        "detail": {
+          "zh-Hans": "在域名详情查看、编辑、新建 Cloudflare 边缘代码片段，并管理触发规则——轻量版 Workers，Pro 解锁。",
+          "en": "View, edit, and create Cloudflare edge code snippets — and manage their trigger rules — right in zone details. Lightweight Workers, unlocked with Pro.",
+          "zh-Hant": "在網域詳情查看、編輯、新建 Cloudflare 邊緣程式碼片段，並管理觸發規則——輕量版 Workers，Pro 解鎖。",
+          "zh-HK": "在域名詳情查看、編輯、新增 Cloudflare 邊緣代碼片段，並管理觸發規則——輕量版 Workers，Pro 解鎖。",
+          "ja": "ゾーンの詳細で Cloudflare のエッジコードスニペットを表示・編集・作成し、トリガールールを管理できます。軽量版 Workers、Pro で解放。",
+          "es-MX": "Consulta, edita y crea snippets de borde de Cloudflare —y gestiona sus reglas de activación— desde los detalles del dominio. Workers ligeros, desbloqueados con Pro.",
+          "ko": "도메인 상세에서 Cloudflare 엣지 코드 조각을 보고, 편집하고, 만들고 트리거 규칙을 관리하세요 — 가벼운 Workers, Pro로 잠금 해제.",
+          "pt-BR": "Veja, edite e crie snippets de borda da Cloudflare — e gerencie suas regras de acionamento — nos detalhes do domínio. Workers leves, desbloqueados com o Pro.",
+          "pt-PT": "Veja, edite e crie snippets de periferia da Cloudflare — e faça a gestão das suas regras de acionamento — nos detalhes do domínio. Workers leves, desbloqueados com o Pro."
+        }
+      },
+      {
+        "icon": "accessibility",
+        "title": {
+          "zh-Hans": "全面无障碍",
+          "en": "Fully accessible",
+          "zh-Hant": "全面無障礙",
+          "zh-HK": "全面無障礙",
+          "ja": "アクセシビリティ全面対応",
+          "es-MX": "Totalmente accesible",
+          "ko": "완전한 접근성",
+          "pt-BR": "Totalmente acessível",
+          "pt-PT": "Totalmente acessível"
+        },
+        "detail": {
+          "zh-Hans": "VoiceOver、更大字体、不只靠颜色区分、足够对比度全面达标，配合系统辅助功能更顺手。",
+          "en": "VoiceOver, larger text, color-independent cues, and sufficient contrast — all in place, so the app works smoothly with the system accessibility features.",
+          "zh-Hant": "VoiceOver、更大字體、不只靠顏色區分、足夠對比度全面達標，搭配系統輔助使用功能更順手。",
+          "zh-HK": "VoiceOver、更大字體、不只靠顏色區分、足夠對比度全面達標，配合系統輔助功能更順手。",
+          "ja": "VoiceOver、文字の拡大、色だけに頼らない表示、十分なコントラストに対応。システムのアクセシビリティ機能と快適に連携します。",
+          "es-MX": "VoiceOver, texto más grande, indicaciones que no dependen solo del color y contraste suficiente: todo listo para funcionar bien con las funciones de accesibilidad del sistema.",
+          "ko": "VoiceOver, 더 큰 텍스트, 색상에만 의존하지 않는 표시, 충분한 대비를 모두 지원하여 시스템 손쉬운 사용 기능과 매끄럽게 어울립니다.",
+          "pt-BR": "VoiceOver, texto maior, indicações que não dependem só da cor e contraste suficiente — tudo pronto para funcionar bem com os recursos de acessibilidade do sistema.",
+          "pt-PT": "VoiceOver, texto maior, indicações que não dependem só da cor e contraste suficiente — tudo pronto para funcionar bem com as funcionalidades de acessibilidade do sistema."
+        }
+      },
+      {
+        "icon": "character.bubble",
+        "title": {
+          "zh-Hans": "更多语言",
+          "en": "More languages",
+          "zh-Hant": "更多語言",
+          "zh-HK": "更多語言",
+          "ja": "対応言語が増えました",
+          "es-MX": "Más idiomas",
+          "ko": "더 많은 언어",
+          "pt-BR": "Mais idiomas",
+          "pt-PT": "Mais idiomas"
+        },
+        "detail": {
+          "zh-Hans": "新增西班牙语、韩语、葡萄牙语，现已支持九种语言。",
+          "en": "Added Spanish, Korean, and Portuguese — now available in nine languages.",
+          "zh-Hant": "新增西班牙文、韓文、葡萄牙文，現已支援九種語言。",
+          "zh-HK": "新增西班牙文、韓文、葡萄牙文，現已支援九種語言。",
+          "ja": "スペイン語・韓国語・ポルトガル語を追加し、9言語に対応しました。",
+          "es-MX": "Agregamos español, coreano y portugués: ahora en nueve idiomas.",
+          "ko": "스페인어, 한국어, 포르투갈어가 추가되어 이제 9개 언어를 지원합니다.",
+          "pt-BR": "Adicionamos espanhol, coreano e português — agora em nove idiomas.",
+          "pt-PT": "Adicionámos espanhol, coreano e português — agora em nove idiomas."
+        }
+      },
+      {
+        "icon": "arrow.clockwise",
+        "title": {
+          "zh-Hans": "刷新更省心",
+          "en": "Smoother refreshing",
+          "zh-Hant": "重新整理更順手",
+          "zh-HK": "重新整理更順手",
+          "ja": "更新がより快適に",
+          "es-MX": "Actualización más fluida",
+          "ko": "더 매끄러운 새로고침",
+          "pt-BR": "Atualização mais fluida",
+          "pt-PT": "Atualização mais fluida"
+        },
+        "detail": {
+          "zh-Hans": "刷新失败不再弹窗打断，下拉刷新更稳定可靠。",
+          "en": "Refresh failures no longer interrupt with alerts, and pull-to-refresh is more reliable.",
+          "zh-Hant": "重新整理失敗不再彈出視窗打斷，下拉重新整理更穩定可靠。",
+          "zh-HK": "重新整理失敗不再彈出視窗打斷，下拉重新整理更穩定可靠。",
+          "ja": "更新の失敗でアラートが割り込まなくなり、引っ張って更新がより安定しました。",
+          "es-MX": "Los errores al actualizar ya no interrumpen con alertas y deslizar para actualizar es más confiable.",
+          "ko": "새로고침 실패 시 더 이상 알림으로 방해하지 않으며, 당겨서 새로고침이 더 안정적입니다.",
+          "pt-BR": "Falhas ao atualizar não interrompem mais com alertas, e o puxar para atualizar ficou mais confiável.",
+          "pt-PT": "As falhas ao atualizar já não interrompem com alertas, e o puxar para atualizar ficou mais fiável."
+        }
+      }
+    ]
+  },
+  {
+    "version": "1.0 (5)",
+    "date": "2026.06.15",
+    "channel": "TestFlight β",
+    "inApp": false,
+    "live": true,
+    "items": [
+      {
+        "title": {
+          "zh-Hans": "切换账号后，Workers、存储、统计等资源现在只显示当前选中账号的内容",
+          "en": "Switching accounts now filters everything — Workers, storage and stats follow the account you've selected",
+          "zh-Hant": "切換帳號後，Workers、儲存、統計等資源現在只會顯示目前所選帳號的內容",
+          "zh-HK": "切換帳戶後，Workers、儲存、統計等資源現在只會顯示目前所選帳戶的內容",
+          "ja": "アカウント切替後、Workers・ストレージ・統計などのリソースが選択中のアカウントのみを正しく表示するように",
+          "es-MX": "Cambiar de cuenta ahora filtra todo: Workers, almacenamiento y estadísticas siguen la cuenta seleccionada",
+          "ko": "계정을 전환하면 Workers, 스토리지, 통계 등 모든 리소스가 선택한 계정만 따라 표시됩니다",
+          "pt-BR": "Trocar de conta agora filtra tudo: Workers, armazenamento e estatísticas seguem a conta selecionada",
+          "pt-PT": "Mudar de conta passa a filtrar tudo: Workers, armazenamento e estatísticas seguem a conta selecionada"
+        }
+      },
+      {
+        "title": {
+          "zh-Hans": "登录保活更稳：修复授权过早失效、网络短暂波动后被反复要求重新登录的问题",
+          "en": "Sturdier sign-in: fixed authorization expiring too soon and re-prompting after a brief network blip",
+          "zh-Hant": "登入保活更穩：修復授權過早失效、網路短暫波動後被反覆要求重新登入的問題",
+          "zh-HK": "登入保活更穩：修復授權過早失效、網絡短暫波動後被反覆要求重新登入的問題",
+          "ja": "ログイン維持を安定化：認証が早期に失効し、通信の一時的な不調で再認証を求められる問題を修正",
+          "es-MX": "Inicio de sesión más robusto: se corrigió la autorización que caducaba demasiado pronto y el reinicio de sesión tras un breve corte de red",
+          "ko": "더 탄탄해진 로그인: 인증이 너무 일찍 만료되고 짧은 네트워크 끊김 후 다시 로그인을 요구하던 문제를 수정",
+          "pt-BR": "Login mais robusto: corrigimos a autorização que expirava cedo demais e o novo pedido de login após uma breve queda de rede",
+          "pt-PT": "Início de sessão mais robusto: corrigimos a autorização que expirava cedo demais e o novo pedido de início de sessão após uma breve falha de rede"
+        }
+      }
+    ]
+  },
+  {
+    "version": "1.0 (4)",
+    "date": "2026.06.15",
+    "channel": "TestFlight β",
+    "inApp": false,
+    "live": true,
+    "items": [
+      {
+        "title": {
+          "zh-Hans": "降低最低系统要求，更多 iPhone 与 iPad 现可使用",
+          "en": "Lowered the minimum iOS requirement, so far more iPhone and iPad can run it",
+          "zh-Hant": "降低最低系統要求，更多 iPhone 與 iPad 現可使用",
+          "zh-HK": "降低最低系統要求，更多 iPhone 與 iPad 現可使用",
+          "ja": "最低要件を引き下げ。より多くの iPhone / iPad で利用可能に",
+          "es-MX": "Se redujo el requisito mínimo de iOS, para que funcione en muchos más iPhone y iPad",
+          "ko": "최소 시스템 요구 사항을 낮춰 훨씬 더 많은 iPhone과 iPad에서 사용할 수 있습니다",
+          "pt-BR": "Reduzimos o requisito mínimo de iOS, para rodar em muito mais iPhone e iPad",
+          "pt-PT": "Reduzimos o requisito mínimo de iOS, para funcionar em muitos mais iPhone e iPad"
+        }
+      }
+    ]
+  },
+  {
+    "version": "1.0 (3)",
+    "date": "2026.06.12",
+    "channel": "TestFlight β",
+    "inApp": false,
+    "live": true,
+    "items": [
+      {
+        "title": {
+          "zh-Hans": "首个公开测试版",
+          "en": "First public beta",
+          "zh-Hant": "首個公開測試版",
+          "zh-HK": "首個公開測試版",
+          "ja": "初の公開ベータ",
+          "es-MX": "Primera beta pública",
+          "ko": "첫 공개 베타",
+          "pt-BR": "Primeira beta pública",
+          "pt-PT": "Primeira beta pública"
+        }
+      },
+      {
+        "title": {
+          "zh-Hans": "OAuth 官方登录 · 无需 API Token",
+          "en": "Official OAuth sign-in · no API token needed",
+          "zh-Hant": "OAuth 官方登入 · 無需 API Token",
+          "zh-HK": "OAuth 官方登入 · 無需 API Token",
+          "ja": "公式 OAuth ログイン · API トークン不要",
+          "es-MX": "Inicio de sesión con OAuth oficial · sin tokens de API",
+          "ko": "공식 OAuth 로그인 · API 토큰 불필요",
+          "pt-BR": "Login com OAuth oficial · sem tokens de API",
+          "pt-PT": "Início de sessão com OAuth oficial · sem tokens de API"
+        }
+      },
+      {
+        "title": {
+          "zh-Hans": "域名列表 · DNS 增删改查",
+          "en": "Domain list · full DNS management",
+          "zh-Hant": "網域清單 · DNS 增刪改查",
+          "zh-HK": "域名列表 · DNS 增刪改查",
+          "ja": "ドメイン一覧 · DNS 管理（作成 / 編集 / 削除）",
+          "es-MX": "Lista de dominios · gestión completa de DNS",
+          "ko": "도메인 목록 · DNS 전체 관리",
+          "pt-BR": "Lista de domínios · gerenciamento completo de DNS",
+          "pt-PT": "Lista de domínios · gestão completa de DNS"
+        }
+      },
+      {
+        "title": {
+          "zh-Hans": "流量分析（请求 / 带宽 / 缓存命中 / 拦截威胁）",
+          "en": "Traffic analytics (requests / bandwidth / cache / threats)",
+          "zh-Hant": "流量分析（請求 / 頻寬 / 快取命中 / 攔截威脅）",
+          "zh-HK": "流量分析（請求 / 頻寬 / 緩存命中 / 攔截威脅）",
+          "ja": "トラフィック分析（リクエスト / 帯域 / キャッシュ / 脅威）",
+          "es-MX": "Análisis de tráfico (solicitudes / ancho de banda / caché / amenazas)",
+          "ko": "트래픽 분석 (요청 / 대역폭 / 캐시 / 위협)",
+          "pt-BR": "Análise de tráfego (solicitações / largura de banda / cache / ameaças)",
+          "pt-PT": "Análise de tráfego (pedidos / largura de banda / cache / ameaças)"
+        }
+      },
+      {
+        "title": {
+          "zh-Hans": "Workers 列表 · 实时日志 tail",
+          "en": "Workers list · live log tail",
+          "zh-Hant": "Workers 清單 · 即時日誌 tail",
+          "zh-HK": "Workers 列表 · 即時日誌 tail",
+          "ja": "Workers 一覧 · ライブログ tail",
+          "es-MX": "Lista de Workers · registros en vivo",
+          "ko": "Workers 목록 · 실시간 로그 tail",
+          "pt-BR": "Lista de Workers · logs em tempo real",
+          "pt-PT": "Lista de Workers · registos em tempo real"
+        }
+      },
+      {
+        "title": {
+          "zh-Hans": "R2 对象浏览 · D1 SQL 控制台 · KV 键值管理",
+          "en": "R2 object browser · D1 SQL console · KV management",
+          "zh-Hant": "R2 物件瀏覽 · D1 SQL 主控台 · KV 鍵值管理",
+          "zh-HK": "R2 物件瀏覽 · D1 SQL 控制台 · KV 鍵值管理",
+          "ja": "R2 オブジェクト閲覧 · D1 SQL · KV 管理",
+          "es-MX": "Explorador de objetos R2 · consola SQL D1 · gestión KV",
+          "ko": "R2 객체 탐색 · D1 SQL 콘솔 · KV 관리",
+          "pt-BR": "Explorador de objetos R2 · console SQL D1 · gerenciamento KV",
+          "pt-PT": "Explorador de objetos R2 · consola SQL D1 · gestão KV"
+        }
+      },
+      {
+        "title": {
+          "zh-Hans": "WAF 自定义规则 · Cloudflare Tunnel 状态",
+          "en": "WAF custom rules · Cloudflare Tunnel status",
+          "zh-Hant": "WAF 自訂規則 · Cloudflare Tunnel 狀態",
+          "zh-HK": "WAF 自訂規則 · Cloudflare Tunnel 狀態",
+          "ja": "WAF カスタムルール · Cloudflare Tunnel 状態",
+          "es-MX": "Reglas WAF personalizadas · estado de Cloudflare Tunnel",
+          "ko": "WAF 사용자 지정 규칙 · Cloudflare Tunnel 상태",
+          "pt-BR": "Regras WAF personalizadas · status do Cloudflare Tunnel",
+          "pt-PT": "Regras WAF personalizadas · estado do Cloudflare Tunnel"
+        }
+      },
+      {
+        "title": {
+          "zh-Hans": "主屏小组件 · Siri 捷径 · 多账号切换",
+          "en": "Home Screen widgets · Siri shortcuts · multi-account",
+          "zh-Hant": "主畫面小工具 · Siri 捷徑 · 多帳號切換",
+          "zh-HK": "主屏小工具 · Siri 捷徑 · 多帳戶切換",
+          "ja": "ウィジェット · Siri ショートカット · 複数アカウント",
+          "es-MX": "Widgets de pantalla de inicio · atajos de Siri · varias cuentas",
+          "ko": "홈 화면 위젯 · Siri 단축어 · 다중 계정",
+          "pt-BR": "Widgets da tela de início · atalhos da Siri · várias contas",
+          "pt-PT": "Widgets do ecrã principal · atalhos da Siri · várias contas"
+        }
+      },
+      {
+        "title": {
+          "zh-Hans": "Pro 订阅 · 一次性买断",
+          "en": "Pro subscription · one-time purchase",
+          "zh-Hant": "Pro 訂閱 · 一次性買斷",
+          "zh-HK": "Pro 訂閱 · 一次性買斷",
+          "ja": "Pro サブスク · 買い切り購入",
+          "es-MX": "Suscripción Pro · compra única",
+          "ko": "Pro 구독 · 일회성 구매",
+          "pt-BR": "Assinatura Pro · compra única",
+          "pt-PT": "Subscrição Pro · compra única"
+        }
+      }
+    ]
+  }
+]
