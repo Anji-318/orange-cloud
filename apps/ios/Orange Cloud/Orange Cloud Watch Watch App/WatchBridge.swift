@@ -20,6 +20,7 @@ final class WatchBridge: NSObject {
 
     var zones:       [WidgetZoneMetrics] = []
     var usage:       WidgetUsageData?
+    var accountAnalyticsUnavailable: Bool = false   // 账户级数据无权限（免费账号）
     var accountName: String = ""
     var lastUpdated: Date?
     var hasToken:    Bool = false
@@ -64,6 +65,7 @@ final class WatchBridge: NSObject {
     private func loadFromStore() {
         zones = WidgetDataStore.loadZones()
         usage = WidgetDataStore.loadUsage()
+        accountAnalyticsUnavailable = !WidgetDataStore.loadAccountAnalyticsAvailable()
         let defaults = UserDefaults(suiteName: WidgetSnapshot.appGroupID)
         accountName = defaults?.string(forKey: Self.accountNameKey) ?? ""
         hasToken = SharedAuth.currentValidAccessToken() != nil
@@ -76,6 +78,9 @@ final class WatchBridge: NSObject {
         }
         WidgetDataStore.saveZones(payload.zones)
         if let usage = payload.usage { WidgetDataStore.saveUsage(usage) }
+        let unavailable = payload.accountAnalyticsUnavailable ?? false
+        WidgetDataStore.saveAccountAnalyticsAvailable(!unavailable)
+        accountAnalyticsUnavailable = unavailable
         if let name = payload.accountName {
             UserDefaults(suiteName: WidgetSnapshot.appGroupID)?.set(name, forKey: Self.accountNameKey)
             accountName = name

@@ -30,11 +30,14 @@ final class DashboardViewModel {
     private(set) var loadFailed = false
     /// 用量加载完成但账号级分析全部失败（区分「仍在加载」与「加载失败」，避免永远卡骨架）
     private(set) var usageLoadFailed = false
+    /// 账户级数据集未授权（免费账号常态）：UI 显示「无账户级数据权限」而非重试，且停发后续账户级查询
+    private(set) var accountAnalyticsUnavailable = false
 
     private var loadedZoneIds: Set<String> = []
     private var assetsLoadedForAccount: String?
     private var usageLoadedForAccount: String?
     private var billingAttemptedForAccount: String?
+    private var analyticsUnavailableForAccount: String?
 
     // 加载跑在 VM 持有的非结构化 Task：.task(id:)/.refreshable 的手势或 body 重建会取消视图任务，
     // 若请求直接 await 在视图任务里，URLSession 把取消转成 .cancelled → try? 吞成 nil → 用量/资产
@@ -164,6 +167,14 @@ final class DashboardViewModel {
 
     private func performLoadUsage(accountId: String, fallbackPeriodStart: Date?, force: Bool) async {
         usageLoadFailed = false   // 重试期间先回骨架态，加载完再据结果定
+
+        // 已知该账号无账户级数据权限：非强制刷新直接降级，不再发注定 authz/403 失败的查询。
+        // 下拉刷新（force）会重探，便于用户升级套餐后自动恢复。
+        if !force, analyticsUnavailableForAccount == accountId {
+            accountAnalyticsUnavailable = true
+            return
+        }
+
         if force || billingAttemptedForAccount != accountId {
             billingAttemptedForAccount = accountId
             billing = (try? await accountService.listSubscriptions(accountId: accountId))
@@ -183,8 +194,27 @@ final class DashboardViewModel {
 
         // Workers 用量（账号级 GraphQL）。注意 HTTP 200 不代表 GraphQL 成功——Cloudflare 即使
         // 数据集报错也回 200，错误在响应体 errors 里（CFAPIClient.graphQL 会记 "graphQL error"）。
-        // 失败不再整段放弃：继续拉 R2/D1/KV，能显示多少显示多少；全部失败才标记失败态、不卡骨架。
-        let workers = try? await analyticsService.accountUsage(accountId: accountId, periodStart: periodStart)
+        // Workers 是账户级 analytics 的代表：命中 authz = 整账号无账户级数据权限（CF 的 authz 是
+        // 账号级、各账户级数据集同进同退）→ 直接降级并停发 R2/D1/KV/CPU 等其余注定失败的查询。
+        let workers: AccountUsage?
+        do {
+            workers = try await analyticsService.accountUsage(accountId: accountId, periodStart: periodStart)
+        } catch let error as APIError where error.isAccountNotAuthorized {
+            accountAnalyticsUnavailable = true
+            analyticsUnavailableForAccount = accountId
+            self.usage = nil
+            usageLoadFailed = false
+            persistAnalyticsAvailability(false)
+            AppLog.network.info("account-level analytics not authorized; skipping account datasets for account=\(accountId)")
+            return
+        } catch {
+            workers = nil   // 其它失败（多为临时）：继续尝试 R2/D1/KV，能显示多少显示多少
+        }
+
+        // 账户级有权限（或仅 Workers 本次临时失败）：清除不可用态
+        accountAnalyticsUnavailable = false
+        analyticsUnavailableForAccount = nil
+
         var usage = workers ?? AccountUsage(
             workersRequestsToday: 0, workersRequestsMonth: 0, workersErrorsMonth: 0,
             cpuP50Us: nil, cpuP99Us: nil, cpuTimeMonthUs: nil, cpuTimeTodayUs: nil
@@ -238,12 +268,20 @@ final class DashboardViewModel {
             self.usage = usage
             usageLoadFailed = false
             usageLoadedForAccount = accountId
+            persistAnalyticsAvailability(true)
         } else {
             // 账号级分析全部失败（多为 GraphQL 数据集权限问题，见网络日志 "graphQL error"）。
             // 标记失败态让 UI 显示重试而非永远骨架；不写 usageLoadedForAccount，下次进入会重试。
             usageLoadFailed = true
             AppLog.network.error("account usage load produced no data (all account-level datasets failed)")
         }
+    }
+
+    /// 把账户级数据可用性落到 App Group 并广播给 Widget / Watch（统一一处，避免各端不一致）
+    private func persistAnalyticsAvailability(_ available: Bool) {
+        WidgetDataStore.saveAccountAnalyticsAvailable(available)
+        WidgetCenter.shared.reloadTimelines(ofKind: "UsageWidget")
+        WatchSessionManager.shared.pushCurrentState()
     }
 
     /// 拉取各 Zone 的 24h 流量。zone 集合没变化时跳过（Tab 切换不重复请求）。

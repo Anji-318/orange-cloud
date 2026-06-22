@@ -519,6 +519,8 @@ struct DashboardView: View {
                     .glassIsland(cornerRadius: OCLayout.chipRadius)
             } else if let usage = viewModel.usage {
                 usageGrid(usage)
+            } else if viewModel.accountAnalyticsUnavailable {
+                accountAnalyticsUnavailableCard
             } else if viewModel.usageLoadFailed {
                 Label("用量加载失败，下拉刷新重试", systemImage: "exclamationmark.triangle")
                     .font(.footnote)
@@ -530,6 +532,26 @@ struct DashboardView: View {
                 usageSkeleton
             }
         }
+    }
+
+    /// 账户级数据无权限（免费账号常态）——中性提示 + 付费说明，区别于「加载失败可重试」
+    private var accountAnalyticsUnavailableCard: some View {
+        VStack(spacing: 6) {
+            Image(systemName: "chart.bar.xaxis")
+                .font(.title3)
+                .foregroundStyle(.secondary)
+            Text("此账号暂无账户级数据查询权限")
+                .font(.subheadline.weight(.medium))
+                .multilineTextAlignment(.center)
+            Text("Workers / R2 / D1 / KV 用量通常需要付费版 Cloudflare 账号；域名流量分析不受影响。")
+                .font(.footnote)
+                .foregroundStyle(.secondary)
+                .multilineTextAlignment(.center)
+        }
+        .frame(maxWidth: .infinity)
+        .padding(.vertical, 18)
+        .padding(.horizontal, 12)
+        .glassIsland(cornerRadius: OCLayout.chipRadius)
     }
 
     /// 用量宫格骨架：与真实瓦片同形状的 2×2 占位
