@@ -169,6 +169,11 @@ actor CFAPIClient {
             // GraphQL 错误时 HTTP 仍为 200——网络层只看状态码看不到这层，这里单独记，
             // 便于排查「请求 200 但数据没出来」（如数据集权限/字段不可用）。
             AppLog.network.error("graphQL error (\(envelope.errors?.count ?? 1)): \(first.message)")
+            // authz（账户级数据集未授权）单独抛——调用方据此降级到「免费账号无账户级数据」态，
+            // 并停发同账号其余注定失败的账户级查询。
+            if envelope.errors?.contains(where: \.isAuthz) == true {
+                throw APIError.accountNotAuthorized
+            }
             throw APIError.cloudflareError(code: 0, message: first.message)
         }
         guard let data = envelope.data else {

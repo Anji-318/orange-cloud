@@ -22,6 +22,7 @@ nonisolated struct UsageWidgetEntry: TimelineEntry {
     let date: Date
     let service: WidgetUsageService?
     let missingName: String?     // 所选服务无数据时的名称（用于提示文案）
+    var unavailable: Bool = false   // 账户级数据无权限（免费账号）→ 显示专用提示而非「打开 App 同步」
 }
 
 /// 画廊/占位用的示例数据——跟随所选服务，避免看起来像"参数没生效"
@@ -75,11 +76,13 @@ nonisolated struct UsageWidgetProvider: AppIntentTimelineProvider {
         // 自取数优先（共享钥匙串 token 直查所选服务），失败回退 App 写入的快照
         let fresh = await UsageFetcher.freshService(configuration.serviceId)
         let service = fresh ?? resolveService(configuration.serviceId)
-        usageLog.info("timeline: fresh=\(fresh?.id ?? "nil", privacy: .public) resolved=\(service?.id ?? "nil", privacy: .public)")
+        let unavailable = service == nil && !WidgetDataStore.loadAccountAnalyticsAvailable()
+        usageLog.info("timeline: fresh=\(fresh?.id ?? "nil", privacy: .public) resolved=\(service?.id ?? "nil", privacy: .public) unavailable=\(unavailable, privacy: .public)")
         let entry = UsageWidgetEntry(
             date: .now,
             service: service,
-            missingName: service == nil ? (configuration.service?.name ?? "Workers") : nil
+            missingName: service == nil ? (configuration.service?.name ?? "Workers") : nil,
+            unavailable: unavailable
         )
         let next = Calendar.current.date(byAdding: .minute, value: 30, to: .now) ?? .now
         return Timeline(entries: [entry], policy: .after(next))
@@ -124,6 +127,8 @@ struct UsageWidgetView: View {
             case .systemMedium: mediumView(service)
             default:            smallView(service)
             }
+        } else if entry.unavailable {
+            WidgetEmptyHint(text: String(localized: "账户级用量不可用"))
         } else {
             WidgetEmptyHint(text: entry.missingName.map { String(localized: "暂无 \($0) 用量数据\n打开 App 刷新") }
                 ?? String(localized: "打开 App 同步用量"))
@@ -149,6 +154,8 @@ struct UsageWidgetView: View {
             } icon: {
                 Image(systemName: "gauge.medium")
             }
+        } else if entry.unavailable {
+            Label(String(localized: "账户级用量不可用"), systemImage: "lock")
         } else {
             Label("Orange Cloud", systemImage: "gauge.medium")
         }
@@ -210,6 +217,10 @@ struct UsageWidgetView: View {
                     .lineLimit(1)
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
+        } else if entry.unavailable {
+            Text("账户级用量不可用")
+                .font(.caption2)
+                .foregroundStyle(.secondary)
         } else {
             Text(entry.missingName.map { String(localized: "暂无 \($0) 用量数据") } ?? String(localized: "打开 App 同步用量"))
                 .font(.caption2)

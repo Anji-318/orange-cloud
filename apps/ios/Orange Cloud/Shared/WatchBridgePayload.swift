@@ -17,6 +17,7 @@ nonisolated struct WatchBridgePayload: Codable, Sendable {
     var accountName: String?
     var zones:       [WidgetZoneMetrics] // 复用 Widget 快照模型
     var usage:       WidgetUsageData?
+    var accountAnalyticsUnavailable: Bool? = nil   // 账户级数据无权限（免费账号）→ watch 显示提示，可选兼容旧载荷
     var updatedAt:   Date
 
     /// applicationContext 载荷：单个 Data blob（plist 兼容，避免逐字段类型转换）

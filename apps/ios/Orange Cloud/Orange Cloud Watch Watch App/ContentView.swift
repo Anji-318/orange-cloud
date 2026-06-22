@@ -41,6 +41,8 @@ struct ContentView: View {
                                     UsageLinkRow()
                                 }
                                 .buttonStyle(.plain)
+                            } else if bridge.accountAnalyticsUnavailable {
+                                AccountUsageUnavailableRow()
                             }
                         }
                         .padding(.horizontal, 4)
@@ -112,6 +114,29 @@ private struct ZoneRow: View {
                 .foregroundStyle(.tertiary)
         }
         .padding(.vertical, 7)
+        .padding(.horizontal, 10)
+        .background(.ultraThinMaterial, in: RoundedRectangle(cornerRadius: 12))
+    }
+}
+
+/// 账户级数据无权限（免费账号）：用量入口替换为只读提示，不可点
+private struct AccountUsageUnavailableRow: View {
+    var body: some View {
+        HStack(spacing: 6) {
+            Image(systemName: "lock")
+                .foregroundStyle(.secondary)
+            VStack(alignment: .leading, spacing: 1) {
+                Text("账户级用量不可用")
+                    .font(.caption.weight(.medium))
+                    .lineLimit(1)
+                Text("通常需付费版账号")
+                    .font(.caption2)
+                    .foregroundStyle(.secondary)
+                    .lineLimit(1)
+            }
+            Spacer(minLength: 2)
+        }
+        .padding(.vertical, 8)
         .padding(.horizontal, 10)
         .background(.ultraThinMaterial, in: RoundedRectangle(cornerRadius: 12))
     }

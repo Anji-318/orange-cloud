@@ -50,6 +50,7 @@ final class WatchSessionManager: NSObject {
             accountName: authManager?.currentSession?.label,
             zones:       Array(WidgetDataStore.loadZones().prefix(12)),
             usage:       WidgetDataStore.loadUsage(),
+            accountAnalyticsUnavailable: !WidgetDataStore.loadAccountAnalyticsAvailable(),
             updatedAt:   Date()
         )
     }

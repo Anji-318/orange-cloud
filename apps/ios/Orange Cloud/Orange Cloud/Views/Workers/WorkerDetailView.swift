@@ -180,6 +180,10 @@ struct WorkerDetailView: View {
                                 .monospacedDigit()
                         }
                     }
+                } else if metricsViewModel.accountAnalyticsUnavailable {
+                    Label("此账号暂无账户级数据查询权限", systemImage: "chart.bar.xaxis")
+                        .font(.footnote)
+                        .foregroundStyle(.secondary)
                 } else if let error = metricsViewModel.error {
                     Label(error, systemImage: "exclamationmark.triangle")
                         .font(.footnote)
