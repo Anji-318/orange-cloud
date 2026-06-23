@@ -32,8 +32,7 @@ struct Orange_CloudApp: App {
         try? Tips.configure()
         AppLog.logLaunch(
             loggedIn: manager.isLoggedIn,
-            sessionCount: manager.sessions.count,
-            iCloudSync: manager.iCloudSyncEnabled
+            sessionCount: manager.sessions.count
         )
     }
 
