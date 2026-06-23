@@ -1197,6 +1197,110 @@
         }
       }
     },
+    "登录信息改为仅在本机安全保管，修复了偶尔被登出、需要重新登录的问题；登录状态不再通过 iCloud 在设备间同步。": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sign-in details are now kept securely on your device only, fixing occasional unexpected sign-outs. Sign-in state is no longer synced across devices via iCloud."
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "登入資訊改為僅在本機安全保管，修復了偶爾被登出、需要重新登入的問題；登入狀態不再透過 iCloud 在裝置間同步。"
+          }
+        },
+        "zh-HK": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "登入資訊改為僅在本機安全保管，修復了偶爾被登出、需要重新登入的問題；登入狀態不再透過 iCloud 在裝置間同步。"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ログイン情報を端末内にのみ安全に保存するようにし、まれに発生していた予期しないログアウトを修正しました。ログイン状態は iCloud によるデバイス間の同期を行わなくなりました。"
+          }
+        },
+        "es-MX": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Los datos de inicio de sesión ahora se guardan de forma segura solo en tu dispositivo, lo que corrige cierres de sesión inesperados ocasionales. El estado de inicio de sesión ya no se sincroniza entre dispositivos mediante iCloud."
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "로그인 정보를 기기에만 안전하게 저장하도록 변경하여 간헐적으로 로그아웃되던 문제를 수정했습니다. 로그인 상태는 더 이상 iCloud로 기기 간에 동기화되지 않습니다."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "As informações de login agora ficam guardadas com segurança apenas no seu dispositivo, corrigindo desconexões inesperadas ocasionais. O estado de login não é mais sincronizado entre dispositivos via iCloud."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "As informações de início de sessão passam a ser guardadas em segurança apenas no seu dispositivo, corrigindo terminações de sessão inesperadas ocasionais. O estado de início de sessão deixa de ser sincronizado entre dispositivos através do iCloud."
+          }
+        }
+      }
+    },
+    "登录更稳定": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "More Reliable Sign-In"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "登入更穩定"
+          }
+        },
+        "zh-HK": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "登入更穩定"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ログインの安定性を向上"
+          }
+        },
+        "es-MX": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Inicio de sesión más estable"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "더 안정적인 로그인"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Login mais estável"
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Início de sessão mais estável"
+          }
+        }
+      }
+    },
     "直接新建 D1 数据库，或在原样确认库名后安全删除。": {
       "localizations": {
         "en": {

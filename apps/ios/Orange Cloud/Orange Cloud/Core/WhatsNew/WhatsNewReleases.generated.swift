@@ -20,6 +20,11 @@ nonisolated enum WhatsNewGenerated {
                 icon:   "wrench.and.screwdriver",
                 title:  String(localized: "修复启动闪退", table: "WhatsNew"),
                 detail: String(localized: "修复了 App 在部分 iOS 17 设备上一启动就闪退的问题。", table: "WhatsNew")
+            ),
+            WhatsNewItem(
+                icon:   "key.fill",
+                title:  String(localized: "登录更稳定", table: "WhatsNew"),
+                detail: String(localized: "登录信息改为仅在本机安全保管，修复了偶尔被登出、需要重新登录的问题；登录状态不再通过 iCloud 在设备间同步。", table: "WhatsNew")
             )
         ]),
         WhatsNewRelease(version: "1.3.0", items: [
