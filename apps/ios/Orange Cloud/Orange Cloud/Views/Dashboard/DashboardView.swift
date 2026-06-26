@@ -133,6 +133,13 @@ struct DashboardView: View {
                         .islandReveal(3)
                     networkSection
                         .islandReveal(4)
+                    bulkRedirectsSection
+                        .islandReveal(5)
+                    // Pages：仅在已授予 page.read 时显示（点亮 PermissionModels 的 pages 条目后生效）
+                    if auth.hasScope("page.read") {
+                        pagesSection
+                            .islandReveal(6)
+                    }
                 }
                 .padding(OCLayout.pagePadding)
             }
@@ -995,14 +1002,70 @@ struct DashboardView: View {
     // MARK: - 网络（单行服务，胶囊形态，不配段落标题）
 
     private var networkSection: some View {
+        VStack(spacing: 10) {
+            ProGatedNavigationLink(
+                label: "Cloudflare Tunnel",
+                systemImage: "arrow.triangle.2.circlepath",
+                requiredScope: "argotunnel.read",
+                feature: .tunnel,
+                showsChevron: true
+            ) {
+                TunnelListView(session: session)
+            }
+            Divider().padding(.leading, 44)
+            ProGatedNavigationLink(
+                label: "Access 应用",
+                systemImage: "lock.shield",
+                requiredScope: "access.read",
+                feature: .zeroTrust,
+                showsChevron: true
+            ) {
+                AccessAppsView(session: session)
+            }
+            Divider().padding(.leading, 44)
+            ProGatedNavigationLink(
+                label: "Gateway 策略",
+                systemImage: "shield.lefthalf.filled",
+                requiredScope: "teams.read",
+                feature: .zeroTrust,
+                showsChevron: true
+            ) {
+                GatewayRulesView(session: session)
+            }
+        }
+        .padding(.horizontal, OCLayout.islandPadding + 2)
+        .padding(.vertical, 12)
+        .glassIsland(cornerRadius: 24)
+    }
+
+    // MARK: - Bulk Redirects（account 级）
+
+    private var bulkRedirectsSection: some View {
         ProGatedNavigationLink(
-            label: "Cloudflare Tunnel",
-            systemImage: "arrow.triangle.2.circlepath",
-            requiredScope: "argotunnel.read",
-            feature: .tunnel,
+            label: "Bulk Redirects",
+            systemImage: "arrowshape.turn.up.right",
+            requiredScope: "account-rule-lists.read",
+            feature: .bulkRedirects,
             showsChevron: true
         ) {
-            TunnelListView(session: session)
+            BulkRedirectListsView(session: session)
+        }
+        .padding(.horizontal, OCLayout.islandPadding + 2)
+        .padding(.vertical, 12)
+        .glassIsland(cornerRadius: 24)
+    }
+
+    // MARK: - Pages（account 级，page.read 授予后显示）
+
+    private var pagesSection: some View {
+        ProGatedNavigationLink(
+            label: "Cloudflare Pages",
+            systemImage: "doc.richtext",
+            requiredScope: "page.read",
+            feature: .pages,
+            showsChevron: true
+        ) {
+            PagesProjectListView(session: session)
         }
         .padding(.horizontal, OCLayout.islandPadding + 2)
         .padding(.vertical, 12)

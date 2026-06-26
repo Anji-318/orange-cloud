@@ -10,6 +10,38 @@ import Foundation
 
 nonisolated enum WhatsNewGenerated {
     static let releases: [WhatsNewRelease] = [
+        WhatsNewRelease(version: "1.5.0", items: [
+            WhatsNewItem(
+                icon:   "bolt.horizontal",
+                title:  String(localized: "缓存规则", table: "WhatsNew"),
+                detail: String(localized: "按 URL 自定义边缘与浏览器缓存时长、绕过缓存，直接在手机上管理缓存规则。", table: "WhatsNew")
+            ),
+            WhatsNewItem(
+                icon:   "arrow.left.arrow.right",
+                title:  String(localized: "负载均衡", table: "WhatsNew"),
+                detail: String(localized: "查看与管理负载均衡器、源站池和健康监测，掌握流量分发与源站健康。", table: "WhatsNew")
+            ),
+            WhatsNewItem(
+                icon:   "doc.richtext",
+                title:  String(localized: "Cloudflare Pages", table: "WhatsNew"),
+                detail: String(localized: "浏览 Pages 项目与部署，一键重试 / 回滚 / 删除部署，并编辑构建配置。", table: "WhatsNew")
+            ),
+            WhatsNewItem(
+                icon:   "envelope",
+                title:  String(localized: "Email Routing", table: "WhatsNew"),
+                detail: String(localized: "开关域名的邮件路由，增删改转发规则，并管理账号内的已验证目的地址。", table: "WhatsNew")
+            ),
+            WhatsNewItem(
+                icon:   "gauge.with.dots.needle.bottom.50percent",
+                title:  String(localized: "Rate Limiting", table: "WhatsNew"),
+                detail: String(localized: "新建与管理限速规则：按访客 IP 在时间窗内限制请求次数，超限即阻止或质询。", table: "WhatsNew")
+            ),
+            WhatsNewItem(
+                icon:   "lock.shield",
+                title:  String(localized: "Zero Trust", table: "WhatsNew"),
+                detail: String(localized: "查看受 Cloudflare Access 保护的应用，以及 Gateway 的 DNS / HTTP / 网络过滤策略。", table: "WhatsNew")
+            )
+        ]),
         WhatsNewRelease(version: "1.4.0", items: [
             WhatsNewItem(
                 icon:   "checkmark.seal",

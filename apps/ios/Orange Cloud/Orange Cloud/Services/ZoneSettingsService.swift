@@ -59,4 +59,37 @@ struct ZoneSettingsService {
             throw response.toAPIError()
         }
     }
+
+    /// 按 URL 前缀清理缓存（单次最多 30 个；2025-04 起所有套餐可用）
+    func purgePrefixes(zoneId: String, prefixes: [String]) async throws {
+        let response: CFAPIResponse<PurgeResult> = try await client.post(
+            "zones/\(zoneId)/purge_cache",
+            body: PurgePrefixesRequest(prefixes: prefixes)
+        )
+        guard response.success else {
+            throw response.toAPIError()
+        }
+    }
+
+    /// 按主机名清理缓存（单次最多 30 个；2025-04 起所有套餐可用）
+    func purgeHosts(zoneId: String, hosts: [String]) async throws {
+        let response: CFAPIResponse<PurgeResult> = try await client.post(
+            "zones/\(zoneId)/purge_cache",
+            body: PurgeHostsRequest(hosts: hosts)
+        )
+        guard response.success else {
+            throw response.toAPIError()
+        }
+    }
+
+    /// 按 Cache-Tag 清理缓存（单次最多 30 个；2025-04 起所有套餐可用）
+    func purgeTags(zoneId: String, tags: [String]) async throws {
+        let response: CFAPIResponse<PurgeResult> = try await client.post(
+            "zones/\(zoneId)/purge_cache",
+            body: PurgeTagsRequest(tags: tags)
+        )
+        guard response.success else {
+            throw response.toAPIError()
+        }
+    }
 }

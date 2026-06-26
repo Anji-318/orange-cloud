@@ -77,6 +77,82 @@
         }
       }
     },
+    "Cloudflare Pages": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cloudflare Pages"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cloudflare Pages"
+          }
+        },
+        "zh-HK": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cloudflare Pages"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cloudflare Pages"
+          }
+        },
+        "es-MX": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cloudflare Pages"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cloudflare Pages"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cloudflare Pages"
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cloudflare Pages"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cloudflare Pages"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cloudflare Pages"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cloudflare Pages"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cloudflare Pages"
+          }
+        }
+      }
+    },
     "D1 数据库管理": {
       "localizations": {
         "en": {
@@ -149,6 +225,82 @@
           "stringUnit": {
             "state": "translated",
             "value": "D1 veritabanı yönetimi"
+          }
+        }
+      }
+    },
+    "Email Routing": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Email Routing"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Email Routing"
+          }
+        },
+        "zh-HK": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Email Routing"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Email Routing"
+          }
+        },
+        "es-MX": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Email Routing"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Email Routing"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Email Routing"
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Email Routing"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Email Routing"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Email Routing"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Email Routing"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Email Routing"
           }
         }
       }
@@ -301,6 +453,82 @@
           "stringUnit": {
             "state": "translated",
             "value": "R2 depolama geliştirmeleri"
+          }
+        }
+      }
+    },
+    "Rate Limiting": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rate Limiting"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rate Limiting"
+          }
+        },
+        "zh-HK": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rate Limiting"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rate Limiting"
+          }
+        },
+        "es-MX": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rate Limiting"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rate Limiting"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rate Limiting"
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rate Limiting"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rate Limiting"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rate Limiting"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rate Limiting"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rate Limiting"
           }
         }
       }
@@ -681,6 +909,82 @@
           "stringUnit": {
             "state": "translated",
             "value": "VoiceOver, daha büyük metin, yalnızca renge dayanmayan ipuçları ve yeterli kontrast — hepsi mevcut; böylece uygulama, sistemin erişilebilirlik özellikleriyle sorunsuz çalışır."
+          }
+        }
+      }
+    },
+    "Zero Trust": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zero Trust"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zero Trust"
+          }
+        },
+        "zh-HK": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zero Trust"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zero Trust"
+          }
+        },
+        "es-MX": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zero Trust"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zero Trust"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zero Trust"
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zero Trust"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zero Trust"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zero Trust"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zero Trust"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zero Trust"
           }
         }
       }
@@ -1673,6 +1977,82 @@
         }
       }
     },
+    "开关域名的邮件路由，增删改转发规则，并管理账号内的已验证目的地址。": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Turn Email Routing on or off, create and edit forwarding rules, and manage your account's verified destination addresses."
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "開關網域的郵件路由，新增、編輯轉寄規則，並管理帳戶內已驗證的目的地址。"
+          }
+        },
+        "zh-HK": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "開關域名的郵件路由，新增、編輯轉發規則，並管理帳號內已驗證的目的地址。"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ドメインのメールルーティングのオン/オフ、転送ルールの作成・編集、検証済みの目的地アドレスの管理ができます。"
+          }
+        },
+        "es-MX": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Activa o desactiva el enrutamiento de correo del dominio, crea y edita reglas de reenvío y gestiona las direcciones de destino verificadas de tu cuenta."
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "도메인의 이메일 라우팅을 켜고 끄고, 전달 규칙을 만들고 편집하며, 계정의 확인된 대상 주소를 관리하세요."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ative ou desative o roteamento de e-mail do domínio, crie e edite regras de encaminhamento e gerencie os endereços de destino verificados da sua conta."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ative ou desative o encaminhamento de correio do domínio, crie e edite regras de reencaminhamento e faça a gestão dos endereços de destino verificados da sua conta."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Schalte das E-Mail-Routing der Domain ein oder aus, erstelle und bearbeite Weiterleitungsregeln und verwalte die verifizierten Zieladressen deines Kontos."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Activez ou désactivez le routage des e-mails du domaine, créez et modifiez des règles de transfert et gérez les adresses de destination vérifiées de votre compte."
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "فعّل توجيه البريد للنطاق أو عطّله، وأنشئ قواعد إعادة التوجيه وعدّلها، وأدِر عناوين الوجهة المُتحقَّق منها في حسابك."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Alan adının e-posta yönlendirmesini açıp kapatın, iletme kuralları oluşturup düzenleyin ve hesabınızın doğrulanmış hedef adreslerini yönetin."
+          }
+        }
+      }
+    },
     "把域名状态与流量概览带上手腕，还能添加到表盘复杂功能随时一瞥。": {
       "localizations": {
         "en": {
@@ -1901,6 +2281,82 @@
         }
       }
     },
+    "按 URL 自定义边缘与浏览器缓存时长、绕过缓存，直接在手机上管理缓存规则。": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Customize edge and browser cache TTLs per URL or bypass cache entirely — manage cache rules right from your phone."
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "依 URL 自訂邊緣與瀏覽器快取時間、略過快取，直接在手機上管理快取規則。"
+          }
+        },
+        "zh-HK": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "按 URL 自訂邊緣與瀏覽器緩存時間、繞過緩存，直接在手機上管理緩存規則。"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "URL ごとにエッジとブラウザーのキャッシュ TTL をカスタマイズしたり、キャッシュをバイパスしたり。キャッシュルールをスマホから管理できます。"
+          }
+        },
+        "es-MX": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Personaliza el TTL de caché en el borde y el navegador por URL u omite la caché por completo: administra las reglas de caché desde tu teléfono."
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "URL별로 엣지·브라우저 캐시 TTL을 설정하거나 캐시를 우회하세요. 캐시 규칙을 휴대폰에서 바로 관리할 수 있습니다."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Personalize o TTL de cache na borda e no navegador por URL ou ignore o cache por completo — gerencie regras de cache direto do celular."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Personalize o TTL de cache na extremidade e no navegador por URL ou ignore o cache por completo — faça a gestão das regras de cache diretamente do telemóvel."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Passe Edge- und Browser-Cache-TTLs pro URL an oder umgehe den Cache ganz – verwalte Cache-Regeln direkt vom Handy."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Personnalisez les TTL de cache edge et navigateur par URL ou contournez complètement le cache — gérez les règles de cache depuis votre téléphone."
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "خصّص مدة التخزين المؤقت على الحافة والمتصفح لكل عنوان URL أو تجاوز التخزين المؤقت كليًا، وأدِر قواعد التخزين المؤقت من هاتفك."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "URL bazında uç ve tarayıcı önbellek TTL'lerini özelleştirin veya önbelleği tamamen atlayın — önbellek kurallarını telefonunuzdan yönetin."
+          }
+        }
+      }
+    },
     "新增德语、法语、阿拉伯语与土耳其语；并改进崩溃诊断，帮助更快定位疑难问题。": {
       "localizations": {
         "en": {
@@ -2049,6 +2505,82 @@
           "stringUnit": {
             "state": "translated",
             "value": "İspanyolca, Korece ve Portekizce eklendi — artık dokuz dilde."
+          }
+        }
+      }
+    },
+    "新建与管理限速规则：按访客 IP 在时间窗内限制请求次数，超限即阻止或质询。": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Create and manage rate limiting rules: cap requests per visitor IP within a time window, then block or challenge when exceeded."
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "新增並管理速率限制規則：依訪客 IP 在時間範圍內限制請求次數，超限即封鎖或質詢。"
+          }
+        },
+        "zh-HK": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "新增並管理速率限制規則：依訪客 IP 在時間範圍內限制請求次數，超限即封鎖或質詢。"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "レート制限ルールを作成・管理。時間枠内の訪問者 IP ごとのリクエスト数を制限し、超過時にブロックまたはチャレンジを実行します。"
+          }
+        },
+        "es-MX": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Crea y gestiona reglas de límite de tasa: limita las solicitudes por IP de visitante en una ventana de tiempo y bloquea o desafía cuando se supera."
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "속도 제한 규칙을 만들고 관리하세요. 시간 범위 내 방문자 IP별 요청 수를 제한하고 초과 시 차단하거나 챌린지를 적용합니다."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Crie e gerencie regras de limite de taxa: limite as solicitações por IP de visitante em uma janela de tempo e bloqueie ou desafie ao exceder."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Crie e faça a gestão de regras de limite de taxa: limite os pedidos por IP de visitante numa janela de tempo e bloqueie ou desafie ao exceder."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Erstelle und verwalte Ratenbegrenzungsregeln: Begrenze Anfragen pro Besucher-IP in einem Zeitfenster und blockiere oder fordere bei Überschreitung heraus."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Créez et gérez des règles de limitation de débit : plafonnez les requêtes par IP de visiteur dans une fenêtre temporelle, puis bloquez ou défiez en cas de dépassement."
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "أنشئ قواعد تحديد المعدل وأدِرها: حُدّ من عدد الطلبات حسب IP الزائر ضمن نافذة زمنية، ثم احظر أو اطلب تحديًا عند التجاوز."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hız sınırı kuralları oluşturun ve yönetin: ziyaretçi IP'si başına istekleri bir zaman aralığında sınırlayın, aşıldığında engelleyin veya doğrulama isteyin."
           }
         }
       }
@@ -2357,6 +2889,158 @@
         }
       }
     },
+    "查看与管理负载均衡器、源站池和健康监测，掌握流量分发与源站健康。": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "View and manage load balancers, origin pools, and health monitors — stay on top of traffic steering and origin health."
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "檢視並管理負載平衡器、來源池與健康監測，掌握流量分配與來源健康。"
+          }
+        },
+        "zh-HK": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "查看並管理負載平衡器、來源池與健康監測，掌握流量分配與來源健康。"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ロードバランサー、オリジンプール、ヘルスモニターを表示・管理し、トラフィックの分散とオリジンの健全性を把握できます。"
+          }
+        },
+        "es-MX": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Consulta y administra balanceadores de carga, grupos de origen y monitores de estado para controlar el enrutamiento del tráfico y la salud del origen."
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "부하 분산기, 오리진 풀, 상태 모니터를 확인·관리하여 트래픽 분산과 오리진 상태를 한눈에 파악하세요."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Veja e gerencie balanceadores de carga, pools de origem e monitores de integridade — acompanhe o roteamento de tráfego e a saúde da origem."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Veja e faça a gestão de balanceadores de carga, pools de origem e monitores de estado — acompanhe o encaminhamento de tráfego e a saúde da origem."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sieh dir Load Balancer, Origin-Pools und Health-Monitore an und verwalte sie – behalte Traffic-Steuerung und Origin-Zustand im Blick."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Consultez et gérez les répartiteurs de charge, les pools d'origine et les moniteurs de santé — gardez la maîtrise du routage du trafic et de l'état des origines."
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "اعرض وأدِر موازِنات التحميل ومجمّعات الأصل ومراقبات الصحة، وتابِع توجيه حركة المرور وصحة الأصل."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Yük dengeleyicileri, köken havuzlarını ve sağlık izleyicilerini görüntüleyip yönetin — trafik yönlendirmesini ve köken sağlığını takip edin."
+          }
+        }
+      }
+    },
+    "查看受 Cloudflare Access 保护的应用，以及 Gateway 的 DNS / HTTP / 网络过滤策略。": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "View apps protected by Cloudflare Access, along with your Gateway DNS / HTTP / network filtering policies."
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "檢視受 Cloudflare Access 保護的應用程式，以及 Gateway 的 DNS / HTTP / 網路篩選政策。"
+          }
+        },
+        "zh-HK": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "查看受 Cloudflare Access 保護的應用程式，以及 Gateway 的 DNS / HTTP / 網路篩選政策。"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cloudflare Access で保護されたアプリと、Gateway の DNS / HTTP / ネットワークフィルタリングポリシーを表示できます。"
+          }
+        },
+        "es-MX": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Consulta las aplicaciones protegidas por Cloudflare Access y las políticas de filtrado de DNS / HTTP / red de Gateway."
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cloudflare Access로 보호되는 앱과 Gateway의 DNS / HTTP / 네트워크 필터링 정책을 확인하세요."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Veja os apps protegidos pelo Cloudflare Access e as políticas de filtragem de DNS / HTTP / rede do Gateway."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Veja as aplicações protegidas pelo Cloudflare Access e as políticas de filtragem de DNS / HTTP / rede do Gateway."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sieh dir durch Cloudflare Access geschützte Anwendungen sowie deine Gateway-Filterrichtlinien für DNS / HTTP / Netzwerk an."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Consultez les applications protégées par Cloudflare Access ainsi que vos politiques de filtrage Gateway DNS / HTTP / réseau."
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "اعرض التطبيقات المحمية بواسطة Cloudflare Access، إضافةً إلى سياسات تصفية DNS / HTTP / الشبكة في Gateway."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cloudflare Access ile korunan uygulamaları ve Gateway'in DNS / HTTP / ağ filtreleme politikalarını görüntüleyin."
+          }
+        }
+      }
+    },
     "查看域名的边缘证书与到期时间，开关 Universal SSL，并调整 SSL/TLS 加密模式。": {
       "localizations": {
         "en": {
@@ -2505,6 +3189,82 @@
           "stringUnit": {
             "state": "translated",
             "value": "URL yeniden yazma, istek başlığı ve yanıt başlığı kurallarını görüntüleyip düzenleyin; trafik dönüşümlerini doğrudan telefonunuzdan yönetin."
+          }
+        }
+      }
+    },
+    "浏览 Pages 项目与部署，一键重试 / 回滚 / 删除部署，并编辑构建配置。": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Browse Pages projects and deployments, retry / roll back / delete deployments, and edit build configuration."
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "瀏覽 Pages 專案與部署，一鍵重試／復原／刪除部署，並編輯建置設定。"
+          }
+        },
+        "zh-HK": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "瀏覽 Pages 專案與部署，一鍵重試／回滾／刪除部署，並編輯建置設定。"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pages のプロジェクトとデプロイを閲覧し、デプロイの再試行・ロールバック・削除やビルド設定の編集ができます。"
+          }
+        },
+        "es-MX": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Explora proyectos y despliegues de Pages, reintenta, revierte o elimina despliegues y edita la configuración de compilación."
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pages 프로젝트와 배포를 살펴보고 배포를 재시도·롤백·삭제하며 빌드 구성을 편집하세요."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Navegue por projetos e implantações do Pages, refaça, reverta ou exclua implantações e edite a configuração de build."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Navegue por projetos e implementações do Pages, repita, reverta ou elimine implementações e edite a configuração de compilação."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Durchstöbere Pages-Projekte und Deployments, wiederhole, rolle zurück oder lösche Deployments und bearbeite die Build-Konfiguration."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Parcourez les projets et déploiements Pages, relancez, annulez ou supprimez des déploiements et modifiez la configuration de build."
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "تصفّح مشاريع Pages وعمليات النشر، وأعد المحاولة أو التراجع أو احذف عمليات النشر، وحرّر إعدادات البناء."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pages projelerini ve dağıtımlarını inceleyin; dağıtımları yeniden deneyin, geri alın veya silin ve derleme yapılandırmasını düzenleyin."
           }
         }
       }
@@ -3037,6 +3797,158 @@
           "stringUnit": {
             "state": "translated",
             "value": "Bir Worker’a nasıl erişileceğini denetlemek için workers.dev alt alan adını, özel alan adlarını ve rotaları yönetin."
+          }
+        }
+      }
+    },
+    "缓存规则": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cache Rules"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "快取規則"
+          }
+        },
+        "zh-HK": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "緩存規則"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "キャッシュルール"
+          }
+        },
+        "es-MX": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Reglas de caché"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "캐시 규칙"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Regras de cache"
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Regras de cache"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cache-Regeln"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Règles de cache"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "قواعد التخزين المؤقت"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Önbellek kuralları"
+          }
+        }
+      }
+    },
+    "负载均衡": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Load Balancing"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "負載平衡"
+          }
+        },
+        "zh-HK": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "負載平衡"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ロードバランシング"
+          }
+        },
+        "es-MX": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Balanceo de carga"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "부하 분산"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Balanceamento de carga"
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Balanceamento de carga"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Load Balancing"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Répartition de charge"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "موازنة التحميل"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Yük dengeleme"
           }
         }
       }

@@ -14,11 +14,11 @@ struct SettingsView: View {
     @Environment(AuthManager.self) private var auth
     @Environment(SessionStore.self) private var session
     @Environment(EntitlementStore.self) private var entitlements
-    @Environment(\.requestReview) private var requestReview
 
     @State private var showAddAccount = false
     @State private var showProPaywall = false
     @State private var showAddAccountPaywall = false
+    @State private var showAuditPaywall = false
     @State private var showFeedback = false
     @State private var logShareItems: [Any]?
 
@@ -28,12 +28,6 @@ struct SettingsView: View {
 
     @AppStorage(AppAppearance.storageKey) private var appearanceRaw = AppAppearance.system.rawValue
     @AppStorage(AppLanguage.storageKey)   private var languageRaw   = AppLanguage.system.rawValue
-
-    private var appVersion: String {
-        let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "1.0"
-        let build = Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? "1"
-        return "\(version) (\(build))"
-    }
 
     var body: some View {
         NavigationStack {
@@ -177,6 +171,37 @@ struct SettingsView: View {
                 }
                 .glassRow()
 
+                // ── 审计日志（账号级，Pro）──
+                Section {
+                    if entitlements.isPro {
+                        NavigationLink {
+                            AuditLogListView(session: session)
+                        } label: {
+                            HStack(spacing: 12) {
+                                TintIcon(systemImage: "clock.arrow.circlepath", color: .indigo)
+                                Text("审计日志")
+                            }
+                        }
+                    } else {
+                        Button {
+                            showAuditPaywall = true
+                        } label: {
+                            HStack(spacing: 12) {
+                                TintIcon(systemImage: "clock.arrow.circlepath", color: .indigo)
+                                Text("审计日志")
+                                    .foregroundStyle(.primary)
+                                Spacer()
+                                ProBadge()
+                            }
+                        }
+                    }
+                } header: {
+                    Text("审计日志")
+                } footer: {
+                    Text("查看当前账号最近 30 天「谁在何时改了什么」。")
+                }
+                .glassRow()
+
                 // ── 帮助与反馈 ──
                 Section {
                     Button {
@@ -212,38 +237,18 @@ struct SettingsView: View {
                 }
                 .glassRow()
 
-                // ── 关于 ──
+                // ── 关于（详情收进二级页，给根页减负）──
                 Section {
-                    HStack(spacing: 12) {
-                        TintIcon(systemImage: "info", color: .blue)
-                        Text("版本")
-                        Spacer()
-                        Text(appVersion)
-                            .foregroundStyle(.secondary)
-                    }
-                    // 系统应用内评分弹窗（无需 App Store ID）；iOS 限频，可能不弹
-                    Button {
-                        requestReview()
+                    NavigationLink {
+                        AboutView()
                     } label: {
                         HStack(spacing: 12) {
-                            TintIcon(systemImage: "star.fill", color: .yellow)
-                            Text("为 App 评分")
-                                .foregroundStyle(.primary)
-                            Spacer()
-                            Image(systemName: "chevron.right")
-                                .font(.caption.weight(.semibold))
-                                .foregroundStyle(.tertiary)
+                            TintIcon(systemImage: "info", color: .blue)
+                            Text("关于")
                         }
                     }
-                    aboutLink("GitHub", icon: "chevron.left.forwardslash.chevron.right", url: "https://github.com/chen2he/orange-cloud")
-                    aboutLink(String(localized: "隐私政策"), icon: "doc.text", url: "https://orange-cloud.chatiro.app/privacy")
-                    aboutLink(String(localized: "使用条款"), icon: "doc.plaintext", url: "https://orange-cloud.chatiro.app/terms")
-                } header: {
-                    Text("关于")
                 } footer: {
-                    Text("Orange Cloud · 第三方 Cloudflare 客户端")
-                        .frame(maxWidth: .infinity, alignment: .center)
-                        .padding(.top, 8)
+                    Text("版本、评分、社区与法律信息。")
                 }
                 .glassRow()
             }
@@ -260,6 +265,9 @@ struct SettingsView: View {
             }
             .sheet(isPresented: $showAddAccountPaywall) {
                 PaywallView(feature: .multiAccount)
+            }
+            .sheet(isPresented: $showAuditPaywall) {
+                PaywallView(feature: .auditLog)
             }
             .sheet(isPresented: $showFeedback) {
                 FeedbackView()
@@ -323,20 +331,6 @@ struct SettingsView: View {
             }
         }
         .padding(.vertical, 2)
-    }
-
-    private func aboutLink(_ title: String, icon: String, url: String) -> some View {
-        Link(destination: URL(string: url)!) {
-            HStack(spacing: 12) {
-                TintIcon(systemImage: icon, color: .gray)
-                Text(title)
-                    .foregroundStyle(.primary)
-                Spacer()
-                Image(systemName: "arrow.up.right")
-                    .font(.caption)
-                    .foregroundStyle(.tertiary)
-            }
-        }
     }
 }
 

@@ -1,5 +1,211 @@
 [
   {
+    "version": "1.5.0",
+    "date": "2026.06.26",
+    "channel": "App Store",
+    "inApp": true,
+    "items": [
+      {
+        "icon": "bolt.horizontal",
+        "title": {
+          "zh-Hans": "缓存规则",
+          "en": "Cache Rules",
+          "zh-Hant": "快取規則",
+          "zh-HK": "緩存規則",
+          "ja": "キャッシュルール",
+          "es-MX": "Reglas de caché",
+          "ko": "캐시 규칙",
+          "pt-BR": "Regras de cache",
+          "pt-PT": "Regras de cache",
+          "de": "Cache-Regeln",
+          "fr": "Règles de cache",
+          "ar": "قواعد التخزين المؤقت",
+          "tr": "Önbellek kuralları"
+        },
+        "detail": {
+          "zh-Hans": "按 URL 自定义边缘与浏览器缓存时长、绕过缓存，直接在手机上管理缓存规则。",
+          "en": "Customize edge and browser cache TTLs per URL or bypass cache entirely — manage cache rules right from your phone.",
+          "zh-Hant": "依 URL 自訂邊緣與瀏覽器快取時間、略過快取，直接在手機上管理快取規則。",
+          "zh-HK": "按 URL 自訂邊緣與瀏覽器緩存時間、繞過緩存，直接在手機上管理緩存規則。",
+          "ja": "URL ごとにエッジとブラウザーのキャッシュ TTL をカスタマイズしたり、キャッシュをバイパスしたり。キャッシュルールをスマホから管理できます。",
+          "es-MX": "Personaliza el TTL de caché en el borde y el navegador por URL u omite la caché por completo: administra las reglas de caché desde tu teléfono.",
+          "ko": "URL별로 엣지·브라우저 캐시 TTL을 설정하거나 캐시를 우회하세요. 캐시 규칙을 휴대폰에서 바로 관리할 수 있습니다.",
+          "pt-BR": "Personalize o TTL de cache na borda e no navegador por URL ou ignore o cache por completo — gerencie regras de cache direto do celular.",
+          "pt-PT": "Personalize o TTL de cache na extremidade e no navegador por URL ou ignore o cache por completo — faça a gestão das regras de cache diretamente do telemóvel.",
+          "de": "Passe Edge- und Browser-Cache-TTLs pro URL an oder umgehe den Cache ganz – verwalte Cache-Regeln direkt vom Handy.",
+          "fr": "Personnalisez les TTL de cache edge et navigateur par URL ou contournez complètement le cache — gérez les règles de cache depuis votre téléphone.",
+          "ar": "خصّص مدة التخزين المؤقت على الحافة والمتصفح لكل عنوان URL أو تجاوز التخزين المؤقت كليًا، وأدِر قواعد التخزين المؤقت من هاتفك.",
+          "tr": "URL bazında uç ve tarayıcı önbellek TTL'lerini özelleştirin veya önbelleği tamamen atlayın — önbellek kurallarını telefonunuzdan yönetin."
+        }
+      },
+      {
+        "icon": "arrow.left.arrow.right",
+        "title": {
+          "zh-Hans": "负载均衡",
+          "en": "Load Balancing",
+          "zh-Hant": "負載平衡",
+          "zh-HK": "負載平衡",
+          "ja": "ロードバランシング",
+          "es-MX": "Balanceo de carga",
+          "ko": "부하 분산",
+          "pt-BR": "Balanceamento de carga",
+          "pt-PT": "Balanceamento de carga",
+          "de": "Load Balancing",
+          "fr": "Répartition de charge",
+          "ar": "موازنة التحميل",
+          "tr": "Yük dengeleme"
+        },
+        "detail": {
+          "zh-Hans": "查看与管理负载均衡器、源站池和健康监测，掌握流量分发与源站健康。",
+          "en": "View and manage load balancers, origin pools, and health monitors — stay on top of traffic steering and origin health.",
+          "zh-Hant": "檢視並管理負載平衡器、來源池與健康監測，掌握流量分配與來源健康。",
+          "zh-HK": "查看並管理負載平衡器、來源池與健康監測，掌握流量分配與來源健康。",
+          "ja": "ロードバランサー、オリジンプール、ヘルスモニターを表示・管理し、トラフィックの分散とオリジンの健全性を把握できます。",
+          "es-MX": "Consulta y administra balanceadores de carga, grupos de origen y monitores de estado para controlar el enrutamiento del tráfico y la salud del origen.",
+          "ko": "부하 분산기, 오리진 풀, 상태 모니터를 확인·관리하여 트래픽 분산과 오리진 상태를 한눈에 파악하세요.",
+          "pt-BR": "Veja e gerencie balanceadores de carga, pools de origem e monitores de integridade — acompanhe o roteamento de tráfego e a saúde da origem.",
+          "pt-PT": "Veja e faça a gestão de balanceadores de carga, pools de origem e monitores de estado — acompanhe o encaminhamento de tráfego e a saúde da origem.",
+          "de": "Sieh dir Load Balancer, Origin-Pools und Health-Monitore an und verwalte sie – behalte Traffic-Steuerung und Origin-Zustand im Blick.",
+          "fr": "Consultez et gérez les répartiteurs de charge, les pools d'origine et les moniteurs de santé — gardez la maîtrise du routage du trafic et de l'état des origines.",
+          "ar": "اعرض وأدِر موازِنات التحميل ومجمّعات الأصل ومراقبات الصحة، وتابِع توجيه حركة المرور وصحة الأصل.",
+          "tr": "Yük dengeleyicileri, köken havuzlarını ve sağlık izleyicilerini görüntüleyip yönetin — trafik yönlendirmesini ve köken sağlığını takip edin."
+        }
+      },
+      {
+        "icon": "doc.richtext",
+        "title": {
+          "zh-Hans": "Cloudflare Pages",
+          "en": "Cloudflare Pages",
+          "zh-Hant": "Cloudflare Pages",
+          "zh-HK": "Cloudflare Pages",
+          "ja": "Cloudflare Pages",
+          "es-MX": "Cloudflare Pages",
+          "ko": "Cloudflare Pages",
+          "pt-BR": "Cloudflare Pages",
+          "pt-PT": "Cloudflare Pages",
+          "de": "Cloudflare Pages",
+          "fr": "Cloudflare Pages",
+          "ar": "Cloudflare Pages",
+          "tr": "Cloudflare Pages"
+        },
+        "detail": {
+          "zh-Hans": "浏览 Pages 项目与部署，一键重试 / 回滚 / 删除部署，并编辑构建配置。",
+          "en": "Browse Pages projects and deployments, retry / roll back / delete deployments, and edit build configuration.",
+          "zh-Hant": "瀏覽 Pages 專案與部署，一鍵重試／復原／刪除部署，並編輯建置設定。",
+          "zh-HK": "瀏覽 Pages 專案與部署，一鍵重試／回滾／刪除部署，並編輯建置設定。",
+          "ja": "Pages のプロジェクトとデプロイを閲覧し、デプロイの再試行・ロールバック・削除やビルド設定の編集ができます。",
+          "es-MX": "Explora proyectos y despliegues de Pages, reintenta, revierte o elimina despliegues y edita la configuración de compilación.",
+          "ko": "Pages 프로젝트와 배포를 살펴보고 배포를 재시도·롤백·삭제하며 빌드 구성을 편집하세요.",
+          "pt-BR": "Navegue por projetos e implantações do Pages, refaça, reverta ou exclua implantações e edite a configuração de build.",
+          "pt-PT": "Navegue por projetos e implementações do Pages, repita, reverta ou elimine implementações e edite a configuração de compilação.",
+          "de": "Durchstöbere Pages-Projekte und Deployments, wiederhole, rolle zurück oder lösche Deployments und bearbeite die Build-Konfiguration.",
+          "fr": "Parcourez les projets et déploiements Pages, relancez, annulez ou supprimez des déploiements et modifiez la configuration de build.",
+          "ar": "تصفّح مشاريع Pages وعمليات النشر، وأعد المحاولة أو التراجع أو احذف عمليات النشر، وحرّر إعدادات البناء.",
+          "tr": "Pages projelerini ve dağıtımlarını inceleyin; dağıtımları yeniden deneyin, geri alın veya silin ve derleme yapılandırmasını düzenleyin."
+        }
+      },
+      {
+        "icon": "envelope",
+        "title": {
+          "zh-Hans": "Email Routing",
+          "en": "Email Routing",
+          "zh-Hant": "Email Routing",
+          "zh-HK": "Email Routing",
+          "ja": "Email Routing",
+          "es-MX": "Email Routing",
+          "ko": "Email Routing",
+          "pt-BR": "Email Routing",
+          "pt-PT": "Email Routing",
+          "de": "Email Routing",
+          "fr": "Email Routing",
+          "ar": "Email Routing",
+          "tr": "Email Routing"
+        },
+        "detail": {
+          "zh-Hans": "开关域名的邮件路由，增删改转发规则，并管理账号内的已验证目的地址。",
+          "en": "Turn Email Routing on or off, create and edit forwarding rules, and manage your account's verified destination addresses.",
+          "zh-Hant": "開關網域的郵件路由，新增、編輯轉寄規則，並管理帳戶內已驗證的目的地址。",
+          "zh-HK": "開關域名的郵件路由，新增、編輯轉發規則，並管理帳號內已驗證的目的地址。",
+          "ja": "ドメインのメールルーティングのオン/オフ、転送ルールの作成・編集、検証済みの目的地アドレスの管理ができます。",
+          "es-MX": "Activa o desactiva el enrutamiento de correo del dominio, crea y edita reglas de reenvío y gestiona las direcciones de destino verificadas de tu cuenta.",
+          "ko": "도메인의 이메일 라우팅을 켜고 끄고, 전달 규칙을 만들고 편집하며, 계정의 확인된 대상 주소를 관리하세요.",
+          "pt-BR": "Ative ou desative o roteamento de e-mail do domínio, crie e edite regras de encaminhamento e gerencie os endereços de destino verificados da sua conta.",
+          "pt-PT": "Ative ou desative o encaminhamento de correio do domínio, crie e edite regras de reencaminhamento e faça a gestão dos endereços de destino verificados da sua conta.",
+          "de": "Schalte das E-Mail-Routing der Domain ein oder aus, erstelle und bearbeite Weiterleitungsregeln und verwalte die verifizierten Zieladressen deines Kontos.",
+          "fr": "Activez ou désactivez le routage des e-mails du domaine, créez et modifiez des règles de transfert et gérez les adresses de destination vérifiées de votre compte.",
+          "ar": "فعّل توجيه البريد للنطاق أو عطّله، وأنشئ قواعد إعادة التوجيه وعدّلها، وأدِر عناوين الوجهة المُتحقَّق منها في حسابك.",
+          "tr": "Alan adının e-posta yönlendirmesini açıp kapatın, iletme kuralları oluşturup düzenleyin ve hesabınızın doğrulanmış hedef adreslerini yönetin."
+        }
+      },
+      {
+        "icon": "gauge.with.dots.needle.bottom.50percent",
+        "title": {
+          "zh-Hans": "Rate Limiting",
+          "en": "Rate Limiting",
+          "zh-Hant": "Rate Limiting",
+          "zh-HK": "Rate Limiting",
+          "ja": "Rate Limiting",
+          "es-MX": "Rate Limiting",
+          "ko": "Rate Limiting",
+          "pt-BR": "Rate Limiting",
+          "pt-PT": "Rate Limiting",
+          "de": "Rate Limiting",
+          "fr": "Rate Limiting",
+          "ar": "Rate Limiting",
+          "tr": "Rate Limiting"
+        },
+        "detail": {
+          "zh-Hans": "新建与管理限速规则：按访客 IP 在时间窗内限制请求次数，超限即阻止或质询。",
+          "en": "Create and manage rate limiting rules: cap requests per visitor IP within a time window, then block or challenge when exceeded.",
+          "zh-Hant": "新增並管理速率限制規則：依訪客 IP 在時間範圍內限制請求次數，超限即封鎖或質詢。",
+          "zh-HK": "新增並管理速率限制規則：依訪客 IP 在時間範圍內限制請求次數，超限即封鎖或質詢。",
+          "ja": "レート制限ルールを作成・管理。時間枠内の訪問者 IP ごとのリクエスト数を制限し、超過時にブロックまたはチャレンジを実行します。",
+          "es-MX": "Crea y gestiona reglas de límite de tasa: limita las solicitudes por IP de visitante en una ventana de tiempo y bloquea o desafía cuando se supera.",
+          "ko": "속도 제한 규칙을 만들고 관리하세요. 시간 범위 내 방문자 IP별 요청 수를 제한하고 초과 시 차단하거나 챌린지를 적용합니다.",
+          "pt-BR": "Crie e gerencie regras de limite de taxa: limite as solicitações por IP de visitante em uma janela de tempo e bloqueie ou desafie ao exceder.",
+          "pt-PT": "Crie e faça a gestão de regras de limite de taxa: limite os pedidos por IP de visitante numa janela de tempo e bloqueie ou desafie ao exceder.",
+          "de": "Erstelle und verwalte Ratenbegrenzungsregeln: Begrenze Anfragen pro Besucher-IP in einem Zeitfenster und blockiere oder fordere bei Überschreitung heraus.",
+          "fr": "Créez et gérez des règles de limitation de débit : plafonnez les requêtes par IP de visiteur dans une fenêtre temporelle, puis bloquez ou défiez en cas de dépassement.",
+          "ar": "أنشئ قواعد تحديد المعدل وأدِرها: حُدّ من عدد الطلبات حسب IP الزائر ضمن نافذة زمنية، ثم احظر أو اطلب تحديًا عند التجاوز.",
+          "tr": "Hız sınırı kuralları oluşturun ve yönetin: ziyaretçi IP'si başına istekleri bir zaman aralığında sınırlayın, aşıldığında engelleyin veya doğrulama isteyin."
+        }
+      },
+      {
+        "icon": "lock.shield",
+        "title": {
+          "zh-Hans": "Zero Trust",
+          "en": "Zero Trust",
+          "zh-Hant": "Zero Trust",
+          "zh-HK": "Zero Trust",
+          "ja": "Zero Trust",
+          "es-MX": "Zero Trust",
+          "ko": "Zero Trust",
+          "pt-BR": "Zero Trust",
+          "pt-PT": "Zero Trust",
+          "de": "Zero Trust",
+          "fr": "Zero Trust",
+          "ar": "Zero Trust",
+          "tr": "Zero Trust"
+        },
+        "detail": {
+          "zh-Hans": "查看受 Cloudflare Access 保护的应用，以及 Gateway 的 DNS / HTTP / 网络过滤策略。",
+          "en": "View apps protected by Cloudflare Access, along with your Gateway DNS / HTTP / network filtering policies.",
+          "zh-Hant": "檢視受 Cloudflare Access 保護的應用程式，以及 Gateway 的 DNS / HTTP / 網路篩選政策。",
+          "zh-HK": "查看受 Cloudflare Access 保護的應用程式，以及 Gateway 的 DNS / HTTP / 網路篩選政策。",
+          "ja": "Cloudflare Access で保護されたアプリと、Gateway の DNS / HTTP / ネットワークフィルタリングポリシーを表示できます。",
+          "es-MX": "Consulta las aplicaciones protegidas por Cloudflare Access y las políticas de filtrado de DNS / HTTP / red de Gateway.",
+          "ko": "Cloudflare Access로 보호되는 앱과 Gateway의 DNS / HTTP / 네트워크 필터링 정책을 확인하세요.",
+          "pt-BR": "Veja os apps protegidos pelo Cloudflare Access e as políticas de filtragem de DNS / HTTP / rede do Gateway.",
+          "pt-PT": "Veja as aplicações protegidas pelo Cloudflare Access e as políticas de filtragem de DNS / HTTP / rede do Gateway.",
+          "de": "Sieh dir durch Cloudflare Access geschützte Anwendungen sowie deine Gateway-Filterrichtlinien für DNS / HTTP / Netzwerk an.",
+          "fr": "Consultez les applications protégées par Cloudflare Access ainsi que vos politiques de filtrage Gateway DNS / HTTP / réseau.",
+          "ar": "اعرض التطبيقات المحمية بواسطة Cloudflare Access، إضافةً إلى سياسات تصفية DNS / HTTP / الشبكة في Gateway.",
+          "tr": "Cloudflare Access ile korunan uygulamaları ve Gateway'in DNS / HTTP / ağ filtreleme politikalarını görüntüleyin."
+        }
+      }
+    ]
+  },
+  {
     "version": "1.4.0",
     "date": "2026.06.25",
     "channel": "App Store",
