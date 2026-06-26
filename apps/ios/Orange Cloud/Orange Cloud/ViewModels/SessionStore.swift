@@ -33,6 +33,10 @@ final class SessionStore {
     let pagesService:              PagesService
     let loadBalancerService:       LoadBalancerService
     let bulkRedirectService:       BulkRedirectService
+    let auditLogService:           AuditLogService
+    let emailRoutingService:       EmailRoutingService
+    let rateLimitService:          RateLimitService
+    let zeroTrustService:          ZeroTrustService
 
     var accounts: [Account] = []
     var selectedAccount: Account? {
@@ -74,6 +78,10 @@ final class SessionStore {
         self.pagesService              = PagesService(client: client)
         self.loadBalancerService       = LoadBalancerService(client: client)
         self.bulkRedirectService       = BulkRedirectService(client: client)
+        self.auditLogService           = AuditLogService(client: client)
+        self.emailRoutingService       = EmailRoutingService(client: client)
+        self.rateLimitService          = RateLimitService(client: client)
+        self.zeroTrustService          = ZeroTrustService(client: client)
     }
 
     /// 幂等加载账号列表，首个账号设为当前账号

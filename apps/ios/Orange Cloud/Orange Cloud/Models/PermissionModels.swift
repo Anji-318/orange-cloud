@@ -133,6 +133,34 @@ extension FeaturePermission {
             isRequired: false
         ),
         .init(
+            id: "email_routing",
+            title: "Email Routing",
+            description: String(localized: "查看与管理邮件路由规则与目的地址"),
+            icon: "envelope",
+            // rules 是域名级，addresses 是账号级——两组 scope 都要才能完整使用
+            readScopes: ["email-routing-rule.read", "email-routing-address.read"],
+            editScopes: ["email-routing-rule.write", "email-routing-address.write"],
+            isRequired: false
+        ),
+        .init(
+            id: "zt_access",
+            title: "Zero Trust Access",
+            description: String(localized: "查看受 Access 保护的应用"),
+            icon: "lock.shield",
+            readScopes: ["access.read"],
+            editScopes: ["access.write"],
+            isRequired: false
+        ),
+        .init(
+            id: "zt_gateway",
+            title: "Zero Trust Gateway",
+            description: String(localized: "查看 Gateway 过滤策略"),
+            icon: "shield.lefthalf.filled",
+            readScopes: ["teams.read"],
+            editScopes: ["teams.write"],
+            isRequired: false
+        ),
+        .init(
             id: "zone_settings",
             title: String(localized: "缓存与防护"),
             description: String(localized: "缓存清理、SSL/TLS、Under Attack / 开发模式"),

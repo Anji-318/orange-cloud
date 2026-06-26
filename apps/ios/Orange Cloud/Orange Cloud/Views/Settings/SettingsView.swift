@@ -18,6 +18,7 @@ struct SettingsView: View {
     @State private var showAddAccount = false
     @State private var showProPaywall = false
     @State private var showAddAccountPaywall = false
+    @State private var showAuditPaywall = false
     @State private var showFeedback = false
     @State private var logShareItems: [Any]?
 
@@ -170,6 +171,37 @@ struct SettingsView: View {
                 }
                 .glassRow()
 
+                // ── 审计日志（账号级，Pro）──
+                Section {
+                    if entitlements.isPro {
+                        NavigationLink {
+                            AuditLogListView(session: session)
+                        } label: {
+                            HStack(spacing: 12) {
+                                TintIcon(systemImage: "clock.arrow.circlepath", color: .indigo)
+                                Text("审计日志")
+                            }
+                        }
+                    } else {
+                        Button {
+                            showAuditPaywall = true
+                        } label: {
+                            HStack(spacing: 12) {
+                                TintIcon(systemImage: "clock.arrow.circlepath", color: .indigo)
+                                Text("审计日志")
+                                    .foregroundStyle(.primary)
+                                Spacer()
+                                ProBadge()
+                            }
+                        }
+                    }
+                } header: {
+                    Text("审计日志")
+                } footer: {
+                    Text("查看当前账号最近 30 天「谁在何时改了什么」。")
+                }
+                .glassRow()
+
                 // ── 帮助与反馈 ──
                 Section {
                     Button {
@@ -233,6 +265,9 @@ struct SettingsView: View {
             }
             .sheet(isPresented: $showAddAccountPaywall) {
                 PaywallView(feature: .multiAccount)
+            }
+            .sheet(isPresented: $showAuditPaywall) {
+                PaywallView(feature: .auditLog)
             }
             .sheet(isPresented: $showFeedback) {
                 FeedbackView()

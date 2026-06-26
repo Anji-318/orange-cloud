@@ -27,14 +27,19 @@ nonisolated enum WhatsNewGenerated {
                 detail: String(localized: "浏览 Pages 项目与部署，一键重试 / 回滚 / 删除部署，并编辑构建配置。", table: "WhatsNew")
             ),
             WhatsNewItem(
-                icon:   "arrowshape.turn.up.right",
-                title:  String(localized: "批量重定向", table: "WhatsNew"),
-                detail: String(localized: "管理批量 URL 重定向列表与条目，并一键启用，让重定向即刻生效。", table: "WhatsNew")
+                icon:   "envelope",
+                title:  String(localized: "Email Routing", table: "WhatsNew"),
+                detail: String(localized: "开关域名的邮件路由，增删改转发规则，并管理账号内的已验证目的地址。", table: "WhatsNew")
             ),
             WhatsNewItem(
-                icon:   "lock.open",
-                title:  String(localized: "一键重授权", table: "WhatsNew"),
-                detail: String(localized: "缺少某项权限时，无需退出登录即可一键补齐授权，新功能即开即用。", table: "WhatsNew")
+                icon:   "gauge.with.dots.needle.bottom.50percent",
+                title:  String(localized: "Rate Limiting", table: "WhatsNew"),
+                detail: String(localized: "新建与管理限速规则：按访客 IP 在时间窗内限制请求次数，超限即阻止或质询。", table: "WhatsNew")
+            ),
+            WhatsNewItem(
+                icon:   "lock.shield",
+                title:  String(localized: "Zero Trust", table: "WhatsNew"),
+                detail: String(localized: "查看受 Cloudflare Access 保护的应用，以及 Gateway 的 DNS / HTTP / 网络过滤策略。", table: "WhatsNew")
             )
         ]),
         WhatsNewRelease(version: "1.4.0", items: [

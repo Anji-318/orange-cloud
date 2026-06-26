@@ -229,6 +229,82 @@
         }
       }
     },
+    "Email Routing": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Email Routing"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Email Routing"
+          }
+        },
+        "zh-HK": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Email Routing"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Email Routing"
+          }
+        },
+        "es-MX": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Email Routing"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Email Routing"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Email Routing"
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Email Routing"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Email Routing"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Email Routing"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Email Routing"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Email Routing"
+          }
+        }
+      }
+    },
     "IP 访问规则": {
       "localizations": {
         "en": {
@@ -377,6 +453,82 @@
           "stringUnit": {
             "state": "translated",
             "value": "R2 depolama geliştirmeleri"
+          }
+        }
+      }
+    },
+    "Rate Limiting": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rate Limiting"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rate Limiting"
+          }
+        },
+        "zh-HK": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rate Limiting"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rate Limiting"
+          }
+        },
+        "es-MX": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rate Limiting"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rate Limiting"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rate Limiting"
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rate Limiting"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rate Limiting"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rate Limiting"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rate Limiting"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rate Limiting"
           }
         }
       }
@@ -761,78 +913,78 @@
         }
       }
     },
-    "一键重授权": {
+    "Zero Trust": {
       "localizations": {
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "One-Tap Re-authorization"
+            "value": "Zero Trust"
           }
         },
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "一鍵重新授權"
+            "value": "Zero Trust"
           }
         },
         "zh-HK": {
           "stringUnit": {
             "state": "translated",
-            "value": "一鍵重新授權"
+            "value": "Zero Trust"
           }
         },
         "ja": {
           "stringUnit": {
             "state": "translated",
-            "value": "ワンタップ再認可"
+            "value": "Zero Trust"
           }
         },
         "es-MX": {
           "stringUnit": {
             "state": "translated",
-            "value": "Reautorización con un toque"
+            "value": "Zero Trust"
           }
         },
         "ko": {
           "stringUnit": {
             "state": "translated",
-            "value": "원탭 재인증"
+            "value": "Zero Trust"
           }
         },
         "pt-BR": {
           "stringUnit": {
             "state": "translated",
-            "value": "Reautorização com um toque"
+            "value": "Zero Trust"
           }
         },
         "pt-PT": {
           "stringUnit": {
             "state": "translated",
-            "value": "Reautorização com um toque"
+            "value": "Zero Trust"
           }
         },
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Neu autorisieren per Tipp"
+            "value": "Zero Trust"
           }
         },
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Réautorisation en un geste"
+            "value": "Zero Trust"
           }
         },
         "ar": {
           "stringUnit": {
             "state": "translated",
-            "value": "إعادة التفويض بنقرة واحدة"
+            "value": "Zero Trust"
           }
         },
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Tek dokunuşla yeniden yetkilendirme"
+            "value": "Zero Trust"
           }
         }
       }
@@ -1825,78 +1977,78 @@
         }
       }
     },
-    "批量重定向": {
+    "开关域名的邮件路由，增删改转发规则，并管理账号内的已验证目的地址。": {
       "localizations": {
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Bulk Redirects"
+            "value": "Turn Email Routing on or off, create and edit forwarding rules, and manage your account's verified destination addresses."
           }
         },
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "大量重新導向"
+            "value": "開關網域的郵件路由，新增、編輯轉寄規則，並管理帳戶內已驗證的目的地址。"
           }
         },
         "zh-HK": {
           "stringUnit": {
             "state": "translated",
-            "value": "批量重定向"
+            "value": "開關域名的郵件路由，新增、編輯轉發規則，並管理帳號內已驗證的目的地址。"
           }
         },
         "ja": {
           "stringUnit": {
             "state": "translated",
-            "value": "一括リダイレクト"
+            "value": "ドメインのメールルーティングのオン/オフ、転送ルールの作成・編集、検証済みの目的地アドレスの管理ができます。"
           }
         },
         "es-MX": {
           "stringUnit": {
             "state": "translated",
-            "value": "Redirecciones masivas"
+            "value": "Activa o desactiva el enrutamiento de correo del dominio, crea y edita reglas de reenvío y gestiona las direcciones de destino verificadas de tu cuenta."
           }
         },
         "ko": {
           "stringUnit": {
             "state": "translated",
-            "value": "대량 리디렉션"
+            "value": "도메인의 이메일 라우팅을 켜고 끄고, 전달 규칙을 만들고 편집하며, 계정의 확인된 대상 주소를 관리하세요."
           }
         },
         "pt-BR": {
           "stringUnit": {
             "state": "translated",
-            "value": "Redirecionamentos em massa"
+            "value": "Ative ou desative o roteamento de e-mail do domínio, crie e edite regras de encaminhamento e gerencie os endereços de destino verificados da sua conta."
           }
         },
         "pt-PT": {
           "stringUnit": {
             "state": "translated",
-            "value": "Redirecionamentos em massa"
+            "value": "Ative ou desative o encaminhamento de correio do domínio, crie e edite regras de reencaminhamento e faça a gestão dos endereços de destino verificados da sua conta."
           }
         },
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Bulk-Weiterleitungen"
+            "value": "Schalte das E-Mail-Routing der Domain ein oder aus, erstelle und bearbeite Weiterleitungsregeln und verwalte die verifizierten Zieladressen deines Kontos."
           }
         },
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Redirections groupées"
+            "value": "Activez ou désactivez le routage des e-mails du domaine, créez et modifiez des règles de transfert et gérez les adresses de destination vérifiées de votre compte."
           }
         },
         "ar": {
           "stringUnit": {
             "state": "translated",
-            "value": "إعادة التوجيه المجمّعة"
+            "value": "فعّل توجيه البريد للنطاق أو عطّله، وأنشئ قواعد إعادة التوجيه وعدّلها، وأدِر عناوين الوجهة المُتحقَّق منها في حسابك."
           }
         },
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Toplu yönlendirmeler"
+            "value": "Alan adının e-posta yönlendirmesini açıp kapatın, iletme kuralları oluşturup düzenleyin ve hesabınızın doğrulanmış hedef adreslerini yönetin."
           }
         }
       }
@@ -2357,6 +2509,82 @@
         }
       }
     },
+    "新建与管理限速规则：按访客 IP 在时间窗内限制请求次数，超限即阻止或质询。": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Create and manage rate limiting rules: cap requests per visitor IP within a time window, then block or challenge when exceeded."
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "新增並管理速率限制規則：依訪客 IP 在時間範圍內限制請求次數，超限即封鎖或質詢。"
+          }
+        },
+        "zh-HK": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "新增並管理速率限制規則：依訪客 IP 在時間範圍內限制請求次數，超限即封鎖或質詢。"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "レート制限ルールを作成・管理。時間枠内の訪問者 IP ごとのリクエスト数を制限し、超過時にブロックまたはチャレンジを実行します。"
+          }
+        },
+        "es-MX": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Crea y gestiona reglas de límite de tasa: limita las solicitudes por IP de visitante en una ventana de tiempo y bloquea o desafía cuando se supera."
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "속도 제한 규칙을 만들고 관리하세요. 시간 범위 내 방문자 IP별 요청 수를 제한하고 초과 시 차단하거나 챌린지를 적용합니다."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Crie e gerencie regras de limite de taxa: limite as solicitações por IP de visitante em uma janela de tempo e bloqueie ou desafie ao exceder."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Crie e faça a gestão de regras de limite de taxa: limite os pedidos por IP de visitante numa janela de tempo e bloqueie ou desafie ao exceder."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Erstelle und verwalte Ratenbegrenzungsregeln: Begrenze Anfragen pro Besucher-IP in einem Zeitfenster und blockiere oder fordere bei Überschreitung heraus."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Créez et gérez des règles de limitation de débit : plafonnez les requêtes par IP de visiteur dans une fenêtre temporelle, puis bloquez ou défiez en cas de dépassement."
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "أنشئ قواعد تحديد المعدل وأدِرها: حُدّ من عدد الطلبات حسب IP الزائر ضمن نافذة زمنية، ثم احظر أو اطلب تحديًا عند التجاوز."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hız sınırı kuralları oluşturun ve yönetin: ziyaretçi IP'si başına istekleri bir zaman aralığında sınırlayın, aşıldığında engelleyin veya doğrulama isteyin."
+          }
+        }
+      }
+    },
     "无需清空整站，指定单个或多个 URL 精准刷新缓存；并新增性能与缓存设置页。": {
       "localizations": {
         "en": {
@@ -2733,6 +2961,82 @@
           "stringUnit": {
             "state": "translated",
             "value": "Yük dengeleyicileri, köken havuzlarını ve sağlık izleyicilerini görüntüleyip yönetin — trafik yönlendirmesini ve köken sağlığını takip edin."
+          }
+        }
+      }
+    },
+    "查看受 Cloudflare Access 保护的应用，以及 Gateway 的 DNS / HTTP / 网络过滤策略。": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "View apps protected by Cloudflare Access, along with your Gateway DNS / HTTP / network filtering policies."
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "檢視受 Cloudflare Access 保護的應用程式，以及 Gateway 的 DNS / HTTP / 網路篩選政策。"
+          }
+        },
+        "zh-HK": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "查看受 Cloudflare Access 保護的應用程式，以及 Gateway 的 DNS / HTTP / 網路篩選政策。"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cloudflare Access で保護されたアプリと、Gateway の DNS / HTTP / ネットワークフィルタリングポリシーを表示できます。"
+          }
+        },
+        "es-MX": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Consulta las aplicaciones protegidas por Cloudflare Access y las políticas de filtrado de DNS / HTTP / red de Gateway."
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cloudflare Access로 보호되는 앱과 Gateway의 DNS / HTTP / 네트워크 필터링 정책을 확인하세요."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Veja os apps protegidos pelo Cloudflare Access e as políticas de filtragem de DNS / HTTP / rede do Gateway."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Veja as aplicações protegidas pelo Cloudflare Access e as políticas de filtragem de DNS / HTTP / rede do Gateway."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sieh dir durch Cloudflare Access geschützte Anwendungen sowie deine Gateway-Filterrichtlinien für DNS / HTTP / Netzwerk an."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Consultez les applications protégées par Cloudflare Access ainsi que vos politiques de filtrage Gateway DNS / HTTP / réseau."
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "اعرض التطبيقات المحمية بواسطة Cloudflare Access، إضافةً إلى سياسات تصفية DNS / HTTP / الشبكة في Gateway."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cloudflare Access ile korunan uygulamaları ve Gateway'in DNS / HTTP / ağ filtreleme politikalarını görüntüleyin."
           }
         }
       }
@@ -3497,82 +3801,6 @@
         }
       }
     },
-    "管理批量 URL 重定向列表与条目，并一键启用，让重定向即刻生效。": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Manage bulk URL redirect lists and entries, then enable them with one tap to make redirects take effect."
-          }
-        },
-        "zh-Hant": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "管理大量 URL 重新導向清單與項目，並一鍵啟用，讓重新導向即刻生效。"
-          }
-        },
-        "zh-HK": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "管理批量 URL 重定向清單與項目，並一鍵啟用，讓重定向即刻生效。"
-          }
-        },
-        "ja": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "URL 一括リダイレクトのリストと項目を管理し、ワンタップで有効化してリダイレクトをすぐに反映できます。"
-          }
-        },
-        "es-MX": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Administra listas y entradas de redirecciones masivas de URL y actívalas con un toque para que surtan efecto."
-          }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "대량 URL 리디렉션 목록과 항목을 관리하고 한 번의 탭으로 활성화하여 리디렉션을 바로 적용하세요."
-          }
-        },
-        "pt-BR": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Gerencie listas e entradas de redirecionamentos de URL em massa e ative-as com um toque para que entrem em vigor."
-          }
-        },
-        "pt-PT": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Faça a gestão de listas e entradas de redirecionamentos de URL em massa e ative-as com um toque para que entrem em vigor."
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Verwalte Listen und Einträge für Bulk-URL-Weiterleitungen und aktiviere sie mit einem Tipp, damit die Weiterleitungen greifen."
-          }
-        },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Gérez les listes et entrées de redirections d'URL groupées et activez-les d'un geste pour qu'elles prennent effet."
-          }
-        },
-        "ar": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "أدِر قوائم وعناصر إعادة توجيه عناوين URL المجمّعة، وفعّلها بنقرة واحدة لتسري على الفور."
-          }
-        },
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Toplu URL yönlendirme listelerini ve girişlerini yönetin, ardından tek dokunuşla etkinleştirerek yönlendirmeleri devreye alın."
-          }
-        }
-      }
-    },
     "缓存规则": {
       "localizations": {
         "en": {
@@ -3645,82 +3873,6 @@
           "stringUnit": {
             "state": "translated",
             "value": "Önbellek kuralları"
-          }
-        }
-      }
-    },
-    "缺少某项权限时，无需退出登录即可一键补齐授权，新功能即开即用。": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Missing a permission? Top up your authorization with one tap — no sign-out needed — and use new features right away."
-          }
-        },
-        "zh-Hant": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "缺少某項權限時，無需登出即可一鍵補齊授權，新功能即開即用。"
-          }
-        },
-        "zh-HK": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "缺少某項權限時，無需登出即可一鍵補齊授權，新功能即開即用。"
-          }
-        },
-        "ja": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "権限が足りないときも、ログアウトせずワンタップで認可を追加でき、新機能をすぐに使えます。"
-          }
-        },
-        "es-MX": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "¿Te falta un permiso? Completa tu autorización con un toque, sin cerrar sesión, y usa las nuevas funciones de inmediato."
-          }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "권한이 부족해도 로그아웃 없이 한 번의 탭으로 권한을 추가하고 새 기능을 바로 사용할 수 있습니다."
-          }
-        },
-        "pt-BR": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Falta uma permissão? Complete sua autorização com um toque, sem sair da conta, e use os novos recursos na hora."
-          }
-        },
-        "pt-PT": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Falta uma permissão? Complete a sua autorização com um toque, sem terminar sessão, e use as novas funcionalidades de imediato."
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Fehlt eine Berechtigung? Ergänze deine Autorisierung mit einem Tipp – ohne Abmelden – und nutze neue Funktionen sofort."
-          }
-        },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Une autorisation manque ? Complétez-la d'un geste, sans vous déconnecter, et utilisez aussitôt les nouvelles fonctions."
-          }
-        },
-        "ar": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "هل تنقصك صلاحية؟ أكمِل التفويض بنقرة واحدة دون تسجيل الخروج، واستخدم الميزات الجديدة فورًا."
-          }
-        },
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Bir izin mi eksik? Oturumu kapatmadan tek dokunuşla yetkilendirmenizi tamamlayın ve yeni özellikleri hemen kullanın."
           }
         }
       }

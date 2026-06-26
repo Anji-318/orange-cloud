@@ -1002,14 +1002,36 @@ struct DashboardView: View {
     // MARK: - 网络（单行服务，胶囊形态，不配段落标题）
 
     private var networkSection: some View {
-        ProGatedNavigationLink(
-            label: "Cloudflare Tunnel",
-            systemImage: "arrow.triangle.2.circlepath",
-            requiredScope: "argotunnel.read",
-            feature: .tunnel,
-            showsChevron: true
-        ) {
-            TunnelListView(session: session)
+        VStack(spacing: 10) {
+            ProGatedNavigationLink(
+                label: "Cloudflare Tunnel",
+                systemImage: "arrow.triangle.2.circlepath",
+                requiredScope: "argotunnel.read",
+                feature: .tunnel,
+                showsChevron: true
+            ) {
+                TunnelListView(session: session)
+            }
+            Divider().padding(.leading, 44)
+            ProGatedNavigationLink(
+                label: "Access 应用",
+                systemImage: "lock.shield",
+                requiredScope: "access.read",
+                feature: .zeroTrust,
+                showsChevron: true
+            ) {
+                AccessAppsView(session: session)
+            }
+            Divider().padding(.leading, 44)
+            ProGatedNavigationLink(
+                label: "Gateway 策略",
+                systemImage: "shield.lefthalf.filled",
+                requiredScope: "teams.read",
+                feature: .zeroTrust,
+                showsChevron: true
+            ) {
+                GatewayRulesView(session: session)
+            }
         }
         .padding(.horizontal, OCLayout.islandPadding + 2)
         .padding(.vertical, 12)

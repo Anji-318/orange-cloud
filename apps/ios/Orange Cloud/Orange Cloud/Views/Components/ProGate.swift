@@ -13,6 +13,7 @@ import SwiftUI
 nonisolated enum ProFeature: String, Identifiable, Sendable {
     case multiAccount, storage, workerTail, waf, tunnel, analyticsRange, snippets
     case workerSecrets, workerTriggers, workerRoutes, cacheRules, pages, loadBalancing, bulkRedirects
+    case auditLog, emailRouting, rateLimit, zeroTrust
 
     var id: String { rawValue }
 
@@ -32,6 +33,10 @@ nonisolated enum ProFeature: String, Identifiable, Sendable {
         case .pages:          String(localized: "Cloudflare Pages 需要 Pro")
         case .loadBalancing:  String(localized: "负载均衡需要 Pro")
         case .bulkRedirects:  String(localized: "Bulk Redirects 需要 Pro")
+        case .auditLog:       String(localized: "审计日志需要 Pro")
+        case .emailRouting:   String(localized: "Email Routing 需要 Pro")
+        case .rateLimit:      String(localized: "限速规则需要 Pro")
+        case .zeroTrust:      String(localized: "Zero Trust 需要 Pro")
         }
     }
 
@@ -51,6 +56,10 @@ nonisolated enum ProFeature: String, Identifiable, Sendable {
         case .pages:          String(localized: "查看与管理 Cloudflare Pages 项目和部署（重试 / 回滚 / 删除、构建配置）属于 Orange Cloud Pro。")
         case .loadBalancing:  String(localized: "负载均衡器、源站池与健康监测的查看与管理属于 Orange Cloud Pro。")
         case .bulkRedirects:  String(localized: "批量 URL 重定向列表与条目的查看与管理属于 Orange Cloud Pro。")
+        case .auditLog:       String(localized: "查看账号最近 30 天的审计日志（谁在何时改了什么）属于 Orange Cloud Pro。")
+        case .emailRouting:   String(localized: "管理域名的邮件路由规则与目的地址属于 Orange Cloud Pro。")
+        case .rateLimit:      String(localized: "查看与管理限速规则属于 Orange Cloud Pro。")
+        case .zeroTrust:      String(localized: "查看 Zero Trust Access 应用与 Gateway 策略属于 Orange Cloud Pro。")
         }
     }
 
@@ -70,6 +79,10 @@ nonisolated enum ProFeature: String, Identifiable, Sendable {
         case .pages:          "doc.richtext"
         case .loadBalancing:  "arrow.left.arrow.right"
         case .bulkRedirects:  "arrowshape.turn.up.right"
+        case .auditLog:       "clock.arrow.circlepath"
+        case .emailRouting:   "envelope"
+        case .rateLimit:      "gauge.with.dots.needle.bottom.50percent"
+        case .zeroTrust:      "lock.shield"
         }
     }
 }
