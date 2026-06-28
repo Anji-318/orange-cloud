@@ -18,22 +18,21 @@ struct PagesService {
 
     // MARK: - 项目
 
+    /// 项目列表（CF Pages 列表端点只认 `page`：传 `per_page` 会被拒——
+    /// “Invalid list options provided”，故用服务端默认页大小逐页取，靠 total_pages 收尾）
     func listProjects(accountId: String) async throws -> [PagesProject] {
         var all: [PagesProject] = []
         var page = 1
         while true {
             let response: CFAPIResponseArray<PagesProject> = try await client.get(
                 "accounts/\(accountId)/pages/projects",
-                queryItems: [
-                    URLQueryItem(name: "page",     value: String(page)),
-                    URLQueryItem(name: "per_page", value: "50"),
-                ]
+                queryItems: [URLQueryItem(name: "page", value: String(page))]
             )
             guard response.success else { throw response.toAPIError() }
             let pageItems = response.result ?? []
             all.append(contentsOf: pageItems)
             let totalPages = response.resultInfo?.totalPages ?? 1
-            guard page < totalPages, !pageItems.isEmpty else { break }
+            guard page < totalPages, !pageItems.isEmpty, page < 20 else { break }
             page += 1
         }
         return all
@@ -79,23 +78,21 @@ struct PagesService {
 
     // MARK: - 部署
 
-    /// 部署列表（CF Pages 默认每页 25，须翻页，否则活跃项目的旧部署 / 回滚目标取不到）
+    /// 部署列表（CF Pages 默认每页 25，须翻页，否则活跃项目的旧部署 / 回滚目标取不到）。
+    /// 同 listProjects：只传 `page`，`per_page` 会被端点拒。
     func listDeployments(accountId: String, projectName: String) async throws -> [PagesDeployment] {
         var all: [PagesDeployment] = []
         var page = 1
         while true {
             let response: CFAPIResponseArray<PagesDeployment> = try await client.get(
                 "accounts/\(accountId)/pages/projects/\(projectName)/deployments",
-                queryItems: [
-                    URLQueryItem(name: "page",     value: String(page)),
-                    URLQueryItem(name: "per_page", value: "25"),
-                ]
+                queryItems: [URLQueryItem(name: "page", value: String(page))]
             )
             guard response.success else { throw response.toAPIError() }
             let pageItems = response.result ?? []
             all.append(contentsOf: pageItems)
             let totalPages = response.resultInfo?.totalPages ?? 1
-            // 安全上限：避免极端情况下无限翻页（活跃项目部署可能很多，取近 10 页≈250 条足够）
+            // 安全上限：避免极端情况下无限翻页（默认每页 25，取近 10 页≈250 条足够）
             guard page < totalPages, !pageItems.isEmpty, page < 10 else { break }
             page += 1
         }

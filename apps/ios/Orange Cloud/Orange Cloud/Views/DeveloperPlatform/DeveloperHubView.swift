@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct DeveloperHubView: View {
 
@@ -15,18 +16,19 @@ struct DeveloperHubView: View {
     var body: some View {
         NavigationStack {
             List {
+                // List 内由系统提供 NavigationLink chevron，勿再传 showsChevron（否则双箭头）。
                 Section("计算") {
-                    // Workers 免费（按 scope 门控，不走 Pro）
-                    PermissionGatedNavigationLink(
+                    // Workers 免费（按 scope 门控，不走 Pro）。
+                    // 用值式导航：Workers 列表点击行还要继续 push 到详情，必须走单一宿主栈 +
+                    // 栈根 navdest（见下方 .navigationDestination），eager 形态的目的页内部 push 会失灵/错乱。
+                    PermissionGatedValueLink(
                         label: "Workers", systemImage: "bolt.fill",
-                        requiredScope: "workers-scripts.read", showsChevron: true
-                    ) {
-                        WorkerListView(session: session)
-                            .id(session.selectedAccount?.id)
-                    }
+                        requiredScope: "workers-scripts.read",
+                        value: DevHubRoute.workers
+                    )
                     ProGatedNavigationLink(
                         label: "Cloudflare Pages", systemImage: "doc.richtext",
-                        requiredScope: "page.read", feature: .pages, showsChevron: true
+                        requiredScope: "page.read", feature: .pages
                     ) { PagesProjectListView(session: session) }
                 }
                 .glassRow()
@@ -34,15 +36,15 @@ struct DeveloperHubView: View {
                 Section("数据与消息") {
                     ProGatedNavigationLink(
                         label: "Queues", systemImage: "tray.2",
-                        requiredScope: "queues.read", feature: .queues, showsChevron: true
+                        requiredScope: "queues.read", feature: .queues
                     ) { QueuesView(session: session) }
                     ProGatedNavigationLink(
                         label: "Durable Objects", systemImage: "cube.transparent",
-                        requiredScope: "workers-scripts.read", feature: .durableObjects, showsChevron: true
+                        requiredScope: "workers-scripts.read", feature: .durableObjects
                     ) { DurableObjectsView(session: session) }
                     ProGatedNavigationLink(
                         label: "Hyperdrive", systemImage: "bolt.horizontal.circle",
-                        requiredScope: "query-cache.read", feature: .hyperdrive, showsChevron: true
+                        requiredScope: "query-cache.read", feature: .hyperdrive
                     ) { HyperdriveView(session: session) }
                 }
                 .glassRow()
@@ -50,11 +52,11 @@ struct DeveloperHubView: View {
                 Section("AI") {
                     ProGatedNavigationLink(
                         label: "Workers AI", systemImage: "brain",
-                        requiredScope: "ai.read", feature: .workersAI, showsChevron: true
+                        requiredScope: "ai.read", feature: .workersAI
                     ) { WorkersAIView(session: session) }
                     ProGatedNavigationLink(
                         label: "AI Gateway", systemImage: "brain.head.profile",
-                        requiredScope: "aig.read", feature: .aiGateway, showsChevron: true
+                        requiredScope: "aig.read", feature: .aiGateway
                     ) { AIGatewayView(session: session) }
                 }
                 .glassRow()
@@ -63,6 +65,21 @@ struct DeveloperHubView: View {
             .background { SkyBackground() }
             .navigationTitle("开发者平台")
             .navigationBarTitleDisplayMode(.inline)
+            // Workers 列表与其详情都挂在宿主栈根：列表入口走 DevHubRoute、行点击走 CachedWorkerScript，
+            // 单一栈、不嵌套，逐级 push 正常（详见 WorkerListView 注释）。
+            .navigationDestination(for: DevHubRoute.self) { route in
+                switch route {
+                case .workers: WorkerListView(session: session)
+                }
+            }
+            .navigationDestination(for: CachedWorkerScript.self) { script in
+                WorkerDetailView(script: script, session: session)
+            }
         }
     }
+}
+
+/// 开发者平台里「目的页自身还要继续 push」的入口路由（走宿主栈根 navdest）
+enum DevHubRoute: Hashable {
+    case workers
 }
