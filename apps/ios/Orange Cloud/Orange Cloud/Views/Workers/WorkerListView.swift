@@ -23,7 +23,6 @@ struct WorkerListView: View {
     @State private var showTailDenied = false
     @State private var showCreate = false
     @State private var createDenied = false
-    @Namespace private var namespace
 
     private var canWrite: Bool { auth.hasScope("workers-scripts.write") }
 
@@ -45,6 +44,11 @@ struct WorkerListView: View {
     }
 
     var body: some View {
+        // 复用宿主（开发者平台 / 旧 Tab）的单一 NavigationStack，本视图不自带 stack：
+        //  · 自带 stack → 嵌套栈，点击行进详情会回弹到上级（开发者 Tab）；
+        //  · 在「被 push 的子视图」上挂 .navigationDestination 又会失灵（导航栏切了、内容不切）。
+        // 故详情走「行内 NavigationLink(destination:)」直接 push 进宿主栈，实时日志改用 .sheet，均不依赖 .navigationDestination。
+        // iOS 17 整页卡死 / iOS 26 秒级卡顿的根因是宿主 eager 急切构造本页，已在 PermissionGatedNavigationLink 用 LazyView 解决。
         Group {
             Group {
                 if cachedScripts.isEmpty && viewModel.isLoading {
@@ -60,12 +64,10 @@ struct WorkerListView: View {
             .background { SkyBackground() }
             .navigationTitle("Workers")
             .searchable(text: $searchText, prompt: "搜索脚本")
-            .navigationDestination(for: CachedWorkerScript.self) { script in
-                WorkerDetailView(script: script, session: session)
-                    .zoomNavigationTransition(sourceID: script.key, in: namespace)
-            }
-            .navigationDestination(item: $tailTarget) { script in
-                WorkerTailView(accountId: script.accountId, scriptName: script.id, session: session)
+            .sheet(item: $tailTarget) { script in
+                NavigationStack {
+                    WorkerTailView(accountId: script.accountId, scriptName: script.id, session: session)
+                }
             }
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
@@ -110,7 +112,6 @@ struct WorkerListView: View {
                     NavigationLink(value: script) {
                         WorkerRow(script: script)
                     }
-                    .zoomTransitionSource(id: script.key, in: namespace)
                     .swipeActions(edge: .trailing) {
                         Button {
                             if auth.hasScope("workers-tail.read") {
