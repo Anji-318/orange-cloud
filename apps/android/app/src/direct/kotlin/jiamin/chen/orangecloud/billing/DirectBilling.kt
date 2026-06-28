@@ -164,9 +164,9 @@ class DirectBillingGateway @Inject constructor(
     private fun normalize(code: String) = code.trim().uppercase()
 
     companion object {
-        private const val BUY_URL = "https://orange-cloud.chatiro.app/zh-Hans/buy"
-        private const val REDEEM_URL = "https://orange-cloud.chatiro.app/api/redeem"
-        private const val DEACTIVATE_URL = "https://orange-cloud.chatiro.app/api/deactivate"
+        private const val BUY_URL = "https://o-c.do/zh-Hans/buy"
+        private const val REDEEM_URL = "https://o-c.do/api/redeem"
+        private const val DEACTIVATE_URL = "https://o-c.do/api/deactivate"
         private val KEY_INSTALL = stringPreferencesKey("install_id")
         private val KEY_CODE = stringPreferencesKey("code")
         private val KEY_PRO = booleanPreferencesKey("pro")
