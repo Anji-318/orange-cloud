@@ -62,6 +62,18 @@
                 android:resource="@xml/file_paths" />
         </provider>
 
+        <!-- R2 接入系统「文件」App（SAF DocumentsProvider，只读浏览/打开 R2 对象） -->
+        <provider
+            android:name=".core.system.R2DocumentsProvider"
+            android:authorities="${applicationId}.r2documents"
+            android:exported="true"
+            android:grantUriPermissions="true"
+            android:permission="android.permission.MANAGE_DOCUMENTS">
+            <intent-filter>
+                <action android:name="android.content.action.DOCUMENTS_PROVIDER" />
+            </intent-filter>
+        </provider>
+
         <!-- 下拉快设磁贴（QS Tile，v1 特性）：点击直达概览 -->
         <service
             android:name=".core.system.AccountTileService"
