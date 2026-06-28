@@ -1,6 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- ⚠️ 自动生成 —— 请勿手改。改 packages/changelog/android.json 后运行 `pnpm changelog:gen`。 -->
 <resources>
+    <string name="whatsnew_1_4_0_title">Nouvelle plateforme développeur</string>
+    <string name="whatsnew_1_4_0_detail">Workers rejoint Workers AI, AI Gateway, Queues, Hyperdrive, Durable Objects et Pages dans un hub unique.</string>
+    <string name="whatsnew_1_4_1_title">Cache Rules, limitation de débit &amp; routage e-mail</string>
+    <string name="whatsnew_1_4_1_detail">Les zones gagnent Cache Rules et des règles de limitation de débit, ainsi que le routage e-mail avec règles de transfert et adresses de destination.</string>
+    <string name="whatsnew_1_4_2_title">Répartition de charge, Zero Trust &amp; redirections groupées</string>
+    <string name="whatsnew_1_4_2_detail">Nouveaux répartiteurs de charge (avec santé des pools), Zero Trust (apps Access et bascule des règles Gateway), et listes et éléments de redirections groupées.</string>
+    <string name="whatsnew_1_4_3_title">Assistant IA &amp; WAF visuel</string>
+    <string name="whatsnew_1_4_3_detail">Nouvel assistant IA propulsé par Workers AI ; les règles WAF se construisent visuellement ou se génèrent en langage naturel.</string>
+    <string name="whatsnew_1_4_4_title">R2 dans Fichiers, carte du trafic &amp; journal d’audit</string>
+    <string name="whatsnew_1_4_4_detail">Parcourez et ouvrez les objets R2 dans l’app Fichiers ; les analyses ajoutent le trafic par pays ; les Réglages ajoutent un journal d’audit ; Pages affiche les déploiements avec relance ou rollback en un geste.</string>
     <string name="whatsnew_1_3_0_title">Suite de sécurité du domaine</string>
     <string name="whatsnew_1_3_0_detail">Nouveaux modes de chiffrement SSL/TLS et certificats edge, bascule Universal SSL, Transform Rules, règles d’accès IP, ainsi que HTTP/2·HTTP/3·Brotli et d’autres contrôles de performance et de cache.</string>
     <string name="whatsnew_1_3_1_title">Améliorations R2 &amp; purge par URL</string>

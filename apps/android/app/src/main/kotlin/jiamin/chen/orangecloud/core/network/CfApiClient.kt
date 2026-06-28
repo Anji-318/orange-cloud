@@ -66,6 +66,45 @@ class CfApiClient @Inject constructor(
         executeRaw("DELETE", path, emptyList(), null, JSON_MEDIA_TYPE)
     }
 
+    /** 任意方法 + JSON body 并解码 result（Bulk Redirects 的 DELETE 带 body 等）。 */
+    suspend inline fun <reified T, reified B> requestJson(method: String, path: String, body: B): T {
+        val payload = json.encodeToString(serializer<B>(), body).encodeToByteArray()
+        return decodeResult(executeRaw(method, path, emptyList(), payload, JSON_MEDIA_TYPE), serializer<T>())
+    }
+
+    /** 用外部 bearer（Pages 直接上传的短期 JWT）发 JSON 请求，返回原始字节。资源端点用此 JWT 鉴权。 */
+    suspend fun bearerJson(method: String, path: String, bearer: String, body: ByteArray): ByteArray {
+        val request = Request.Builder()
+            .url("$BASE_URL/$path".toHttpUrl())
+            .header("Authorization", "Bearer $bearer")
+            .method(method, body.toRequestBody(JSON_MEDIA_TYPE.toMediaTypeOrNull()))
+            .build()
+        val (code, bytes) = try {
+            withContext(Dispatchers.IO) {
+                httpClient.newCall(request).execute().use { resp ->
+                    resp.code to (resp.body?.bytes() ?: ByteArray(0))
+                }
+            }
+        } catch (e: IOException) {
+            throw ApiError.Network(e)
+        }
+        if (code !in 200..299) {
+            val cfErrors = runCatching {
+                json.decodeFromString(CfEnvelope.serializer(JsonElement.serializer()), bytes.decodeToString()).errors
+            }.getOrNull().orEmpty()
+            if (cfErrors.isNotEmpty()) throw ApiError.Cloudflare(cfErrors.map { ApiError.CfError(it.code, it.message) })
+            throw ApiError.Http(code)
+        }
+        return bytes
+    }
+
+    /** POST multipart 表单字段（Pages 创建部署带 manifest 字段），走 OAuth 鉴权，解码 result。 */
+    suspend inline fun <reified T> postMultipart(path: String, fields: Map<String, String>): T {
+        val boundary = "OrangeCloud-${UUID.randomUUID()}"
+        val bytes = executeRaw("POST", path, emptyList(), buildMultipartBody(boundary, fields), "multipart/form-data; boundary=$boundary")
+        return decodeResult(bytes, serializer<T>())
+    }
+
     /** JSON POST，只校验 success（写端点 result 可能为 null，如切换子域）。 */
     suspend inline fun <reified B> postChecked(path: String, body: B) {
         val payload = json.encodeToString(serializer<B>(), body).encodeToByteArray()

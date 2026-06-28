@@ -32,6 +32,7 @@ import androidx.compose.material.icons.outlined.AutoAwesome
 import androidx.compose.material.icons.outlined.Code
 import androidx.compose.material.icons.outlined.Description
 import androidx.compose.material.icons.outlined.Email
+import androidx.compose.material.icons.outlined.History
 import androidx.compose.material.icons.outlined.Info
 import androidx.compose.material.icons.outlined.MonitorHeart
 import androidx.compose.material.icons.outlined.Notifications
@@ -81,6 +82,7 @@ fun SettingsScreen(
     onOpenIdentity: (String) -> Unit = {},
     onAddAccount: () -> Unit = {},
     onOpenPaywall: () -> Unit = {},
+    onOpenAudit: () -> Unit = {},
     viewModel: SettingsViewModel = hiltViewModel(),
 ) {
     val state by viewModel.uiState.collectAsStateWithLifecycle()
@@ -242,6 +244,8 @@ fun SettingsScreen(
             // ── 服务状态 ──
             SettingsSection(stringResource(R.string.settings_service), stringResource(R.string.settings_service_footer)) {
                 NavRow(Icons.Outlined.MonitorHeart, OcSuccess, stringResource(R.string.status_title), onOpenStatus)
+                RowDivider(indent = true)
+                NavRow(Icons.Outlined.History, Color(0xFF8B6CC7), stringResource(R.string.audit_title), onOpenAudit)
             }
 
             // ── 帮助与反馈 ──

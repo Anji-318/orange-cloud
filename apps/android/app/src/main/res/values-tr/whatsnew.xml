@@ -1,6 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- ⚠️ 自动生成 —— 请勿手改。改 packages/changelog/android.json 后运行 `pnpm changelog:gen`。 -->
 <resources>
+    <string name="whatsnew_1_4_0_title">Yeni Geliştirici Platformu</string>
+    <string name="whatsnew_1_4_0_detail">Workers artık Workers AI, AI Gateway, Kuyruklar, Hyperdrive, Durable Objects ve Pages ile tek bir merkezde.</string>
+    <string name="whatsnew_1_4_1_title">Önbellek Kuralları, Hız Sınırlama ve E-posta Yönlendirme</string>
+    <string name="whatsnew_1_4_1_detail">Bölgelere Cache Rules ve hız sınırlama kuralları ile yönlendirme kuralları ve hedef adresleri içeren E-posta Yönlendirme eklendi.</string>
+    <string name="whatsnew_1_4_2_title">Yük Dengeleme, Zero Trust ve Toplu Yönlendirmeler</string>
+    <string name="whatsnew_1_4_2_detail">Yeni yük dengeleyiciler (havuz sağlığıyla), Zero Trust (Access uygulamaları ve Gateway kuralı aç/kapama) ve toplu yönlendirme listeleri ile öğeleri.</string>
+    <string name="whatsnew_1_4_3_title">Yapay zeka asistanı ve görsel WAF</string>
+    <string name="whatsnew_1_4_3_detail">Workers AI destekli yeni yapay zeka asistanı; WAF kuralları görsel olarak oluşturulabilir veya doğal dilden üretilebilir.</string>
+    <string name="whatsnew_1_4_4_title">Dosyalar’da R2, trafik haritası ve denetim günlüğü</string>
+    <string name="whatsnew_1_4_4_detail">R2 nesnelerini Dosyalar uygulamasında gözatıp açın; analizlere ülkeye göre trafik, Ayarlar’a hesap denetim günlüğü eklendi; Pages dağıtımları tek dokunuşla yeniden deneme veya geri almayla gösterir.</string>
     <string name="whatsnew_1_3_0_title">Alan adı güvenlik paketi</string>
     <string name="whatsnew_1_3_0_detail">Yeni SSL/TLS şifreleme modları ve uç sertifikalar, Universal SSL anahtarı, Transform Rules, IP erişim kuralları ve ayrıca HTTP/2·HTTP/3·Brotli ile diğer performans ve önbellek denetimleri.</string>
     <string name="whatsnew_1_3_1_title">R2 yükseltmesi ve URL’ye göre temizleme</string>
