@@ -143712,6 +143712,158 @@
           }
         }
       }
+    },
+    "规则中心" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "مركز القواعد"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Regelzentrum"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rules Hub"
+          }
+        },
+        "es-MX" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Centro de reglas"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Centre de règles"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ルールセンター"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "규칙 센터"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Central de regras"
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Centro de regras"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kural Merkezi"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "規則中心"
+          }
+        },
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "規則中心"
+          }
+        }
+      }
+    },
+    "单条重定向、源站、配置、压缩、自定义错误与 Page Rules" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "إعادة التوجيه الفردية والمصدر والتكوين والضغط والأخطاء المخصصة وPage Rules"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Single Redirects, Origin-, Konfigurations-, Komprimierungs-, Custom-Error- und Page Rules"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Single Redirects, Origin, Configuration, Compression, Custom Error, and Page Rules"
+          }
+        },
+        "es-MX" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Single Redirects, reglas de origen, configuración, compresión, errores personalizados y Page Rules"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Single Redirects, règles d'origine, de configuration, de compression, d'erreurs personnalisées et Page Rules"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "単一リダイレクト、オリジン、構成、圧縮、カスタムエラー、Page Rules"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "단일 리디렉션, 오리진, 구성, 압축, 사용자 지정 오류 및 Page Rules"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Single Redirects, regras de origem, configuração, compressão, erros personalizados e Page Rules"
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Single Redirects, regras de origem, configuração, compressão, erros personalizados e Page Rules"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tekli Yönlendirmeler, Kaynak, Yapılandırma, Sıkıştırma, Özel Hata ve Page Rules"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "單條重新導向、來源、設定、壓縮、自訂錯誤與 Page Rules"
+          }
+        },
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "單條重新導向、源站、設定、壓縮、自訂錯誤同 Page Rules"
+          }
+        }
+      }
     }
   },
   "version" : "1.0"
