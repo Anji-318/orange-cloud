@@ -143864,6 +143864,386 @@
           }
         }
       }
+    },
+    "已加载 %lld 行，请在查询控制台用 WHERE 条件继续筛选" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "تم تحميل %lld صفوف، يُرجى المتابعة بالتصفية بشرط WHERE في وحدة الاستعلام"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld Zeilen geladen. In der Abfragekonsole mit einer WHERE-Bedingung weiter eingrenzen."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Loaded %lld rows. Use a WHERE clause in the query console to narrow down."
+          }
+        },
+        "es-MX" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Se cargaron %lld filas. Usa una condición WHERE en la consola de consultas para filtrar."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld lignes chargées. Affinez avec une condition WHERE dans la console de requête."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld 行を読み込みました。クエリコンソールで WHERE 条件を使って絞り込んでください"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld개 행을 불러왔습니다. 쿼리 콘솔에서 WHERE 조건으로 계속 필터링하세요."
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld linhas carregadas. Use uma condição WHERE no console de consultas para filtrar."
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Foram carregadas %lld linhas. Use uma condição WHERE na consola de consultas para filtrar."
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld satır yüklendi. Sorgu konsolunda WHERE koşuluyla daraltmaya devam edin."
+          }
+        },
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "已載入 %lld 行，請在查詢主控台用 WHERE 條件繼續篩選"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "已載入 %lld 列，請在查詢主控台用 WHERE 條件繼續篩選"
+          }
+        }
+      }
+    },
+    "字段过大（%lld 字符），请在查询控制台修改" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "الحقل كبير جدًا (%lld حرفًا)، يُرجى تعديله في وحدة الاستعلام"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Feld zu groß (%lld Zeichen). Bitte in der Abfragekonsole bearbeiten."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Field too large (%lld characters). Edit it in the query console."
+          }
+        },
+        "es-MX" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "El campo es demasiado grande (%lld caracteres). Edítalo en la consola de consultas."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Champ trop volumineux (%lld caractères). Modifiez-le dans la console de requête."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "フィールドが大きすぎます（%lld 文字）。クエリコンソールで編集してください"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "필드가 너무 큽니다(%lld자). 쿼리 콘솔에서 수정하세요."
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Campo muito grande (%lld caracteres). Edite no console de consultas."
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Campo demasiado grande (%lld caracteres). Edite na consola de consultas."
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alan çok büyük (%lld karakter). Sorgu konsolunda düzenleyin."
+          }
+        },
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "欄位過大（%lld 字符），請在查詢主控台修改"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "欄位過大（%lld 字元），請在查詢主控台修改"
+          }
+        }
+      }
+    },
+    "查询未带 LIMIT" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "الاستعلام بدون LIMIT"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Abfrage ohne LIMIT"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Query Has No LIMIT"
+          }
+        },
+        "es-MX" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "La consulta no tiene LIMIT"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Requête sans LIMIT"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "LIMIT のないクエリ"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "LIMIT 없는 쿼리"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A consulta não tem LIMIT"
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A consulta não tem LIMIT"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sorguda LIMIT yok"
+          }
+        },
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "查詢未帶 LIMIT"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "查詢未帶 LIMIT"
+          }
+        }
+      }
+    },
+    "仍要执行" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "التنفيذ على أي حال"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Trotzdem ausführen"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Run Anyway"
+          }
+        },
+        "es-MX" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ejecutar de todos modos"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Exécuter quand même"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "そのまま実行"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "그래도 실행"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Executar mesmo assim"
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Executar mesmo assim"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Yine de çalıştır"
+          }
+        },
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "仍要執行"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "仍要執行"
+          }
+        }
+      }
+    },
+    "大表可能返回大量行，造成等待和内存占用。建议加 LIMIT 后执行。" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "قد تُرجع الجداول الكبيرة عددًا كبيرًا من الصفوف، مما يسبب الانتظار واستهلاك الذاكرة. يُنصح بإضافة LIMIT قبل التنفيذ."
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Große Tabellen können sehr viele Zeilen zurückgeben und so Wartezeiten und hohen Speicherverbrauch verursachen. Empfohlen: mit LIMIT ausführen."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Large tables may return a huge number of rows, causing long waits and high memory use. Adding a LIMIT is recommended."
+          }
+        },
+        "es-MX" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Las tablas grandes pueden devolver muchas filas, lo que causa esperas y alto uso de memoria. Se recomienda agregar LIMIT antes de ejecutar."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Les grandes tables peuvent renvoyer un très grand nombre de lignes, entraînant attente et forte consommation de mémoire. Il est conseillé d'ajouter LIMIT avant d'exécuter."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "大きなテーブルでは大量の行が返され、待ち時間やメモリ消費の原因になります。LIMIT を付けて実行することをおすすめします。"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "큰 테이블은 많은 행을 반환해 대기 시간과 메모리 사용이 늘어날 수 있습니다. LIMIT를 추가한 뒤 실행하는 것을 권장합니다."
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tabelas grandes podem retornar muitas linhas, causando espera e alto uso de memória. Recomenda-se adicionar LIMIT antes de executar."
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tabelas grandes podem devolver muitas linhas, causando espera e utilização elevada de memória. Recomenda-se adicionar LIMIT antes de executar."
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Büyük tablolar çok sayıda satır döndürerek bekleme ve yüksek bellek kullanımına yol açabilir. LIMIT ekleyip çalıştırmanız önerilir."
+          }
+        },
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "大表可能返回大量行，造成等待和記憶體佔用。建議加 LIMIT 後執行。"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "大型資料表可能回傳大量列，造成等待與記憶體佔用。建議加上 LIMIT 後執行。"
+          }
+        }
+      }
     }
   },
   "version" : "1.0"
