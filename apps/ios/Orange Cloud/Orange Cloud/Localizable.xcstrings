@@ -145690,6 +145690,158 @@
           }
         }
       }
+    },
+    "更新代码需要 Pro" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Updating code requires Pro"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "更新程式碼需要 Pro"
+          }
+        },
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "更新代碼需要 Pro"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "コードの更新には Pro が必要"
+          }
+        },
+        "es-MX" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Actualizar el código requiere Pro"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "코드 업데이트에는 Pro 필요"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Atualizar o código requer Pro"
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Atualizar o código requer Pro"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Code-Aktualisierung erfordert Pro"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mettre à jour le code nécessite Pro"
+          }
+        },
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "تحديث الشيفرة يتطلب Pro"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kodu güncellemek için Pro gerekir"
+          }
+        }
+      }
+    },
+    "在 App 内更新 Workers 代码（上传新版本、从 .js 文件导入后重新部署）属于 Orange Cloud Pro。" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Updating Workers code in the app (upload a new version, import from a .js file and redeploy) is part of Orange Cloud Pro."
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "在 App 內更新 Workers 程式碼（上傳新版本、從 .js 檔案匯入後重新部署）屬於 Orange Cloud Pro。"
+          }
+        },
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "在 App 內更新 Workers 代碼（上傳新版本、從 .js 檔案匯入後重新部署）屬於 Orange Cloud Pro。"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "アプリ内で Workers のコードを更新（新バージョンのアップロード、.js ファイルからの読み込みと再デプロイ）するのは Orange Cloud Pro の機能です。"
+          }
+        },
+        "es-MX" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Actualizar el código de Workers en la app (subir una versión nueva, importar desde un archivo .js y volver a desplegar) es parte de Orange Cloud Pro."
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "앱에서 Workers 코드를 업데이트(새 버전 업로드, .js 파일에서 가져와 다시 배포)하는 기능은 Orange Cloud Pro에 포함됩니다."
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Atualizar o código do Workers no app (enviar uma nova versão, importar de um arquivo .js e reimplantar) faz parte do Orange Cloud Pro."
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Atualizar o código do Workers na app (enviar uma nova versão, importar de um ficheiro .js e reimplantar) faz parte do Orange Cloud Pro."
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Das Aktualisieren von Workers-Code in der App (neue Version hochladen, aus einer .js-Datei importieren und neu bereitstellen) ist Teil von Orange Cloud Pro."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mettre à jour le code des Workers dans l’app (téléverser une nouvelle version, importer depuis un fichier .js puis redéployer) fait partie d’Orange Cloud Pro."
+          }
+        },
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "تحديث شيفرة Workers داخل التطبيق (رفع نسخة جديدة، الاستيراد من ملف ‎.js‎ وإعادة النشر) جزء من Orange Cloud Pro."
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Workers kodunu uygulama içinde güncellemek (yeni sürüm yükleme, bir .js dosyasından içe aktarıp yeniden dağıtma) Orange Cloud Pro kapsamındadır."
+          }
+        }
+      }
     }
   },
   "version" : "1.0"
