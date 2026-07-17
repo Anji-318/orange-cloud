@@ -84,6 +84,9 @@ fun WorkerDetailScreen(
     onOpenDomains: () -> Unit = {},
     onOpenDeployments: () -> Unit = {},
     onEditCode: () -> Unit = {},
+    // 查看免费；写操作（编辑/删除）门控 Pro：编辑走路由 ProGate，删除在此按 isPro 拦（非 Pro → onShowPaywall）
+    isPro: Boolean = true,
+    onShowPaywall: () -> Unit = {},
     viewModel: WorkerDetailViewModel = hiltViewModel(),
 ) {
     val worker by viewModel.worker.collectAsStateWithLifecycle()
@@ -233,7 +236,7 @@ fun WorkerDetailScreen(
 
                 if (viewModel.canWrite) {
                     androidx.compose.material3.OutlinedButton(
-                        onClick = { showDelete = true },
+                        onClick = { if (isPro) showDelete = true else onShowPaywall() },
                         colors = ButtonDefaults.outlinedButtonColors(contentColor = Color(0xFFE5484D)),
                         modifier = Modifier.fillMaxWidth(),
                     ) {

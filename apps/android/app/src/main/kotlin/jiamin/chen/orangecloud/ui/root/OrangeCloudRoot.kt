@@ -624,19 +624,25 @@ private fun MainScaffold(onOpenToolbox: () -> Unit) {
                 )
             }
             composable(Dest.WORKER_CREATE) {
-                WorkerCreateScreen(
-                    onBack = { navController.popBackStack() },
-                    onCreated = { navController.popBackStack() },
-                )
+                // 新建 Worker 进 Pro（查看免费）
+                ProGate {
+                    WorkerCreateScreen(
+                        onBack = { navController.popBackStack() },
+                        onCreated = { navController.popBackStack() },
+                    )
+                }
             }
             composable(
                 route = Dest.WORKER_EDIT_ROUTE,
                 arguments = listOf(navArgument("editScript") { type = NavType.StringType }),
             ) {
-                WorkerCreateScreen(
-                    onBack = { navController.popBackStack() },
-                    onCreated = { navController.popBackStack() },
-                )
+                // 编辑代码进 Pro（查看免费）
+                ProGate {
+                    WorkerCreateScreen(
+                        onBack = { navController.popBackStack() },
+                        onCreated = { navController.popBackStack() },
+                    )
+                }
             }
             composable(Dest.DEV_WORKERS_AI) {
                 ProGate {
@@ -684,6 +690,9 @@ private fun MainScaffold(onOpenToolbox: () -> Unit) {
                     onOpenDomains = { navController.navigate(Dest.workerDomains(scriptName)) },
                     onOpenDeployments = { navController.navigate(Dest.workerDeployments(scriptName)) },
                     onEditCode = { navController.navigate(Dest.workerEdit(scriptName)) },
+                    // 查看详情免费；删除按 isPro 拦到付费墙（编辑/新建走各自路由的 ProGate）
+                    isPro = isPro,
+                    onShowPaywall = { navController.navigate(Dest.PAYWALL) },
                 )
             }
             composable(
