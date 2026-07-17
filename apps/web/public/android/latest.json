@@ -1,7 +1,7 @@
 {
-  "versionCode": 12,
-  "versionName": "1.6.3",
+  "versionCode": 13,
+  "versionName": "1.6.4",
   "minVersionCode": 1,
   "url": "https://o-c.do/orange-cloud.apk",
-  "note": "本次更新：WAF 自定义规则支持编辑（点按规则即可修改）。以及若干稳定性改进。"
+  "note": "本次更新：账号用量总览（Workers/R2/D1/KV 用量与额度），Worker 部署历史与删除，存储管理增强（KV/R2 创建删除、D1 删表、Pages 部署删除）。"
 }
