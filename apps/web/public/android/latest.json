@@ -1,7 +1,7 @@
 {
-  "versionCode": 15,
+  "versionCode": 16,
   "versionName": "1.6.4",
   "minVersionCode": 1,
   "url": "https://o-c.do/orange-cloud.apk",
-  "note": "Worker 的新建、编辑与删除现为 Pro 会员功能；浏览与查看仍免费。"
+  "note": "Worker 新建/编辑/删除已归入 Pro 会员；浏览查看仍免费。若账号用量模块未显示数据，请重新登录一次以刷新权限。"
 }
