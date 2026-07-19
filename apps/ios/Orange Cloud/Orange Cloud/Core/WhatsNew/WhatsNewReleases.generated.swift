@@ -10,7 +10,7 @@ import Foundation
 
 nonisolated enum WhatsNewGenerated {
     static let releases: [WhatsNewRelease] = [
-        WhatsNewRelease(version: "1.8.6", items: [
+        WhatsNewRelease(version: "1.8.7", items: [
             WhatsNewItem(
                 icon:   "globe",
                 title:  String(localized: "workers.dev 子域直达", table: "WhatsNew"),
@@ -20,6 +20,11 @@ nonisolated enum WhatsNewGenerated {
                 icon:   "cube.fill",
                 title:  String(localized: "快速绑定 D1 / KV", table: "WhatsNew"),
                 detail: String(localized: "在变量与密钥页直接把现有 D1 数据库或 KV 命名空间绑定到 Worker，也能一键解除。", table: "WhatsNew")
+            ),
+            WhatsNewItem(
+                icon:   "shippingbox.fill",
+                title:  String(localized: "快速绑定 R2 存储桶", table: "WhatsNew"),
+                detail: String(localized: "资源绑定新增 R2：可把现有存储桶直接绑定到 Worker，与 D1 / KV 一样支持一键解除。", table: "WhatsNew")
             )
         ]),
         WhatsNewRelease(version: "1.8.5", items: [
