@@ -1,6 +1,6 @@
 [
   {
-    "version": "1.8.6",
+    "version": "1.8.7",
     "date": "2026.07.18",
     "channel": "App Store",
     "inApp": true,
@@ -69,6 +69,39 @@
           "fr": "Liez une base de données D1 ou un espace de noms KV existant à un Worker depuis la page des liaisons, et dissociez-les tout aussi facilement.",
           "ar": "اربط قاعدة بيانات D1 أو مساحة أسماء KV موجودة بأحد Workers مباشرة من صفحة الروابط، وألغِ الربط بالسهولة نفسها.",
           "tr": "Mevcut bir D1 veritabanını veya KV ad alanını bağlamalar sayfasından doğrudan bir Worker’a bağlayın; bağlantıyı kaldırmak da aynı kolaylıkta."
+        }
+      },
+      {
+        "icon": "shippingbox.fill",
+        "title": {
+          "zh-Hans": "快速绑定 R2 存储桶",
+          "en": "Quickly bind R2 buckets",
+          "zh-Hant": "快速綁定 R2 儲存桶",
+          "zh-HK": "快速綁定 R2 儲存桶",
+          "ja": "R2 バケットをすばやくバインド",
+          "es-MX": "Vincula buckets R2 rápidamente",
+          "ko": "R2 버킷 빠른 바인딩",
+          "pt-BR": "Vincule buckets R2 rapidamente",
+          "pt-PT": "Vincule buckets R2 rapidamente",
+          "de": "R2-Buckets schnell binden",
+          "fr": "Lier rapidement des buckets R2",
+          "ar": "ربط حاويات R2 بسرعة",
+          "tr": "R2 bucket’larını hızlıca bağla"
+        },
+        "detail": {
+          "zh-Hans": "资源绑定新增 R2：可把现有存储桶直接绑定到 Worker，与 D1 / KV 一样支持一键解除。",
+          "en": "Resource bindings now cover R2 — attach an existing bucket to a Worker, and unbind it just like D1 / KV.",
+          "zh-Hant": "資源綁定新增 R2：可把現有儲存桶直接綁定到 Worker，與 D1 / KV 一樣支援一鍵解除。",
+          "zh-HK": "資源綁定新增 R2：可把現有儲存桶直接綁定到 Worker，與 D1 / KV 一樣支援一鍵解除。",
+          "ja": "リソースバインディングに R2 を追加。既存のバケットを Worker にバインドでき、D1 / KV と同様に解除もできます。",
+          "es-MX": "Los vínculos de recursos ahora incluyen R2: conecta un bucket existente a un Worker y desvincúlalo igual que D1 / KV.",
+          "ko": "리소스 바인딩에 R2가 추가되었습니다. 기존 버킷을 Worker에 연결하고 D1 / KV처럼 해제할 수 있습니다.",
+          "pt-BR": "Os vínculos de recursos agora incluem R2: conecte um bucket existente a um Worker e desvincule como em D1 / KV.",
+          "pt-PT": "As ligações de recursos agora incluem R2: ligue um bucket existente a um Worker e desvincule como em D1 / KV.",
+          "de": "Ressourcenbindungen umfassen jetzt R2: Hänge einen vorhandenen Bucket an einen Worker und löse ihn wie bei D1 / KV wieder.",
+          "fr": "Les liaisons de ressources couvrent désormais R2 : rattachez un bucket existant à un Worker et dissociez-le comme D1 / KV.",
+          "ar": "صارت روابط الموارد تشمل R2: اربط حاوية موجودة بأحد Workers وألغِ الربط كما في D1 / KV.",
+          "tr": "Kaynak bağlamaları artık R2’yi de kapsıyor: mevcut bir bucket’ı Worker’a bağlayın, D1 / KV gibi kaldırın."
         }
       }
     ]

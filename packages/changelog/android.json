@@ -1,5 +1,76 @@
 [
   {
+    "version": "1.6.6",
+    "date": "2026.07.18",
+    "channel": "Google Play",
+    "items": [
+      {
+        "title": {
+          "zh-Hans": "快速绑定 R2 存储桶",
+          "en": "Quickly bind R2 buckets",
+          "zh-Hant": "快速綁定 R2 儲存桶",
+          "zh-HK": "快速綁定 R2 儲存桶",
+          "ja": "R2 バケットをすばやくバインド",
+          "es-MX": "Vincula buckets R2 rápidamente",
+          "ko": "R2 버킷 빠른 바인딩",
+          "pt-BR": "Vincule buckets R2 rapidamente",
+          "pt-PT": "Vincule buckets R2 rapidamente",
+          "de": "R2-Buckets schnell binden",
+          "fr": "Lier rapidement des buckets R2",
+          "ar": "ربط حاويات R2 بسرعة",
+          "tr": "R2 bucket’larını hızlıca bağla"
+        },
+        "detail": {
+          "zh-Hans": "资源绑定新增 R2：可把现有存储桶直接绑定到 Worker，与 D1 / KV 一样支持一键解除。",
+          "en": "Resource bindings now cover R2 — attach an existing bucket to a Worker, and unbind it just like D1 / KV.",
+          "zh-Hant": "資源綁定新增 R2：可把現有儲存桶直接綁定到 Worker，與 D1 / KV 一樣支援一鍵解除。",
+          "zh-HK": "資源綁定新增 R2：可把現有儲存桶直接綁定到 Worker，與 D1 / KV 一樣支援一鍵解除。",
+          "ja": "リソースバインディングに R2 を追加。既存のバケットを Worker にバインドでき、D1 / KV と同様に解除もできます。",
+          "es-MX": "Los vínculos de recursos ahora incluyen R2: conecta un bucket existente a un Worker y desvincúlalo igual que D1 / KV.",
+          "ko": "리소스 바인딩에 R2가 추가되었습니다. 기존 버킷을 Worker에 연결하고 D1 / KV처럼 해제할 수 있습니다.",
+          "pt-BR": "Os vínculos de recursos agora incluem R2: conecte um bucket existente a um Worker e desvincule como em D1 / KV.",
+          "pt-PT": "As ligações de recursos agora incluem R2: ligue um bucket existente a um Worker e desvincule como em D1 / KV.",
+          "de": "Ressourcenbindungen umfassen jetzt R2: Hänge einen vorhandenen Bucket an einen Worker und löse ihn wie bei D1 / KV wieder.",
+          "fr": "Les liaisons de ressources couvrent désormais R2 : rattachez un bucket existant à un Worker et dissociez-le comme D1 / KV.",
+          "ar": "صارت روابط الموارد تشمل R2: اربط حاوية موجودة بأحد Workers وألغِ الربط كما في D1 / KV.",
+          "tr": "Kaynak bağlamaları artık R2’yi de kapsıyor: mevcut bir bucket’ı Worker’a bağlayın, D1 / KV gibi kaldırın."
+        }
+      },
+      {
+        "title": {
+          "zh-Hans": "编辑长脚本更流畅",
+          "en": "Smoother editing for long scripts",
+          "zh-Hant": "編輯長腳本更流暢",
+          "zh-HK": "編輯長腳本更流暢",
+          "ja": "長いスクリプトの編集が滑らかに",
+          "es-MX": "Edición más fluida de scripts largos",
+          "ko": "긴 스크립트 편집이 더 부드럽게",
+          "pt-BR": "Edição mais fluida de scripts longos",
+          "pt-PT": "Edição mais fluida de scripts longos",
+          "de": "Flüssigeres Bearbeiten langer Skripte",
+          "fr": "Édition plus fluide des longs scripts",
+          "ar": "تحرير أسلَس للنصوص البرمجية الطويلة",
+          "tr": "Uzun betiklerde daha akıcı düzenleme"
+        },
+        "detail": {
+          "zh-Hans": "重写了 Worker 代码编辑器的输入处理，长脚本打字不再卡顿。",
+          "en": "Rebuilt the Worker code editor’s input handling so typing stays smooth in long scripts.",
+          "zh-Hant": "重寫了 Worker 程式碼編輯器的輸入處理，長腳本打字不再卡頓。",
+          "zh-HK": "重寫了 Worker 程式碼編輯器的輸入處理，長腳本打字不再卡頓。",
+          "ja": "Worker コードエディタの入力処理を作り直し、長いスクリプトでも入力が滑らかになりました。",
+          "es-MX": "Rehicimos el manejo de entrada del editor de código de Worker para que escribir en scripts largos sea fluido.",
+          "ko": "Worker 코드 편집기의 입력 처리를 재구성해 긴 스크립트에서도 입력이 부드럽습니다.",
+          "pt-BR": "Refizemos o tratamento de entrada do editor de código do Worker para digitar sem travar em scripts longos.",
+          "pt-PT": "Refizemos o tratamento de entrada do editor de código do Worker para escrever sem bloqueios em scripts longos.",
+          "de": "Die Eingabeverarbeitung des Worker-Code-Editors wurde neu gebaut, damit das Tippen auch in langen Skripten flüssig bleibt.",
+          "fr": "Le traitement de la saisie de l’éditeur de code Worker a été refait pour rester fluide dans les longs scripts.",
+          "ar": "أُعيد بناء معالجة الإدخال في محرّر شفرة Worker ليبقى الكتابة سلسة في النصوص الطويلة.",
+          "tr": "Worker kod düzenleyicisinin girdi işleyişi yeniden yazıldı; uzun betiklerde yazım akıcı kalıyor."
+        }
+      }
+    ]
+  },
+  {
     "version": "1.6.5",
     "date": "2026.07.18",
     "channel": "Google Play",
