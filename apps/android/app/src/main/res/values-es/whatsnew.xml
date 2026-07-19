@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- ⚠️ 自动生成 —— 请勿手改。改 packages/changelog/android.json 后运行 `pnpm changelog:gen`。 -->
 <resources>
+    <string name="whatsnew_1_6_6_0_title">Vincula buckets R2 rápidamente</string>
+    <string name="whatsnew_1_6_6_0_detail">Los vínculos de recursos ahora incluyen R2: conecta un bucket existente a un Worker y desvincúlalo igual que D1 / KV.</string>
+    <string name="whatsnew_1_6_6_1_title">Edición más fluida de scripts largos</string>
+    <string name="whatsnew_1_6_6_1_detail">Rehicimos el manejo de entrada del editor de código de Worker para que escribir en scripts largos sea fluido.</string>
     <string name="whatsnew_1_6_5_0_title">Acceso directo al subdominio workers.dev</string>
     <string name="whatsnew_1_6_5_0_detail">Cuando el subdominio workers.dev de un Worker está activo, ahora se muestra su URL completa: tócala para abrir.</string>
     <string name="whatsnew_1_6_5_1_title">Vincula D1 / KV rápidamente</string>

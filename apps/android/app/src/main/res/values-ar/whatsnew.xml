@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- ⚠️ 自动生成 —— 请勿手改。改 packages/changelog/android.json 后运行 `pnpm changelog:gen`。 -->
 <resources>
+    <string name="whatsnew_1_6_6_0_title">ربط حاويات R2 بسرعة</string>
+    <string name="whatsnew_1_6_6_0_detail">صارت روابط الموارد تشمل R2: اربط حاوية موجودة بأحد Workers وألغِ الربط كما في D1 / KV.</string>
+    <string name="whatsnew_1_6_6_1_title">تحرير أسلَس للنصوص البرمجية الطويلة</string>
+    <string name="whatsnew_1_6_6_1_detail">أُعيد بناء معالجة الإدخال في محرّر شفرة Worker ليبقى الكتابة سلسة في النصوص الطويلة.</string>
     <string name="whatsnew_1_6_5_0_title">وصول مباشر إلى نطاق workers.dev الفرعي</string>
     <string name="whatsnew_1_6_5_0_detail">عند تفعيل نطاق workers.dev الفرعي لأحد Workers، يظهر عنوانه الكامل الآن — انقر لفتحه.</string>
     <string name="whatsnew_1_6_5_1_title">ربط D1 / KV بسرعة</string>
