@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- ⚠️ 自动生成 —— 请勿手改。改 packages/changelog/android.json 后运行 `pnpm changelog:gen`。 -->
 <resources>
+    <string name="whatsnew_1_6_6_0_title">R2 버킷 빠른 바인딩</string>
+    <string name="whatsnew_1_6_6_0_detail">리소스 바인딩에 R2가 추가되었습니다. 기존 버킷을 Worker에 연결하고 D1 / KV처럼 해제할 수 있습니다.</string>
+    <string name="whatsnew_1_6_6_1_title">긴 스크립트 편집이 더 부드럽게</string>
+    <string name="whatsnew_1_6_6_1_detail">Worker 코드 편집기의 입력 처리를 재구성해 긴 스크립트에서도 입력이 부드럽습니다.</string>
     <string name="whatsnew_1_6_5_0_title">workers.dev 서브도메인 바로 열기</string>
     <string name="whatsnew_1_6_5_0_detail">Worker의 workers.dev 서브도메인을 켜면 전체 주소가 바로 표시되며, 탭하면 열립니다.</string>
     <string name="whatsnew_1_6_5_1_title">D1 / KV 빠른 바인딩</string>
