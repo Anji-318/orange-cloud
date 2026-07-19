@@ -147151,6 +147151,314 @@
           }
         }
       }
+    },
+    "该账号暂无 R2 存储桶": {
+      "extractionState": "manual",
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "لا توجد حاويات R2 في هذا الحساب"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Keine R2-Buckets in diesem Konto"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No R2 buckets in this account"
+          }
+        },
+        "es-MX": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No hay buckets R2 en esta cuenta"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aucun bucket R2 dans ce compte"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "このアカウントに R2 バケットがありません"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "이 계정에 R2 버킷이 없습니다"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nenhum bucket R2 nesta conta"
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nenhum bucket R2 nesta conta"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bu hesapta R2 bucket yok"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "此帳戶尚無 R2 儲存桶"
+          }
+        },
+        "zh-HK": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "此帳戶尚無 R2 儲存桶"
+          }
+        }
+      }
+    },
+    "R2 存储桶": {
+      "extractionState": "manual",
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "حاوية R2"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "R2-Bucket"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "R2 bucket"
+          }
+        },
+        "es-MX": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bucket R2"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bucket R2"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "R2 バケット"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "R2 버킷"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bucket R2"
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bucket R2"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "R2 bucket"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "R2 儲存桶"
+          }
+        },
+        "zh-HK": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "R2 儲存桶"
+          }
+        }
+      }
+    },
+    "绑定 D1 / KV / R2": {
+      "extractionState": "manual",
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ربط D1 / KV / R2"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "D1 / KV / R2 binden"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bind D1 / KV / R2"
+          }
+        },
+        "es-MX": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vincular D1 / KV / R2"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Lier D1 / KV / R2"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "D1 / KV / R2 をバインド"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "D1 / KV / R2 바인딩"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vincular D1 / KV / R2"
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vincular D1 / KV / R2"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "D1 / KV / R2 bağla"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "綁定 D1 / KV / R2"
+          }
+        },
+        "zh-HK": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "綁定 D1 / KV / R2"
+          }
+        }
+      }
+    },
+    "可绑定既有 D1 数据库 / KV 命名空间 / R2 存储桶；队列、Durable Object 等其它资源仍为只读，请用 Wrangler 或 Dashboard。": {
+      "extractionState": "manual",
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "اربط قاعدة بيانات D1 أو مساحة أسماء KV أو حاوية R2 موجودة. تبقى الموارد الأخرى مثل Queues وDurable Objects للقراءة فقط — استخدم Wrangler أو لوحة التحكم."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Binde eine vorhandene D1-Datenbank, einen KV-Namespace oder einen R2-Bucket ein. Andere Ressourcen wie Queues und Durable Objects bleiben schreibgeschützt – nutze Wrangler oder das Dashboard."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bind an existing D1 database, KV namespace or R2 bucket. Other resources like Queues and Durable Objects stay read-only — use Wrangler or the Dashboard."
+          }
+        },
+        "es-MX": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vincula una base de datos D1, un espacio de nombres KV o un bucket R2 existente. Otros recursos como Queues y Durable Objects siguen siendo de solo lectura: usa Wrangler o el Dashboard."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Liez une base de données D1, un espace de noms KV ou un bucket R2 existant. Les autres ressources comme les Queues et Durable Objects restent en lecture seule — utilisez Wrangler ou le Dashboard."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "既存の D1 データベース / KV ネームスペース / R2 バケットをバインドできます。キューや Durable Object など他のリソースは読み取り専用で、Wrangler か Dashboard をご利用ください。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "기존 D1 데이터베이스 / KV 네임스페이스 / R2 버킷을 바인딩합니다. 큐, Durable Object 등 다른 리소스는 읽기 전용이며 Wrangler 또는 Dashboard를 사용하세요."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vincule um banco de dados D1, namespace KV ou bucket R2 existente. Outros recursos como Queues e Durable Objects permanecem somente leitura — use o Wrangler ou o Dashboard."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vincule uma base de dados D1, namespace KV ou bucket R2 existente. Outros recursos como Queues e Durable Objects permanecem só de leitura — use o Wrangler ou o Dashboard."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mevcut bir D1 veritabanını, KV ad alanını veya R2 bucket'ını bağlayın. Queues ve Durable Objects gibi diğer kaynaklar salt okunur kalır — Wrangler veya Dashboard kullanın."
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "可綁定既有 D1 資料庫 / KV 命名空間 / R2 儲存桶；佇列、Durable Object 等其它資源仍為唯讀，請用 Wrangler 或 Dashboard。"
+          }
+        },
+        "zh-HK": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "可綁定既有 D1 資料庫 / KV 命名空間 / R2 儲存桶；佇列、Durable Object 等其它資源仍為唯讀，請用 Wrangler 或 Dashboard。"
+          }
+        }
+      }
     }
   },
   "version": "1.0"
