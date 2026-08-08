@@ -92,6 +92,19 @@ async function getAccessToken(sa: ServiceAccount): Promise<string> {
 	return json.access_token;
 }
 
+/**
+ * 哪些 HTTP 状态值得让 Pub/Sub 重投递。
+ *
+ * 429 / 5xx 是常规瞬时故障。401 / 403（insufficient permissions）也算——Play Console
+ * 里给服务账号加「查看财务数据」/「管理订单和订阅」后，各 API 面的生效时间不同步，
+ * 官方口径最长 24 小时。这个窗口里的真实购买若按「不可重试」处理，就会永久落成一笔
+ * 没有金额的交易；对账本来说，那比重试噪音糟得多。权限一生效，重投递即自动补齐金额；
+ * 真的配错了，也只是在 7 天投递窗口内退避重试后进死信，不会静默丢数据。
+ */
+export function isRetryableStatus(status: number): boolean {
+	return status === 401 || status === 403 || status === 429 || status >= 500;
+}
+
 async function apiGet<T>(sa: ServiceAccount, path: string): Promise<T | null> {
 	const token = await getAccessToken(sa);
 	const res = await fetch(`${API_BASE}/${path}`, {
@@ -100,8 +113,11 @@ async function apiGet<T>(sa: ServiceAccount, path: string): Promise<T | null> {
 	if (res.status === 404 || res.status === 410) return null; // token/订单不存在：不重试
 	if (!res.ok) {
 		const body = await res.text();
-		const retryable = res.status === 429 || res.status >= 500;
-		throw new PlayApiError(`GET ${path} -> ${res.status}: ${body.slice(0, 200)}`, res.status, retryable);
+		throw new PlayApiError(
+			`GET ${path} -> ${res.status}: ${body.slice(0, 200)}`,
+			res.status,
+			isRetryableStatus(res.status),
+		);
 	}
 	return (await res.json()) as T;
 }

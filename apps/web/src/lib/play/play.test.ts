@@ -6,7 +6,7 @@ import { decodeEnvelope, PlayVerifyError, verifyPushRequest, verifyPushToken } f
 import { buildLedgerRows, mapSubscriptionState, notificationTypeName } from "./logic";
 import { buildPlayBarkMessage } from "./notify";
 import { moneyToMillis, type DeveloperNotification, type PlayEnrichment } from "./types";
-import { parseServiceAccount } from "./api";
+import { isRetryableStatus, parseServiceAccount } from "./api";
 
 const PACKAGE = "jiamin.chen.orangecloud";
 const AUDIENCE = "https://o-c.do/api/play/notifications";
@@ -346,6 +346,24 @@ describe("buildPlayBarkMessage", () => {
 			subscription: { ...SUB_ENRICHMENT.subscription, testPurchase: {} },
 		});
 		expect(buildPlayBarkMessage(rows).level).toBe("passive");
+	});
+});
+
+describe("isRetryableStatus", () => {
+	it("401 / 403 算可重试：Play Console 权限最长 24h 才生效，别把真实购买永久记成无金额", () => {
+		expect(isRetryableStatus(401)).toBe(true);
+		expect(isRetryableStatus(403)).toBe(true);
+	});
+
+	it("限流与服务端故障可重试", () => {
+		expect(isRetryableStatus(429)).toBe(true);
+		expect(isRetryableStatus(500)).toBe(true);
+		expect(isRetryableStatus(503)).toBe(true);
+	});
+
+	it("参数错这类不可重试（重投递也修不好）", () => {
+		expect(isRetryableStatus(400)).toBe(false);
+		expect(isRetryableStatus(404)).toBe(false);
 	});
 });
 
