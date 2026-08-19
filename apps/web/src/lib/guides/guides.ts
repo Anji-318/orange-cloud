@@ -43,6 +43,17 @@ export const GUIDES: GuideMeta[] = [
 		updated: "2026-08-19",
 		readingTime: "7 min read",
 	},
+	{
+		slug: "cloudflare-ssl-tls-encryption-modes",
+		h1: "Which Cloudflare SSL/TLS Encryption Mode Should You Use?",
+		title: "Cloudflare SSL Modes: Flexible vs Full vs Full (strict)",
+		description:
+			"Use Full (strict) unless your origin has no valid certificate. Flexible leaves the Cloudflare-to-origin hop unencrypted and causes redirect loops.",
+		blurb:
+			"Off, Flexible, Full, Full (strict): what each does to the second hop, which error each one produces, and why Cloudflare may now pick for you.",
+		updated: "2026-08-20",
+		readingTime: "8 min read",
+	},
 ];
 
 export function guideBySlug(slug: string): GuideMeta {
@@ -55,5 +66,5 @@ export const GUIDES_INDEX = {
 	title: "Guides — Orange Cloud",
 	h1: "Guides",
 	description:
-		"Plain-language guides to the Cloudflare settings people actually search for: the orange cloud, proxy status, and Orange-to-Orange routing.",
+		"Plain-language guides to the Cloudflare settings people actually search for: the orange cloud, proxy status, SSL/TLS encryption modes, and Orange-to-Orange routing.",
 };

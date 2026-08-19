@@ -40,6 +40,11 @@ const RELATED: RelatedLink[] = [
 		note: "What happens when your proxied hostname points at another Cloudflare zone — the Cloudflare for SaaS case.",
 	},
 	{
+		href: "/guides/cloudflare-ssl-tls-encryption-modes",
+		label: "Which Cloudflare SSL/TLS encryption mode should you use?",
+		note: "Once a record is proxied, this setting decides whether the Cloudflare-to-origin hop is encrypted at all.",
+	},
+	{
 		href: "https://developers.cloudflare.com/dns/proxy-status/",
 		label: "Cloudflare docs: Proxy status",
 		note: "The official reference for proxied and DNS-only records, including limitations and use cases.",
@@ -386,7 +391,12 @@ export default async function OrangeCloudGuide({ params }: { params: Promise<{ l
 					>
 						loop forever
 					</a>
-					. Use <strong>Full (strict)</strong> with a valid certificate on the origin.
+					. Use <strong>Full (strict)</strong> with a valid certificate on the origin — the differences
+					between the modes, and which error each one produces, are in{" "}
+					<Link href="/guides/cloudflare-ssl-tls-encryption-modes">
+						the guide to Cloudflare’s encryption modes
+					</Link>
+					.
 				</p>
 				<h3>Your origin IP leaked anyway</h3>
 				<p>

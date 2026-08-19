@@ -36,6 +36,11 @@ const RELATED: RelatedLink[] = [
 		note: "The prerequisite: proxied vs DNS only, which records qualify, and which ports the proxy covers.",
 	},
 	{
+		href: "/guides/cloudflare-ssl-tls-encryption-modes",
+		label: "Which Cloudflare SSL/TLS encryption mode should you use?",
+		note: "Flexible, Full, Full (strict): what each does to the origin connection, and which error each one produces.",
+	},
+	{
 		href: DOCS_O2O,
 		label: "Cloudflare docs: How O2O works",
 		note: "The official reference for the routing behaviour, prerequisites, and the cf-connecting-o2o header.",
