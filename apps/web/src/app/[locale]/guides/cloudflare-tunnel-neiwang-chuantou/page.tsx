@@ -51,6 +51,11 @@ const FAQ: Array<{ q: string; a: string }> = [
 
 const RELATED: RelatedLink[] = [
 	{
+		href: "/guides/cloudflare-522-error",
+		label: "Cloudflare 为什么会报 522 错误？",
+		note: "隧道之外的另一种回源方式会遇到的问题：防火墙挡了回源 IP、跨境链路丢包，以及 19 秒的连接窗口。",
+	},
+	{
 		href: "/guides",
 		label: "全部中文指南",
 		note: "Cloudflare 的其它设置项：代理状态、回源、缓存与证书。",

@@ -83,6 +83,17 @@ export const GUIDES: GuideMeta[] = [
 
 export const GUIDES_ZH: GuideMeta[] = [
 	{
+		slug: "cloudflare-522-error",
+		h1: "Cloudflare 为什么会报 522 错误？",
+		title: "Cloudflare 522 错误：连接超时的成因与排查",
+		description:
+			"522 的意思是 Cloudflare 在 19 秒内没能和源站建立 TCP 连接。最常见的原因是源站防火墙挡了回源 IP，其次是源站过载、IP 填错，或跨境回源链路丢包。",
+		blurb:
+			"19 秒、90 秒、125 秒各对应哪种失败，521 与 522 的分界在哪，以及国内源站配境外边缘节点时那种查不出原因的间歇性 522。",
+		updated: "2026-08-21",
+		readingTime: "约 9 分钟",
+	},
+	{
 		slug: "cloudflare-tunnel-neiwang-chuantou",
 		h1: "没有公网 IP，怎么用 Cloudflare Tunnel 做内网穿透？",
 		title: "Cloudflare Tunnel 内网穿透：没有公网 IP 也能用",
