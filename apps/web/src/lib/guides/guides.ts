@@ -54,6 +54,17 @@ export const GUIDES: GuideMeta[] = [
 		updated: "2026-08-20",
 		readingTime: "8 min read",
 	},
+	{
+		slug: "why-is-cloudflare-not-caching-my-site",
+		h1: "Why Is Cloudflare Not Caching My Site?",
+		title: "Why Isn't Cloudflare Caching My Site? cf-cache-status",
+		description:
+			"Cloudflare does not cache HTML or JSON by default. DYNAMIC means the request was never eligible; BYPASS means the origin response blocked caching.",
+		blurb:
+			"DYNAMIC, BYPASS and a MISS that never becomes a HIT are three different failures with three different fixes — read the header first.",
+		updated: "2026-08-20",
+		readingTime: "8 min read",
+	},
 ];
 
 export function guideBySlug(slug: string): GuideMeta {
@@ -66,5 +77,5 @@ export const GUIDES_INDEX = {
 	title: "Guides — Orange Cloud",
 	h1: "Guides",
 	description:
-		"Plain-language guides to the Cloudflare settings people actually search for: the orange cloud, proxy status, SSL/TLS encryption modes, and Orange-to-Orange routing.",
+		"Plain-language guides to the Cloudflare settings people actually search for: the orange cloud, proxy status, SSL/TLS encryption modes, and caching.",
 };
