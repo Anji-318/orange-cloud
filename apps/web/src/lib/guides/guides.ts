@@ -79,6 +79,17 @@ export const GUIDES: GuideMeta[] = [
 		updated: "2026-08-20",
 		readingTime: "8 min read",
 	},
+	{
+		slug: "why-is-my-cloudflare-dns-change-not-working",
+		h1: "Why Isn\u2019t My Cloudflare DNS Change Working Yet?",
+		title: "Cloudflare DNS Change Not Working? Propagation Explained",
+		description:
+			"Cloudflare publishes zone changes globally within five minutes. The wait is a cache: a record TTL, a negatively cached NXDOMAIN, or a stale delegation.",
+		blurb:
+			"Nothing propagates \u2014 caches expire. Which of the four layers is holding your old answer, and why lowering the TTL cannot fix a cached NXDOMAIN.",
+		updated: "2026-08-21",
+		readingTime: "8 min read",
+	},
 ];
 
 export const GUIDES_ZH: GuideMeta[] = [
