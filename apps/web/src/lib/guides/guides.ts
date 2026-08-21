@@ -90,6 +90,17 @@ export const GUIDES: GuideMeta[] = [
 		updated: "2026-08-21",
 		readingTime: "8 min read",
 	},
+	{
+		slug: "cloudflare-purge-cache-not-working",
+		h1: "Why Isn\u2019t My Cloudflare Cache Purge Working?",
+		title: "Cloudflare Purge Cache Not Working? What to Check",
+		description:
+			"A purge clears one exact cache key \u2014 nothing else. Custom cache keys, transformed URLs and the copy already in a browser all survive a purge by URL.",
+		blurb:
+			"Instant Purge really is instant, so a stale file means the purge matched nothing \u2014 or the copy you are looking at was never Cloudflare\u2019s to delete.",
+		updated: "2026-08-22",
+		readingTime: "7 min read",
+	},
 ];
 
 export const GUIDES_ZH: GuideMeta[] = [
