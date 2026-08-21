@@ -105,6 +105,17 @@ export const GUIDES: GuideMeta[] = [
 
 export const GUIDES_ZH: GuideMeta[] = [
 	{
+		slug: "cloudflare-yuanzhan-ip-xielou",
+		h1: "套了 Cloudflare，源站真实 IP 还会泄露吗？",
+		title: "Cloudflare 下源站 IP 怎么泄露的，怎么堵",
+		description:
+			"会。橙云只挡住 A、AAAA、CNAME 上的 HTTP 流量，灰云子域、MX 的 _dc-mx 应答、SPF 里的 ip4:、历史解析与证书透明度日志都会把源站 IP 交出去。",
+		blurb:
+			"五条绕开代理的泄露路径、一条能自查的 dig 命令，以及为什么真正的防线不在 DNS 里，而在源站自己身上。",
+		updated: "2026-08-22",
+		readingTime: "约 10 分钟",
+	},
+	{
 		slug: "cloudflare-522-error",
 		h1: "Cloudflare 为什么会报 522 错误？",
 		title: "Cloudflare 522 错误：连接超时的成因与排查",
