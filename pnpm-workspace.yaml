@@ -13,11 +13,12 @@ overrides:
   'sharp@<0.35.0': '0.35.0'
   'nanoid@<3.3.16': '3.3.16'
   'nanoid@>=4.0.0 <5.1.6': '5.1.6'
-  # brace-expansion 的两个公告按大版本各有独立漏洞范围，三条线都得钉：
-  # GHSA-3jxr-9vmj-r5cp（1.x / 2.x）+ GHSA-mh99-v99m-4gvg（<=5.0.7）+ 1.x 线 <1.1.18
+  # brace-expansion：每个公告对 1.x / 2.x / 3.x / 4-5.x 各有独立修复版，四条线都得钉；
+  # GHSA-mh99-v99m-4gvg + GHSA-rgw5-rvv9-x895 取各线较高者
   'brace-expansion@<1.1.18': '1.1.18'
-  'brace-expansion@>=2.0.0 <2.1.2': '2.1.2'
-  'brace-expansion@>=3.0.0 <5.0.8': '5.0.8'
+  'brace-expansion@>=2.0.0 <2.1.4': '2.1.4'
+  'brace-expansion@>=3.0.0 <3.0.6': '3.0.6'
+  'brace-expansion@>=4.0.0 <5.0.9': '5.0.9'
 allowBuilds:
   '@parcel/watcher': true
   '@swc/core': true
