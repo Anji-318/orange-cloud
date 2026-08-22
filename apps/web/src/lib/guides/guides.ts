@@ -101,6 +101,17 @@ export const GUIDES: GuideMeta[] = [
 		updated: "2026-08-22",
 		readingTime: "7 min read",
 	},
+	{
+		slug: "cloudflare-cname-flattening",
+		h1: "What Is CNAME Flattening in Cloudflare?",
+		title: "Cloudflare CNAME Flattening: Root Domain CNAMEs Explained",
+		description:
+			"CNAME flattening means Cloudflare resolves the CNAME itself and returns the target's IP address. It is what lets a root domain point at a hostname.",
+		blurb:
+			"Why a root domain cannot hold a real CNAME, what Cloudflare returns instead, and the three setups flattening quietly breaks.",
+		updated: "2026-08-23",
+		readingTime: "8 min read",
+	},
 ];
 
 export const GUIDES_ZH: GuideMeta[] = [
