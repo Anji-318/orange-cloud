@@ -116,6 +116,17 @@ export const GUIDES: GuideMeta[] = [
 
 export const GUIDES_ZH: GuideMeta[] = [
 	{
+		slug: "cloudflare-huoqu-zhenshi-ip",
+		h1: "开了 Cloudflare 之后，怎么在源站拿到访客真实 IP？",
+		title: "Cloudflare 下怎么拿到访客真实 IP",
+		description:
+			"访客真实 IP 在 CF-Connecting-IP 请求头里，让 Web 服务器读这个头即可。但必须先限定只信任来自 Cloudflare IP 段的连接，否则任何人都能伪造它。",
+		blurb:
+			"日志里全是 Cloudflare 的 IP 不是配错了。真实地址在哪个头、Nginx 与 Apache 怎么配，以及为什么不划信任边界等于把封禁和风控拱手让人。",
+		updated: "2026-08-23",
+		readingTime: "约 10 分钟",
+	},
+	{
 		slug: "cloudflare-yuanzhan-ip-xielou",
 		h1: "套了 Cloudflare，源站真实 IP 还会泄露吗？",
 		title: "Cloudflare 下源站 IP 怎么泄露的，怎么堵",
