@@ -38,12 +38,12 @@ export const GUIDES: GuideMeta[] = [
 	{
 		slug: "what-is-the-orange-cloud-in-cloudflare",
 		h1: "What Does the Orange Cloud Mean in Cloudflare?",
-		title: "Cloudflare Orange Cloud: Proxied vs DNS Only, Explained",
+		title: "Proxied vs DNS Only: Cloudflare Orange vs Grey Cloud",
 		description:
-			"The orange cloud means a DNS record is proxied through Cloudflare. The gray cloud means DNS only. What changes, which records qualify, when to use each.",
+			"Proxied (orange cloud) routes HTTP traffic through Cloudflare; DNS only (grey cloud) sends visitors straight to your origin. What each changes, and when.",
 		blurb:
-			"Proxied vs DNS only: what the toggle actually changes, which record types and ports it covers, and how to read the errors it causes.",
-		updated: "2026-08-19",
+			"Proxied vs DNS only, in plain terms: what the orange and grey cloud each change, which record types and ports qualify, and how to read the errors the toggle causes.",
+		updated: "2026-08-24",
 		readingTime: "8 min read",
 	},
 	{
