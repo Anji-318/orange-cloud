@@ -116,6 +116,17 @@ export const GUIDES: GuideMeta[] = [
 
 export const GUIDES_ZH: GuideMeta[] = [
 	{
+		slug: "cloudflare-xiaohuangyun",
+		h1: "Cloudflare 的小黄云到底是什么？什么时候该关掉？",
+		title: "Cloudflare 小黄云是什么：开还是关",
+		description:
+			"小黄云是 DNS 记录上的代理开关。开着，域名解析到 Cloudflare 的任播 IP，流量先过 Cloudflare 再回源站；关掉（灰云）就直接解析到源站真实 IP。",
+		blurb:
+			"橙云、橙色云朵、代理开关说的都是它。能开的只有 A / AAAA / CNAME 三种记录，端口也只覆盖固定那几个——先看清边界，再决定每条记录的开关。",
+		updated: "2026-08-24",
+		readingTime: "约 9 分钟",
+	},
+	{
 		slug: "cloudflare-huoqu-zhenshi-ip",
 		h1: "开了 Cloudflare 之后，怎么在源站拿到访客真实 IP？",
 		title: "Cloudflare 下怎么拿到访客真实 IP",
