@@ -52,6 +52,11 @@ const FAQ: Array<{ q: string; a: string }> = [
 
 const RELATED: RelatedLink[] = [
 	{
+		href: "/guides/cloudflare-ssl-jiami-moshi",
+		label: "Cloudflare 的 SSL/TLS 加密模式该选哪一个？",
+		note: "小黄云一开，证书就在 Cloudflare 那一层终止了。回源那一段加不加密、验不验证，由加密模式决定。",
+	},
+	{
 		href: "/guides/cloudflare-huoqu-zhenshi-ip",
 		label: "开了 Cloudflare 之后，怎么在源站拿到访客真实 IP？",
 		note: "小黄云打开后日志里全是 Cloudflare 的地址，真实 IP 在哪个头、Nginx 与 Apache 怎么配。",
