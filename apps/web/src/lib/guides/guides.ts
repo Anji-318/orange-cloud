@@ -127,6 +127,17 @@ export const GUIDES: GuideMeta[] = [
 
 export const GUIDES_ZH: GuideMeta[] = [
 	{
+		slug: "cloudflare-cname-zhanping",
+		h1: "Cloudflare 的 CNAME 展平（拉平）到底做了什么？",
+		title: "Cloudflare CNAME 展平是什么，能关掉吗",
+		description:
+			"展平就是 Cloudflare 替你把 CNAME 解析成 IP，返回 A 记录而不是 CNAME。根域名上的 CNAME 所有方案强制展平、关不掉，付费方案那两个开关只管子域名。",
+		blurb:
+			"顶点上填的是 CNAME，对外返回的却是 A 记录。展平的触发条件、两种代理状态下截然不同的 TTL 规则、四种会被咬到的场景，以及它为什么会让国内 CDN 的调度整个失效。",
+		updated: "2026-08-26",
+		readingTime: "约 10 分钟",
+	},
+	{
 		slug: "cloudflare-mianfeiban-shipin-tucang",
 		h1: "Cloudflare 免费版能拿来放视频、当图床吗？",
 		title: "Cloudflare 免费版能放视频、当图床吗",
