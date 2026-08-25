@@ -112,6 +112,17 @@ export const GUIDES: GuideMeta[] = [
 		updated: "2026-08-23",
 		readingTime: "8 min read",
 	},
+	{
+		slug: "cloudflare-error-1000-dns-points-to-prohibited-ip",
+		h1: "Why Am I Seeing Cloudflare Error 1000: DNS Points to Prohibited IP?",
+		title: "Cloudflare Error 1000: DNS Points to Prohibited IP",
+		description:
+			"Error 1000 means the origin address Cloudflare resolved for your hostname is Cloudflare itself. The five things that cause that loop, and who fixes each.",
+		blurb:
+			"The proxy refuses to forward a request to itself. Which records, reverse proxies, and request headers trigger it \u2014 and how 1000 differs from 1002, 1003, and 1014.",
+		updated: "2026-08-26",
+		readingTime: "8 min read",
+	},
 ];
 
 export const GUIDES_ZH: GuideMeta[] = [
