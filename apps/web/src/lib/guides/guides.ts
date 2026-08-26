@@ -138,6 +138,17 @@ export const GUIDES: GuideMeta[] = [
 
 export const GUIDES_ZH: GuideMeta[] = [
 	{
+		slug: "cloudflare-huancun-mingzhonglv",
+		h1: "Cloudflare 到底缓存了什么？为什么命中率一直上不去",
+		title: "Cloudflare 缓存了什么：命中率为什么上不去",
+		description:
+			"Cloudflare 默认只按文件扩展名缓存静态资源，HTML 和 JSON 一概不缓存。命中率上不去，先看 cf-cache-status：DYNAMIC 是请求时就没资格，BYPASS 是响应本身不让存。",
+		blurb:
+			"国内 CDN 那套「买了就是全站加速」的心智，在 Cloudflare 这里不成立。默认缓存哪些扩展名、DYNAMIC 与 BYPASS 差在哪、反复未命中该查什么，以及国内访客散落境外节点为什么让回源次数天然更多。",
+		updated: "2026-08-27",
+		readingTime: "约 11 分钟",
+	},
+	{
 		slug: "cloudflare-cname-zhanping",
 		h1: "Cloudflare 的 CNAME 展平（拉平）到底做了什么？",
 		title: "Cloudflare CNAME 展平是什么，能关掉吗",
