@@ -123,6 +123,17 @@ export const GUIDES: GuideMeta[] = [
 		updated: "2026-08-26",
 		readingTime: "8 min read",
 	},
+	{
+		slug: "cloudflare-error-522-connection-timed-out",
+		h1: "Why Am I Getting Cloudflare Error 522: Connection Timed Out?",
+		title: "Cloudflare Error 522: Connection Timed Out, Explained",
+		description:
+			"Error 522 means Cloudflare could not open a TCP connection to your origin within 19 seconds. The usual cause is a firewall dropping Cloudflare's IPs.",
+		blurb:
+			"Two deadlines produce the same error code, and a 522 is silence rather than refusal \u2014 which is what separates it from 521, 523 and 524.",
+		updated: "2026-08-27",
+		readingTime: "8 min read",
+	},
 ];
 
 export const GUIDES_ZH: GuideMeta[] = [
