@@ -149,6 +149,17 @@ export const GUIDES: GuideMeta[] = [
 
 export const GUIDES_ZH: GuideMeta[] = [
 	{
+		slug: "cloudflare-dns-jiexi-bu-shengxiao",
+		h1: "改了 DNS 解析，为什么一直不生效？",
+		title: "Cloudflare 改了 DNS 为什么不生效",
+		description:
+			"先分清是哪一种「不生效」：域名的 NS 还没指到 Cloudflare，你改的记录压根不参与解析；已经指过来了，剩下的就只是 TTL 和沿途缓存在拖时间。",
+		blurb:
+			"改动没进解析链路，和进了但被缓存挡着，是两件完全不同的事。三种域名状态各自会返回什么、卡在 Pending 的四个原因、开着小黄云时 dig 为什么看不出变化，以及国内解析器那一层该怎么验。",
+		updated: "2026-08-28",
+		readingTime: "约 10 分钟",
+	},
+	{
 		slug: "cloudflare-huancun-mingzhonglv",
 		h1: "Cloudflare 到底缓存了什么？为什么命中率一直上不去",
 		title: "Cloudflare 缓存了什么：命中率为什么上不去",
