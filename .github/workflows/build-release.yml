@@ -1,0 +1,180 @@
+name: Build & Release (Web + Android)
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Release version (e.g., 2.1.0)'
+        required: true
+        type: string
+      create_release:
+        description: 'Create GitHub Release after build'
+        required: false
+        type: boolean
+        default: true
+      release_notes:
+        description: 'Release notes (optional)'
+        required: false
+        type: string
+        default: ''
+
+env:
+  VERSION: ${{ github.event.inputs.version }}
+
+jobs:
+  build-web:
+    name: Build Web
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+
+      - name: Setup Node.js 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'pnpm'
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build Web
+        working-directory: apps/web
+        run: pnpm build
+        env:
+          NODE_ENV: production
+          NEXT_TELEMETRY_DISABLED: '1'
+          WRANGLER_SEND_METRICS: 'false'
+          ADMIN_PASSWORD: ${{ secrets.ADMIN_PASSWORD }}
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+
+      - name: Upload Web artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: web-build-${{ env.VERSION }}
+          path: |
+            apps/web/.open-next/
+            apps/web/.next/
+            apps/web/dist/
+          # 排除 public/，避免截图/图标/SVG 污染 Release
+          retention-days: 30
+          overwrite: true
+
+  build-android:
+    name: Build Android (OSS Only)
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 21
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+          cache: gradle
+
+      - name: Make Gradle Wrapper executable
+        run: chmod +x apps/android/gradlew
+
+      # CI 环境没有 Android Studio，手动生成 local.properties 注入 OAuth
+      - name: Generate local.properties
+        working-directory: apps/android
+        run: |
+          echo "OAUTH_CLIENT_ID=${{ secrets.OAUTH_CLIENT_ID }}" > local.properties
+
+      - name: Build OSS release APK
+        working-directory: apps/android
+        run: |
+          ./gradlew assembleOssRelease \
+            -PversionName="${{ env.VERSION }}" \
+            -PversionCode="${{ github.run_number }}" \
+            --parallel \
+            --build-cache \
+            --configure-on-demand \
+            -x lintVitalOssRelease \
+            --stacktrace
+        env:
+          GRADLE_OPTS: "-Dorg.gradle.jvmargs=-Xmx8g -XX:MaxMetaspaceSize=512m -XX:+HeapDumpOnOutOfMemoryError"
+
+      - name: Upload Android artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: android-build-${{ env.VERSION }}
+          path: |
+            apps/android/app/build/outputs/apk/oss/release/orange-cloud.apk
+            apps/android/app/build/outputs/mapping/ossRelease/mapping.txt
+          retention-days: 30
+          overwrite: true
+
+  release:
+    name: Create GitHub Release
+    needs: [build-web, build-android]
+    runs-on: ubuntu-latest
+    if: ${{ github.event.inputs.create_release == 'true' }}
+    permissions:
+      contents: write
+    steps:
+      - name: Download Android artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: android-build-${{ env.VERSION }}
+          path: artifacts/android/
+
+      - name: Archive source code
+        run: |
+          TAG="v${{ env.VERSION }}"
+          git archive --format=zip --output="orange-cloud-${TAG}-source.zip" HEAD
+          git archive --format=tar.gz --output="orange-cloud-${TAG}-source.tar.gz" HEAD
+
+      - name: Create GitHub Release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          TAG="v${{ env.VERSION }}"
+          REPO="${{ github.repository }}"
+
+          # 1. 彻底删除旧 release 和 tag
+          echo "Deleting existing release and tag: $TAG"
+          gh release delete "$TAG" --repo "$REPO" --yes 2>/dev/null || true
+          gh api -X DELETE "repos/$REPO/git/refs/tags/$TAG" 2>/dev/null || true
+
+          # 2. 等待 GitHub API 同步
+          sleep 5
+
+          # 3. 创建 release notes
+          cat > /tmp/release_notes.md << 'EOF'
+          ${{ github.event.inputs.release_notes }}
+
+          ## Build Artifacts
+          - **Android**: OSS APK (all Pro features unlocked at zero cost)
+          - **Source Code**: Full source archive
+
+          ## Notes
+          - iOS build requires Apple Developer certificate and is not included in CI.
+          - Android OSS flavor has all Pro features enabled at zero cost.
+          - Web app requires your own Cloudflare OAuth Client and callback relay.
+          EOF
+
+          # 4. 创建 release
+          echo "Creating release: $TAG"
+          gh release create "$TAG" \
+            --repo "$REPO" \
+            --title "Orange Cloud ${TAG}" \
+            --notes-file /tmp/release_notes.md
+
+          # 5. 上传 Android APK（OSS 版本，已注入 OAuth）
+          echo "Uploading Android APK..."
+          gh release upload "$TAG" --repo "$REPO" --clobber artifacts/android/orange-cloud.apk
+
+          # 6. 上传源码压缩包
+          echo "Uploading source code archives..."
+          gh release upload "$TAG" --repo "$REPO" --clobber "orange-cloud-${TAG}-source.zip"
+          gh release upload "$TAG" --repo "$REPO" --clobber "orange-cloud-${TAG}-source.tar.gz"
+
+          echo "Release $TAG created successfully."
