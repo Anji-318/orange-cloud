@@ -134,6 +134,17 @@ export const GUIDES: GuideMeta[] = [
 		updated: "2026-08-27",
 		readingTime: "8 min read",
 	},
+	{
+		slug: "cloudflare-real-visitor-ip-cf-connecting-ip",
+		h1: "How Do You Get the Real Visitor IP Behind Cloudflare?",
+		title: "Cloudflare Real Visitor IP: CF-Connecting-IP Explained",
+		description:
+			"The visitor's real address arrives in the CF-Connecting-IP header. Read that instead of the connection source, and trust it only from Cloudflare's IPs.",
+		blurb:
+			"Your logs fill up with Cloudflare addresses because Cloudflare is the client now. Which header carries the real one, why X-Forwarded-For is the wrong one to read, and the trust boundary every guide leaves out.",
+		updated: "2026-08-28",
+		readingTime: "8 min read",
+	},
 ];
 
 export const GUIDES_ZH: GuideMeta[] = [
