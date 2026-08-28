@@ -4,8 +4,8 @@ import jiamin.chen.orangecloud.BuildConfig
 
 /**
  * OAuth 配置（与 iOS Core/Auth/OAuthConfig.swift 对应）。
- * clientId / redirectUri 经 Gradle 注入：play / direct / oss 默认与官方客户端一致；
- * 自编译者可通过 local.properties 或 -P 覆盖为自己的 OAuth Client 与回调中转。
+ * clientId / redirectUri 经 Gradle 注入：play / direct / oss 默认使用当前仓库的自建配置；
+ * 可通过 local.properties 或 -P 覆盖为其他 OAuth Client 与回调中转。
  * Cloudflare OAuth 只接受 https redirect，指向 Web 后端回调中转，再 302 跳回自定义 scheme。
  */
 object OAuthConfig {
