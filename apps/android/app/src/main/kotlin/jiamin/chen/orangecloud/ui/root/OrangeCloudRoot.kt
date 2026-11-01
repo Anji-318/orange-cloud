@@ -3,6 +3,8 @@ package jiamin.chen.orangecloud.ui.root
 import android.content.Intent
 import android.net.Uri
 import androidx.activity.compose.BackHandler
+import androidx.compose.animation.EnterTransition
+import androidx.compose.animation.ExitTransition
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.gestures.detectHorizontalDragGestures
@@ -438,7 +440,11 @@ private fun MainScaffold(onOpenToolbox: () -> Unit) {
         Box(
             Modifier
                 .fillMaxSize()
-                .graphicsLayer { translationX = swipeOffset.value * size.width }
+                .graphicsLayer {
+                    translationX = swipeOffset.value * size.width
+                    // 平移时裁掉图层边界外的内容：否则仍在合成中的旧页面会随平移露出残影
+                    clip = true
+                }
                 .pointerInput(currentRoute) {
                     if (currentRoute !in topRoutes) return@pointerInput
                     val entries = TopDestination.entries
@@ -488,7 +494,18 @@ private fun MainScaffold(onOpenToolbox: () -> Unit) {
                     }
                 },
         ) {
-            NavHost(navController = navController, startDestination = Dest.DASHBOARD) {
+            // Navigation Compose 默认过渡是 700ms 淡入淡出。按返回键后立刻横滑时，正在淡出的
+            // 旧页面会半透明叠在新页面上，看起来就是"上一页的残影"；而整页横滑又把 NavHost
+            // 一起平移，叠加层跟着动，残影更明显。顶部标签切换已由横滑动画承担，这里直接关掉
+            // 淡入淡出，页面切换瞬时完成。
+            NavHost(
+                navController = navController,
+                startDestination = Dest.DASHBOARD,
+                enterTransition = { EnterTransition.None },
+                exitTransition = { ExitTransition.None },
+                popEnterTransition = { EnterTransition.None },
+                popExitTransition = { ExitTransition.None },
+            ) {
             composable(Dest.DASHBOARD) {
                 DashboardScreen(
                     onOpenTunnels = { navController.navigate(Dest.TUNNELS) },
