@@ -1096,7 +1096,7 @@ async function handleAdminHealth(env) {
     config: { limit: cfg.limit },
     devices: { count },
     hint: kvOk && pwdOk ? "ready" : "KV namespace 或 ADMIN_PASSWORD 未配置，请按 wrangler.toml 注释操作后再部署",
-  }, kvOk && pwdOk ? 200 : 503);
+  }, kvOk && pwdOk ? 200 : 503, { "cache-control": "no-store" });
 }
 
 /* ---------- 自建部署指南（Worker 内嵌网页，供 App 调用） ---------- */
@@ -1730,12 +1730,16 @@ export default {
 
     // 管理 API
     if (path === "/admin/api/login" && method === "POST") return handleAdminLogin(request, env);
+
+    // 健康检查放在鉴权门之前：部署脚本需要匿名探活。
+    // 只返回布尔标志与计数，不含密码、KV id 或设备明细，可安全公开。
+    if (path === "/admin/api/health" && method === "GET") return handleAdminHealth(env);
+
     if (path.startsWith("/admin/api/")) {
       if (!(await isAuthed(request, env))) return json({ ok: false, error: "unauthorized" }, 401);
       if (path === "/admin/api/devices" && method === "GET") return handleAdminDevices(env);
       if (path === "/admin/api/config" && method === "GET") return handleAdminConfigGet(env);
       if (path === "/admin/api/config" && method === "POST") return handleAdminConfigPost(request, env);
-      if (path === "/admin/api/health" && method === "GET") return handleAdminHealth(env);
       for (const action of ["ban", "unban", "delete", "note"]) {
         if (path === "/admin/api/" + action && method === "POST") {
           return handleAdminAction(action, request, env);
