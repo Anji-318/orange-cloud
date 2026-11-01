@@ -3,6 +3,8 @@ package jiamin.chen.orangecloud.data.repository
 import jiamin.chen.orangecloud.core.network.CfApiClient
 import jiamin.chen.orangecloud.data.model.Snippet
 import jiamin.chen.orangecloud.data.model.SnippetRule
+import jiamin.chen.orangecloud.data.model.SnippetRuleInput
+import jiamin.chen.orangecloud.data.model.SnippetRulesUpdate
 import kotlinx.serialization.builtins.ListSerializer
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.JsonArray
@@ -36,6 +38,10 @@ class SnippetRepository @Inject constructor(
         }
         return array?.let { runCatching { json.decodeFromJsonElement(ListSerializer(SnippetRule.serializer()), it) }.getOrNull() }.orEmpty()
     }
+
+    /** 整组回写规则——必须传 zone 下「全部」规则，PUT 会替换全部（漏传即删除）。 */
+    suspend fun putRules(zoneId: String, rules: List<SnippetRuleInput>) =
+        api.putChecked("zones/$zoneId/snippets/snippet_rules", SnippetRulesUpdate(rules))
 
     /** snippet 原始 JS 正文（非 JSON 信封）。 */
     suspend fun content(zoneId: String, name: String): String =

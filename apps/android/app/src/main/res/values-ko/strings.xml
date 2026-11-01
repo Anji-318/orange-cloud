@@ -339,6 +339,12 @@
     <string name="snippets_code">JavaScript 코드</string>
     <string name="snippets_readonly">읽기 전용: Snippets 쓰기 권한이 없습니다</string>
     <string name="snippets_rules">트리거 (%1$d개)</string>
+    <string name="snippets_rule_add">규칙 추가</string>
+    <string name="snippets_rule_edit_label">규칙 편집</string>
+    <string name="snippets_rule_expression">일치 표현식</string>
+    <string name="snippets_rule_expression_hint">예: http.host eq &quot;example.com&quot;</string>
+    <string name="snippets_rule_desc">설명(선택)</string>
+    <string name="snippets_rule_enabled">규칙 활성화</string>
 
     <string name="nav_dashboard">개요</string>
     <string name="dashboard_accounts">계정</string>

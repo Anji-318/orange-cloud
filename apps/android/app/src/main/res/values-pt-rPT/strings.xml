@@ -340,6 +340,12 @@
     <string name="snippets_code">Código JavaScript</string>
     <string name="snippets_readonly">Somente leitura: sem permissão de escrita em Snippets</string>
     <string name="snippets_rules">Gatilhos (%1$d)</string>
+    <string name="snippets_rule_add">Adicionar regra</string>
+    <string name="snippets_rule_edit_label">Editar regra</string>
+    <string name="snippets_rule_expression">Expressão de correspondência</string>
+    <string name="snippets_rule_expression_hint">Ex.: http.host eq &quot;example.com&quot;</string>
+    <string name="snippets_rule_desc">Descrição (opcional)</string>
+    <string name="snippets_rule_enabled">Ativar regra</string>
 
     <string name="nav_dashboard">Vista geral</string>
     <string name="dashboard_accounts">Contas</string>

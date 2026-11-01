@@ -461,6 +461,12 @@
     <string name="snippets_code">كود JavaScript</string>
     <string name="snippets_readonly">للقراءة فقط: لم تُمنح صلاحية كتابة Snippets</string>
     <string name="snippets_rules">المُشغّلات (%1$d)</string>
+    <string name="snippets_rule_add">إضافة قاعدة</string>
+    <string name="snippets_rule_edit_label">تعديل القاعدة</string>
+    <string name="snippets_rule_expression">تعبير المطابقة</string>
+    <string name="snippets_rule_expression_hint">مثال: http.host eq &quot;example.com&quot;</string>
+    <string name="snippets_rule_desc">الوصف (اختياري)</string>
+    <string name="snippets_rule_enabled">تفعيل القاعدة</string>
     <string name="nav_dashboard">نظرة عامة</string>
     <string name="dashboard_accounts">الحسابات</string>
     <string name="dashboard_network">الشبكة</string>

@@ -339,6 +339,12 @@
     <string name="snippets_code">JavaScript コード</string>
     <string name="snippets_readonly">読み取り専用：Snippets 書き込み権限がありません</string>
     <string name="snippets_rules">トリガー（%1$d 件）</string>
+    <string name="snippets_rule_add">ルールを追加</string>
+    <string name="snippets_rule_edit_label">ルールを編集</string>
+    <string name="snippets_rule_expression">マッチ式</string>
+    <string name="snippets_rule_expression_hint">例: http.host eq &quot;example.com&quot;</string>
+    <string name="snippets_rule_desc">説明（任意）</string>
+    <string name="snippets_rule_enabled">ルールを有効化</string>
 
     <string name="nav_dashboard">概要</string>
     <string name="dashboard_accounts">アカウント</string>

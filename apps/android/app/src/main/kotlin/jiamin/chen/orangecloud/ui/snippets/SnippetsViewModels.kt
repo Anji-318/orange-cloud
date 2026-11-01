@@ -74,6 +74,7 @@ class SnippetsViewModel @Inject constructor(
 sealed interface SnippetEditEvent {
     data object Saved : SnippetEditEvent
     data object Deleted : SnippetEditEvent
+    data object RuleSaved : SnippetEditEvent
     data class Error(val message: String?) : SnippetEditEvent
 }
 
@@ -113,6 +114,12 @@ class SnippetEditorViewModel @Inject constructor(
     private val _rules = MutableStateFlow<List<jiamin.chen.orangecloud.data.model.SnippetRule>>(emptyList())
     val rules: StateFlow<List<jiamin.chen.orangecloud.data.model.SnippetRule>> = _rules.asStateFlow()
 
+    /** zone 下全部规则（含其他 snippet 的），整组回写时必须原样带上，否则会被 PUT 清掉。 */
+    private var allRules: List<jiamin.chen.orangecloud.data.model.SnippetRule> = emptyList()
+
+    private val _isSavingRule = MutableStateFlow(false)
+    val isSavingRule: StateFlow<Boolean> = _isSavingRule.asStateFlow()
+
     init {
         if (initialName.isNotEmpty()) {
             viewModelScope.launch {
@@ -120,10 +127,69 @@ class SnippetEditorViewModel @Inject constructor(
                 _uiState.update { it.copy(code = code, isLoading = false) }
             }
             viewModelScope.launch {
-                val all = runCatching { snippetRepository.rules(zoneId) }.getOrNull().orEmpty()
-                _rules.value = all.filter { it.snippetName == initialName }
+                allRules = runCatching { snippetRepository.rules(zoneId) }.getOrNull().orEmpty()
+                _rules.value = allRules.filter { it.snippetName == initialName }
             }
         }
+    }
+
+    /** 新增/编辑/删除本 snippet 的规则：在本副本上改，再连同其他 snippet 的规则整组回写。 */
+    fun saveRule(existing: jiamin.chen.orangecloud.data.model.SnippetRule?, expression: String, description: String, enabled: Boolean) {
+        if (!canWrite || expression.isBlank()) return
+        val name = if (initialName.isNotEmpty()) initialName else _uiState.value.name.trim()
+        if (name.isBlank()) return
+        viewModelScope.launch {
+            _isSavingRule.value = true
+            try {
+                val mine = allRules.filter { it.snippetName == name }.toMutableList()
+                if (existing != null) mine.remove(existing)
+                mine += jiamin.chen.orangecloud.data.model.SnippetRule(
+                    snippetName = name,
+                    expression = expression.trim(),
+                    description = description.trim().ifEmpty { null },
+                    enabled = enabled,
+                )
+                commitRules(allRules.filter { it.snippetName != name } + mine)
+                eventChannel.send(SnippetEditEvent.RuleSaved)
+            } catch (e: Exception) {
+                eventChannel.send(SnippetEditEvent.Error(e.message))
+            } finally {
+                _isSavingRule.value = false
+            }
+        }
+    }
+
+    fun deleteRule(rule: jiamin.chen.orangecloud.data.model.SnippetRule) {
+        if (!canWrite) return
+        viewModelScope.launch {
+            _isSavingRule.value = true
+            try {
+                commitRules(allRules - rule)
+                eventChannel.send(SnippetEditEvent.RuleSaved)
+            } catch (e: Exception) {
+                eventChannel.send(SnippetEditEvent.Error(e.message))
+            } finally {
+                _isSavingRule.value = false
+            }
+        }
+    }
+
+    private suspend fun commitRules(next: List<jiamin.chen.orangecloud.data.model.SnippetRule>) {
+        snippetRepository.putRules(
+            zoneId,
+            next.map {
+                jiamin.chen.orangecloud.data.model.SnippetRuleInput(
+                    snippetName = it.snippetName,
+                    expression = it.expression,
+                    description = it.description,
+                    enabled = it.enabled ?: true,
+                )
+            },
+        )
+        // 回写成功后刷新，拿回服务端生成的 id
+        allRules = runCatching { snippetRepository.rules(zoneId) }.getOrNull() ?: next
+        val name = if (initialName.isNotEmpty()) initialName else _uiState.value.name.trim()
+        _rules.value = allRules.filter { it.snippetName == name }
     }
 
     fun updateName(name: String) = _uiState.update { it.copy(name = name) }

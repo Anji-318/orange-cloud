@@ -354,6 +354,12 @@
     <string name="snippets_code">JavaScript code</string>
     <string name="snippets_readonly">Read-only: Snippets write access not granted</string>
     <string name="snippets_rules">Triggers (%1$d)</string>
+    <string name="snippets_rule_add">Add rule</string>
+    <string name="snippets_rule_edit_label">Edit rule</string>
+    <string name="snippets_rule_expression">Match expression</string>
+    <string name="snippets_rule_expression_hint">e.g. http.host eq &quot;example.com&quot;</string>
+    <string name="snippets_rule_desc">Description (optional)</string>
+    <string name="snippets_rule_enabled">Enable rule</string>
 
     <!-- Overview / network -->
     <string name="nav_dashboard">Overview</string>

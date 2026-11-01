@@ -32,7 +32,11 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import androidx.compose.runtime.remember
+import androidx.compose.foundation.layout.Row
+import androidx.compose.material3.TextButton
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -131,6 +135,7 @@ fun SnippetEditorScreen(
             when (event) {
                 SnippetEditEvent.Saved -> { snackbarHostState.showSnackbar(savedMsg); onClosed() }
                 SnippetEditEvent.Deleted -> { snackbarHostState.showSnackbar(deletedMsg); onClosed() }
+                SnippetEditEvent.RuleSaved -> snackbarHostState.showSnackbar(savedMsg)
                 is SnippetEditEvent.Error -> snackbarHostState.showSnackbar(event.message ?: genericErr)
             }
         }
@@ -169,20 +174,93 @@ fun SnippetEditorScreen(
                         modifier = Modifier.fillMaxWidth().weight(1f),
                     )
                     val rules by viewModel.rules.collectAsStateWithLifecycle()
-                    if (rules.isNotEmpty()) {
+                    val isSavingRule by viewModel.isSavingRule.collectAsStateWithLifecycle()
+                    var editingRule by remember { mutableStateOf<Pair<jiamin.chen.orangecloud.data.model.SnippetRule?, Boolean>?>(null) }
+                    if (rules.isNotEmpty() || state.canWrite) {
                         androidx.compose.material3.Surface(
                             color = MaterialTheme.colorScheme.surfaceContainerLow,
                             shape = androidx.compose.foundation.shape.RoundedCornerShape(14.dp),
                             modifier = Modifier.fillMaxWidth(),
                         ) {
                             Column(Modifier.padding(14.dp)) {
-                                Text(stringResource(R.string.snippets_rules, rules.size), fontSize = 13.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                                Row(verticalAlignment = Alignment.CenterVertically) {
+                                    Text(stringResource(R.string.snippets_rules, rules.size), fontSize = 13.sp, color = MaterialTheme.colorScheme.onSurfaceVariant, modifier = Modifier.weight(1f))
+                                    if (state.canWrite && !state.isNew) {
+                                        TextButton(onClick = { editingRule = null to true }) {
+                                            Text(stringResource(R.string.snippets_rule_add))
+                                        }
+                                    }
+                                }
                                 rules.forEach { rule ->
                                     Spacer(Modifier.height(6.dp))
-                                    Text(rule.expression, fontSize = 12.sp, fontFamily = FontFamily.Monospace, color = MaterialTheme.colorScheme.onSurface)
+                                    Row(verticalAlignment = Alignment.CenterVertically) {
+                                        Column(Modifier.weight(1f)) {
+                                            Text(rule.expression, fontSize = 12.sp, fontFamily = FontFamily.Monospace, color = MaterialTheme.colorScheme.onSurface)
+                                            val meta = buildString {
+                                                if (rule.enabled == false) append("· disabled")
+                                                rule.description?.takeIf { it.isNotBlank() }?.let { append(" · ").append(it) }
+                                            }.removePrefix("· ")
+                                            if (meta.isNotEmpty()) {
+                                                Text(meta, fontSize = 11.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                                            }
+                                        }
+                                        if (state.canWrite) {
+                                            TextButton(onClick = { editingRule = rule to true }, enabled = !isSavingRule) {
+                                                Text(stringResource(R.string.snippets_rule_edit_label))
+                                            }
+                                            TextButton(onClick = { viewModel.deleteRule(rule) }, enabled = !isSavingRule) {
+                                                Text(stringResource(R.string.dns_delete), color = MaterialTheme.colorScheme.error)
+                                            }
+                                        }
+                                    }
                                 }
                             }
                         }
+                    }
+                    // 规则编辑弹窗（新建/编辑共用）
+                    editingRule?.let { (rule, _) ->
+                        var expr by remember(rule) { mutableStateOf(rule?.expression.orEmpty()) }
+                        var desc by remember(rule) { mutableStateOf(rule?.description.orEmpty()) }
+                        var enabled by remember(rule) { mutableStateOf(rule?.enabled ?: true) }
+                        androidx.compose.material3.AlertDialog(
+                            onDismissRequest = { editingRule = null },
+                            title = { Text(stringResource(if (rule == null) R.string.snippets_rule_add else R.string.snippets_rule_edit_label)) },
+                            text = {
+                                Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
+                                    OutlinedTextField(
+                                        value = expr,
+                                        onValueChange = { expr = it },
+                                        label = { Text(stringResource(R.string.snippets_rule_expression)) },
+                                        placeholder = { Text(stringResource(R.string.snippets_rule_expression_hint)) },
+                                        textStyle = MaterialTheme.typography.bodySmall.copy(fontFamily = FontFamily.Monospace),
+                                        modifier = Modifier.fillMaxWidth(),
+                                    )
+                                    OutlinedTextField(
+                                        value = desc,
+                                        onValueChange = { desc = it },
+                                        label = { Text(stringResource(R.string.snippets_rule_desc)) },
+                                        singleLine = true,
+                                        modifier = Modifier.fillMaxWidth(),
+                                    )
+                                    Row(verticalAlignment = Alignment.CenterVertically) {
+                                        Text(stringResource(R.string.snippets_rule_enabled), modifier = Modifier.weight(1f))
+                                        androidx.compose.material3.Switch(checked = enabled, onCheckedChange = { enabled = it })
+                                    }
+                                }
+                            },
+                            confirmButton = {
+                                TextButton(
+                                    onClick = {
+                                        viewModel.saveRule(rule, expr, desc, enabled)
+                                        editingRule = null
+                                    },
+                                    enabled = expr.isNotBlank() && !isSavingRule,
+                                ) { Text(stringResource(R.string.dns_save)) }
+                            },
+                            dismissButton = {
+                                TextButton(onClick = { editingRule = null }) { Text(stringResource(R.string.common_cancel)) }
+                            },
+                        )
                     }
                     if (state.canWrite) {
                         Button(

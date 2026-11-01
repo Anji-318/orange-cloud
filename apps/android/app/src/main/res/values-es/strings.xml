@@ -340,6 +340,12 @@
     <string name="snippets_code">Código JavaScript</string>
     <string name="snippets_readonly">Solo lectura: sin permiso de escritura en Snippets</string>
     <string name="snippets_rules">Disparadores (%1$d)</string>
+    <string name="snippets_rule_add">Añadir regla</string>
+    <string name="snippets_rule_edit_label">Editar regla</string>
+    <string name="snippets_rule_expression">Expresión de coincidencia</string>
+    <string name="snippets_rule_expression_hint">Ej.: http.host eq &quot;example.com&quot;</string>
+    <string name="snippets_rule_desc">Descripción (opcional)</string>
+    <string name="snippets_rule_enabled">Activar regla</string>
 
     <string name="nav_dashboard">Resumen</string>
     <string name="dashboard_accounts">Cuentas</string>
