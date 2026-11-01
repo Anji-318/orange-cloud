@@ -277,13 +277,22 @@ fun SettingsScreen(
                         .onFailure { openUrl("https://play.google.com/store/apps/details?id=jiamin.chen.orangecloud") }
                 }
                 RowDivider(indent = true)
-                LinkRow(Icons.Outlined.Code, cs.onSurfaceVariant, stringResource(R.string.settings_github)) { openUrl("https://github.com/Vivo-Max/orange-cloud") }
+                LinkRow(Icons.Outlined.Code, cs.onSurfaceVariant, stringResource(R.string.settings_github)) { openUrl("https://github.com/Anji-318/orange-cloud") }
                 RowDivider(indent = true)
                 LinkRow(Icons.Outlined.PrivacyTip, cs.onSurfaceVariant, stringResource(R.string.settings_privacy)) { openUrl("https://o-c.do/privacy") }
                 RowDivider(indent = true)
                 LinkRow(Icons.Outlined.Description, cs.onSurfaceVariant, stringResource(R.string.settings_terms)) { openUrl("https://o-c.do/terms") }
                 RowDivider(indent = true)
-                LinkRow(Icons.Outlined.Build, cs.onSurfaceVariant, stringResource(R.string.settings_deploy_guide)) { openUrl("https://github.com/Vivo-Max/orange-cloud/blob/main/docs/SELF_HOSTING.md") }
+                LinkRow(Icons.Outlined.Build, cs.onSurfaceVariant, stringResource(R.string.settings_deploy_guide)) {
+                    // 自建指南由回调中转 Worker 自带（/self-hosting），不跳仓库。
+                    // 站点根从 OAuth 回调地址推导：自编译者指向自己部署的 Worker，
+                    // 官方构建即 https://oss.omail.us.kg/self-hosting。
+                    val site = BuildConfig.OAUTH_REDIRECT_URI
+                        .takeIf { it.contains("/oauth/callback") }
+                        ?.substringBefore("/oauth/callback")
+                        ?: "https://oss.omail.us.kg"
+                    openUrl("$site/self-hosting")
+                }
             }
 
             Text(
