@@ -15,6 +15,13 @@
 !debug.keystore
 keystore.properties
 /app/release
+orange-cloud-key.b64
+orange-cloud-key.jks
+orange-cloud-key.txt
+keystore.properties.bak
+Android智能构建工具v3.0.bat
+scripts/detect-build-info.py
+*.localbak
 
 # fastlane（supply）——服务账号密钥与运行产物不入库；metadata/ 文案（title/desc/changelogs）入库
 fastlane/play-service-account.json

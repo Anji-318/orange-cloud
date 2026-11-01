@@ -461,6 +461,12 @@
     <string name="snippets_code">JavaScript-Code</string>
     <string name="snippets_readonly">Nur Lesen: Snippets-Schreibzugriff nicht gewährt</string>
     <string name="snippets_rules">Trigger (%1$d)</string>
+    <string name="snippets_rule_add">Regel hinzufügen</string>
+    <string name="snippets_rule_edit_label">Regel bearbeiten</string>
+    <string name="snippets_rule_expression">Abgleichausdruck</string>
+    <string name="snippets_rule_expression_hint">Z. B. http.host eq &quot;example.com&quot;</string>
+    <string name="snippets_rule_desc">Beschreibung (optional)</string>
+    <string name="snippets_rule_enabled">Regel aktivieren</string>
     <string name="nav_dashboard">Übersicht</string>
     <string name="dashboard_accounts">Konten</string>
     <string name="dashboard_network">Netzwerk</string>

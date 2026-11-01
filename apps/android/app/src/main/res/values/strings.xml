@@ -530,6 +530,12 @@
     <string name="snippets_code">JavaScript 代码</string>
     <string name="snippets_readonly">只读：未授予 Snippets 写入权限</string>
     <string name="snippets_rules">触发规则（%1$d 条）</string>
+    <string name="snippets_rule_add">添加规则</string>
+    <string name="snippets_rule_edit_label">编辑规则</string>
+    <string name="snippets_rule_expression">匹配表达式</string>
+    <string name="snippets_rule_expression_hint">表达式，如 http.host eq &quot;example.com&quot;</string>
+    <string name="snippets_rule_desc">描述（可选）</string>
+    <string name="snippets_rule_enabled">启用规则</string>
 
     <!-- 概览 / 网络 -->
     <string name="nav_dashboard">概览</string>

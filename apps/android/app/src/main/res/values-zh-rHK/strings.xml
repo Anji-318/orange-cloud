@@ -339,6 +339,12 @@
     <string name="snippets_code">JavaScript 程式碼</string>
     <string name="snippets_readonly">唯讀：未授予 Snippets 寫入權限</string>
     <string name="snippets_rules">觸發規則（%1$d 條）</string>
+    <string name="snippets_rule_add">新增規則</string>
+    <string name="snippets_rule_edit_label">編輯規則</string>
+    <string name="snippets_rule_expression">比對運算式</string>
+    <string name="snippets_rule_expression_hint">運算式，例如 http.host eq &quot;example.com&quot;</string>
+    <string name="snippets_rule_desc">描述（可選）</string>
+    <string name="snippets_rule_enabled">啟用規則</string>
 
     <string name="nav_dashboard">總覽</string>
     <string name="dashboard_accounts">帳戶</string>

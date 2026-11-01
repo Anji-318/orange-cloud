@@ -461,6 +461,12 @@
     <string name="snippets_code">Code JavaScript</string>
     <string name="snippets_readonly">Lecture seule : accès en écriture Snippets non accordé</string>
     <string name="snippets_rules">Déclencheurs (%1$d)</string>
+    <string name="snippets_rule_add">Ajouter une règle</string>
+    <string name="snippets_rule_edit_label">Modifier la règle</string>
+    <string name="snippets_rule_expression">Expression de correspondance</string>
+    <string name="snippets_rule_expression_hint">Ex. : http.host eq &quot;example.com&quot;</string>
+    <string name="snippets_rule_desc">Description (facultatif)</string>
+    <string name="snippets_rule_enabled">Activer la règle</string>
     <string name="nav_dashboard">Aperçu</string>
     <string name="dashboard_accounts">Comptes</string>
     <string name="dashboard_network">Réseau</string>

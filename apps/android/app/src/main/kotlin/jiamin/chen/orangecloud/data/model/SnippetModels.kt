@@ -20,3 +20,18 @@ data class SnippetRule(
     val description: String? = null,
     val enabled: Boolean? = null,
 )
+
+/** PUT snippet_rules 的单条规则（不含 id / last_updated）。 */
+@Serializable
+data class SnippetRuleInput(
+    @SerialName("snippet_name") val snippetName: String,
+    val expression: String,
+    val description: String? = null,
+    val enabled: Boolean = true,
+)
+
+/** PUT snippet_rules 请求体——必须携带 zone 下全部规则（整组替换，漏传即删除）。 */
+@Serializable
+data class SnippetRulesUpdate(
+    val rules: List<SnippetRuleInput>,
+)
