@@ -1,5 +1,5 @@
 // 发码邮件：Cloudflare Email Service（send_email 绑定，无需 API key）。
-// 发件域名须先 onboard（CF 控制台已为 oss.omail.us.kg 配好）。
+// 发件域名须先在 CF 控制台 onboard（本仓库用占位符，部署时改成你自己的域名）。
 // 未配置绑定（本地 dev）或无收件人则静默跳过。事务邮件，非营销。
 //
 // 三类邮件共用同一排版（购买 / 找回 / 评测邀请），仅 subject + intro 不同；
