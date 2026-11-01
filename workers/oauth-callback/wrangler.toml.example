@@ -1,17 +1,23 @@
+# 使用方式：
+#   cp wrangler.toml.example wrangler.toml
+# 然后把下面的占位符换成你自己的值。
+# 真实的 wrangler.toml 已被 .gitignore 忽略，不会进仓库。
+
 name = "orange-cloud-oauth-callback"
 main = "worker.js"
 compatibility_date = "2026-08-28"
 workers_dev = false
 
+# 你的自定义域名（与 Cloudflare OAuth Client 里登记的回调域名保持一致）
 routes = [
-  { pattern = "oss.omail.us.kg", custom_domain = true }
+  { pattern = "oauth.example.com", custom_domain = true }
 ]
 
 # 设备名单存储。先执行：npx wrangler kv namespace create DEVICES
 # 把输出的 id 填到下面，再 deploy。
 [[kv_namespaces]]
 binding = "DEVICES"
-id = "在此填入_kv_namespace_id"
+id = "<YOUR_KV_NAMESPACE_ID>"
 
 # 管理面板密码：npx wrangler secret put ADMIN_PASSWORD
 # （不要写在本文件里，用 secret 注入）

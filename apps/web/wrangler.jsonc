@@ -63,9 +63,11 @@
 			"0 8 * * *"
 		]
 	},
+	// 部署前把下面的域名换成你自己的（custom_domain 需该域名已接入 Cloudflare）。
+	// 上游默认值是 orange-cloud.chatiro.app，本仓库用占位符以免暴露实际部署域名。
 	"routes": [
 		{
-			"pattern": "oss.omail.us.kg",
+			"pattern": "orange-cloud.example.com",
 			"custom_domain": true
 		}
 	]

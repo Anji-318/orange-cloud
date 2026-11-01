@@ -10,6 +10,7 @@ xcuserdata/
 
 # Wrangler
 .wrangler/
+workers/oauth-callback/wrangler.toml
 
 # Environment
 .env
