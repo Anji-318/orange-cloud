@@ -65,8 +65,12 @@ class MainActivity : ComponentActivity() {
         // 冷启动 / 多任务切换时与 App 内玻璃质感一致。App 内容自身的
         // 毛玻璃由 Compose 侧 Haze 实现，与此处互补、互不影响。
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-            window.setBlurBehindEnabled(true)
-            window.attributes.blurBehindRadius = 40
+            // setBlurBehindEnabled / blurBehindRadius 定义在 WindowManager.LayoutParams 上（API 31+），
+            // Window 本身没有这些方法；改完 attributes 必须回写才会生效。
+            window.attributes = window.attributes.apply {
+                setBlurBehindEnabled(true)
+                blurBehindRadius = 40
+            }
         }
         billingGateway.connect()
         handleOAuthRedirect(intent)
