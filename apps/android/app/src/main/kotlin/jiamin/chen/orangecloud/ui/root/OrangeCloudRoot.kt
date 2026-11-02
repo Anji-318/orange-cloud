@@ -9,7 +9,9 @@ import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.gestures.detectHorizontalDragGestures
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Apps
 import androidx.compose.material.icons.outlined.Bolt
@@ -20,6 +22,7 @@ import androidx.compose.material.icons.outlined.Storage
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.adaptive.navigationsuite.ExperimentalMaterial3AdaptiveNavigationSuiteApi
 import androidx.compose.material3.adaptive.navigationsuite.NavigationSuiteScaffold
@@ -37,6 +40,7 @@ import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.runtime.rememberCoroutineScope
 import kotlinx.coroutines.launch
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
@@ -179,7 +183,7 @@ fun OrangeCloudRoot(viewModel: RootViewModel = hiltViewModel()) {
     }
 }
 
-private enum class TopDestination(val labelRes: Int, val icon: ImageVector) {
+internal enum class TopDestination(val labelRes: Int, val icon: ImageVector) {
     Dashboard(R.string.nav_dashboard, Icons.Outlined.GridView),
     Zones(R.string.nav_zones, Icons.Outlined.Language),
     Workers(R.string.nav_dev_platform, Icons.Outlined.Apps),
@@ -395,36 +399,12 @@ private fun MainScaffold(onOpenToolbox: () -> Unit) {
         navController.navigate(if (needsPro && !isPro) Dest.PAYWALL else route)
     }
 
-    NavigationSuiteScaffold(
-        navigationSuiteItems = {
-            TopDestination.entries.forEach { dest ->
-                item(
-                    selected = selectedTop == dest,
-                    onClick = {
-                        navController.navigate(Dest.startRoute(dest)) {
-                            // 切顶级标签：弹回起点并保存/恢复各自子栈状态
-                            popUpTo(navController.graph.findStartDestination().id) { saveState = true }
-                            launchSingleTop = true
-                            restoreState = true
-                        }
-                    },
-                    icon = { Icon(dest.icon, contentDescription = null) },
-                    label = {
-                        // 五标签下长文本（如「开发者平台」）换行会挤压图标：
-                        // 1) 字号用 dp 转 sp，不随系统字体缩放，任何系统字号下都保持同一物理大小；
-                        // 2) 强制单行 + 省略号兜底，极端窄屏也不会换行挤压图标。
-                        Text(
-                            stringResource(dest.labelRes),
-                            maxLines = 1,
-                            softWrap = false,
-                            overflow = TextOverflow.Ellipsis,
-                            fontSize = with(LocalDensity.current) { 11.dp.toSp() },
-                        )
-                    },
-                )
-            }
-        },
-    ) {
+    // 宽屏（平板 / 折叠屏展开）沿用 NavigationSuiteScaffold 的侧边导航栏；
+    // 窄屏（手机）换成 Telegram 风格的悬浮胶囊底栏。
+    val isWideLayout = LocalConfiguration.current.screenWidthDp >= 600
+
+    // 两种布局共用同一份页面内容（顶部标签横滑 + NavHost）。
+    val appContent: @Composable () -> Unit = {
         // 顶级标签页左右滑动切换：手指拖动时内容跟手平移，松手后按位移/速度决定翻页或回弹。
         // 仅在顶级起点页生效（下钻页横滑交给页面自身，如返回手势），避免与子路由冲突。
         val scope = rememberCoroutineScope()
@@ -1048,6 +1028,61 @@ private fun MainScaffold(onOpenToolbox: () -> Unit) {
                 CFAlertingScreen(onBack = { navController.popBackStack() })
             }
             }
+        }
+    }
+
+    if (isWideLayout) {
+        NavigationSuiteScaffold(
+            navigationSuiteItems = {
+                TopDestination.entries.forEach { dest ->
+                    item(
+                        selected = selectedTop == dest,
+                        onClick = {
+                            navController.navigate(Dest.startRoute(dest)) {
+                                // 切顶级标签：弹回起点并保存/恢复各自子栈状态
+                                popUpTo(navController.graph.findStartDestination().id) { saveState = true }
+                                launchSingleTop = true
+                                restoreState = true
+                            }
+                        },
+                        icon = { Icon(dest.icon, contentDescription = null) },
+                        label = {
+                            // 五标签下长文本（如「开发者平台」）换行会挤压图标：
+                            // 1) 字号用 dp 转 sp，不随系统字体缩放，任何系统字号下都保持同一物理大小；
+                            // 2) 强制单行 + 省略号兜底，极端窄屏也不会换行挤压图标。
+                            Text(
+                                stringResource(dest.labelRes),
+                                maxLines = 1,
+                                softWrap = false,
+                                overflow = TextOverflow.Ellipsis,
+                                fontSize = with(LocalDensity.current) { 11.dp.toSp() },
+                            )
+                        },
+                    )
+                }
+            },
+        ) {
+            appContent()
+        }
+    } else {
+        Scaffold(
+            containerColor = Color.Transparent,
+            // 与 NavigationSuiteScaffold 一致：内容自行处理系统栏内边距，这里不额外叠加
+            contentWindowInsets = WindowInsets(0, 0, 0, 0),
+            bottomBar = {
+                TgBottomBar(
+                    selected = selectedTop,
+                    onSelect = { dest ->
+                        navController.navigate(Dest.startRoute(dest)) {
+                            popUpTo(navController.graph.findStartDestination().id) { saveState = true }
+                            launchSingleTop = true
+                            restoreState = true
+                        }
+                    },
+                )
+            },
+        ) { padding ->
+            Box(Modifier.fillMaxSize().padding(padding)) { appContent() }
         }
     }
 
