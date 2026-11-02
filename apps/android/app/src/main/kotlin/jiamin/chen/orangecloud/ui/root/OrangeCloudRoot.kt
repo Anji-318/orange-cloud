@@ -423,6 +423,10 @@ private fun MainScaffold(onOpenToolbox: () -> Unit) {
     val isDark = LocalIsDark.current
     val statusH = WindowInsets.statusBars.asPaddingValues().calculateTopPadding()
     val navH = WindowInsets.navigationBars.asPaddingValues().calculateBottomPadding()
+    // 悬浮胶囊底栏占用的底部安全区：系统导航栏高度 + 胶囊自身高度(约 75.dp) + 留白。
+    // 把它从内容可视区的底部扣除，所有可滚动页面滚到底时，最后一项就能完整停在胶囊上方，
+    // 而不是被胶囊压住、卡在它下面上不来。
+    val bottomBarInset = navH + 88.dp
 
     CompositionLocalProvider(LocalHazeState provides hazeState) {
         // 注意：这里的外层 Box 刻意「不」挂 hazeSource。
@@ -1130,7 +1134,8 @@ private fun MainScaffold(onOpenToolbox: () -> Unit) {
                         // 深色模式下尤其难看（一道白带压在黑底上）。
                         // 它同时充当横滑垫层：NavHost 整体平移时，透出的是延续的页面背景。
                         SkyBackground(phase = rememberSkyPhase())
-                        Box(Modifier.fillMaxSize()) {
+                        // 内容可视区底部扣除胶囊底栏的安全区，保证任意页面滚到底时末项不被胶囊压住。
+                        Box(Modifier.fillMaxSize().padding(bottom = bottomBarInset)) {
                             appContent()
                         }
                     }
