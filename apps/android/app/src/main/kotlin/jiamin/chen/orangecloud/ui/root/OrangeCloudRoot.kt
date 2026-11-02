@@ -419,6 +419,8 @@ private fun MainScaffold(onOpenToolbox: () -> Unit) {
     // Haze 毛玻璃统一源：状态栏玻璃条 / 胶囊底栏 / 系统导航条玻璃条都从这一份
     // 内容里采样，保证透出内容与页面背景一致；TgBottomBar 通过 LocalHazeState 取到它。
     val hazeState = remember { HazeState() }
+    // glassStyle 是 HazeEffectScope 的扩展函数（见 Glass.kt），需要 isDark 决定深浅色玻璃底色
+    val isDark = LocalIsDark.current
     val statusH = WindowInsets.statusBars.asPaddingValues().calculateTopPadding()
     val navH = WindowInsets.navigationBars.asPaddingValues().calculateBottomPadding()
 
@@ -1132,7 +1134,7 @@ private fun MainScaffold(onOpenToolbox: () -> Unit) {
                 Modifier
                     .fillMaxWidth()
                     .height(statusH)
-                    .hazeEffect(hazeState, style = glassStyle),
+                    .hazeEffect(hazeState) { glassStyle(isDark) },
             )
             // 系统导航栏玻璃条：覆盖三键 / 手势条区域，与胶囊底栏玻璃风格一致
             Box(
@@ -1140,7 +1142,7 @@ private fun MainScaffold(onOpenToolbox: () -> Unit) {
                     .fillMaxWidth()
                     .height(navH)
                     .align(Alignment.BottomStart)
-                    .hazeEffect(hazeState, style = glassStyle),
+                    .hazeEffect(hazeState) { glassStyle(isDark) },
             )
         }
     }
