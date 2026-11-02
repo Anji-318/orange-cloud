@@ -30,6 +30,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import jiamin.chen.orangecloud.core.design.theme.LocalIsDark
 
 /**
  * Telegram 风格底部导航条：悬浮圆角胶囊 + 投影 + 紧凑间距。
@@ -46,6 +47,7 @@ internal fun TgBottomBar(
     modifier: Modifier = Modifier,
 ) {
     val cs = MaterialTheme.colorScheme
+    val isDark = LocalIsDark.current
     val shape = RoundedCornerShape(28.dp)
     Surface(
         modifier = modifier
@@ -53,11 +55,18 @@ internal fun TgBottomBar(
             // 浮在系统导航栏（手势条 / 三键）之上，避免被系统按键压住
             .windowInsetsPadding(WindowInsets.navigationBars)
             .padding(horizontal = 12.dp, vertical = 8.dp)
-            // clip = false：投影要落在胶囊外侧，不能被圆角裁掉
-            .shadow(elevation = 12.dp, shape = shape, clip = false),
+            // TG 半透明磨砂观感：浅色留一道轻投影；深色不加投影
+            // （深色下投影几乎不可见，只会糊出一条硬边），
+            // 靠半透明底与滚动内容形成层次
+            .shadow(
+                elevation = if (isDark) 0.dp else 6.dp,
+                shape = shape,
+                clip = false,
+            ),
         shape = shape,
-        color = cs.surfaceContainerHigh,
-        tonalElevation = 3.dp,
+        // 半透明：列表滚动时从胶囊下方隐约透出，不再是实心色块
+        color = cs.surfaceContainerHigh.copy(alpha = if (isDark) 0.82f else 0.94f),
+        tonalElevation = 0.dp,
     ) {
         Row(
             modifier = Modifier

@@ -1,9 +1,11 @@
 package jiamin.chen.orangecloud
 
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.ComponentActivity
+import androidx.activity.SystemBarStyle
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.isSystemInDarkTheme
@@ -39,7 +41,19 @@ class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
+        // TG 风格：系统导航栏完全透明，三键/手势浮在应用内容之上。
+        // 默认的 enableEdgeToEdge() 会给导航栏盖一层 0xE6 半透明遮罩
+        // （浅色显灰、深色显黑），就是底栏下方那条突兀的色带。
+        enableEdgeToEdge(
+            navigationBarStyle = SystemBarStyle.auto(
+                android.graphics.Color.TRANSPARENT,
+                android.graphics.Color.TRANSPARENT,
+            )
+        )
+        // 三键导航下系统会强制叠一层对比度遮罩（API 29+），关掉才能真透明
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            window.isNavigationBarContrastEnforced = false
+        }
         billingGateway.connect()
         handleOAuthRedirect(intent)
         handleRedeemRedirect(intent)
