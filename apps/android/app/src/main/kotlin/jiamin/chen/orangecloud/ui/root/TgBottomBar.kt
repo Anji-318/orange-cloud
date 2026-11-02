@@ -23,6 +23,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
@@ -59,6 +60,9 @@ internal fun TgBottomBar(
                 shape = shape,
                 clip = false,
             )
+            // 玻璃必须裁进胶囊圆角内：hazeEffect 画的是矩形，
+            // 不裁的话玻璃会溢出圆角变成方块，和圆角描边对不上。
+            .clip(shape)
             // 毛玻璃：模糊整棵 hazeSource 子树（页面内容 + SkyBackground）
             .hazeEffect(hazeState) { glassStyle(isDark) },
         shape = shape,
@@ -67,7 +71,7 @@ internal fun TgBottomBar(
         color = Color.Transparent,
         border = BorderStroke(
             width = 1.dp,
-            color = if (isDark) Color.White.copy(alpha = 0.10f) else Color.Black.copy(alpha = 0.06f),
+            color = if (isDark) Color.White.copy(alpha = 0.14f) else Color.Black.copy(alpha = 0.10f),
         ),
         tonalElevation = 0.dp,
     ) {

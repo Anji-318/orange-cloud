@@ -425,7 +425,12 @@ private fun MainScaffold(onOpenToolbox: () -> Unit) {
     val navH = WindowInsets.navigationBars.asPaddingValues().calculateBottomPadding()
 
     CompositionLocalProvider(LocalHazeState provides hazeState) {
-        Box(Modifier.fillMaxSize().hazeSource(hazeState)) {
+        // 注意：这里的外层 Box 刻意「不」挂 hazeSource。
+        // 模糊源只登记下面的页面内容（Scaffold content / NavigationSuiteScaffold content），
+        // 玻璃层（胶囊底栏、状态栏条、系统导航条）必须留在模糊源之外，
+        // 否则玻璃会把自己的图标文字也模糊进来 —— 图标行发暗、图标与文字之间出现一条
+        // 发亮的横带（浅色下的白带），深色下则和导航文字直接叠字。
+        Box(Modifier.fillMaxSize()) {
 
             // 两种布局共用同一份页面内容（顶部标签横滑 + NavHost）。
             val appContent: @Composable () -> Unit = {
@@ -1091,7 +1096,7 @@ private fun MainScaffold(onOpenToolbox: () -> Unit) {
                         }
                     },
                 ) {
-                    Box(Modifier.fillMaxSize()) {
+                    Box(Modifier.fillMaxSize().hazeSource(hazeState)) {
                         // 与窄屏同源的背景层：铺满窗口，保证宽屏下也没有窗口底色露出来。
                         SkyBackground(phase = rememberSkyPhase())
                         appContent()
@@ -1115,7 +1120,10 @@ private fun MainScaffold(onOpenToolbox: () -> Unit) {
                         )
                     },
                 ) { _ ->
-                    Box(Modifier.fillMaxSize()) {
+                    // 模糊源 = 页面内容本身（不含底栏）：内容铺满整个窗口，
+                    // 胶囊底栏与系统导航栏玻璃条都画在源之外，才能透出「页面内容 + 天景背景」，
+                    // 又不会把自己的图标文字糊进玻璃里。
+                    Box(Modifier.fillMaxSize().hazeSource(hazeState)) {
                         // 背景必须铺满「整个窗口」，包括胶囊底栏与系统导航栏覆盖的那一段。
                         // 系统导航栏本身是全透明的，App 若不把背景画到那里，透出来的就是
                         // 窗口底色（浅色 #F5F2ED / 深色 #0A0A0E）——就是那条突兀的色带，

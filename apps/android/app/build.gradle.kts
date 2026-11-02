@@ -47,8 +47,8 @@ android {
         targetSdk = 36
 
         // 读取 CI / 命令行传入的 -P 属性，回退到硬编码默认值
-        versionCode = (providers.gradleProperty("versionCode").orNull ?: "24").toInt()
-        versionName = providers.gradleProperty("versionName").orNull ?: "2.1.03"
+        versionCode = (providers.gradleProperty("versionCode").orNull ?: "25").toInt()
+        versionName = providers.gradleProperty("versionName").orNull ?: "2.1.05"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
