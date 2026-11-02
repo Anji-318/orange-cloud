@@ -12,9 +12,6 @@ xcuserdata/
 .wrangler/
 workers/oauth-callback/wrangler.toml
 
-# 自建 Worker 源码（含设备管理面板）：只在本机保留，不入库
-workers/oauth-callback/worker.js
-
 # Environment
 .env
 .env.local
