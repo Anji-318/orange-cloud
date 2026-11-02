@@ -10,7 +10,9 @@ import androidx.compose.animation.core.tween
 import androidx.compose.foundation.gestures.detectHorizontalDragGestures
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.asPaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.navigationBars
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Apps
@@ -71,6 +73,7 @@ import androidx.navigation.navDeepLink
 import jiamin.chen.orangecloud.R
 import jiamin.chen.orangecloud.core.design.SkyBackground
 import jiamin.chen.orangecloud.core.design.SkyPhase
+import jiamin.chen.orangecloud.core.design.rememberSkyPhase
 import jiamin.chen.orangecloud.ui.analytics.ZoneAnalyticsScreen
 import jiamin.chen.orangecloud.ui.dashboard.DashboardResourceType
 import jiamin.chen.orangecloud.ui.dashboard.DashboardScreen
@@ -1082,7 +1085,20 @@ private fun MainScaffold(onOpenToolbox: () -> Unit) {
                 )
             },
         ) { padding ->
-            Box(Modifier.fillMaxSize().padding(padding)) { appContent() }
+            // 胶囊底栏已用 navigationBars 内边距浮到系统导航栏之上，Scaffold 给的 bottom
+            // padding 里含这段系统栏高度；把它扣掉，页面内容仍延伸到系统栏后方，
+            // 底部不会多出一条空档（与改造前的行为一致）。
+            val navBottom = WindowInsets.navigationBars.asPaddingValues().calculateBottomPadding()
+            Box(
+                Modifier.fillMaxSize().padding(
+                    bottom = (padding.calculateBottomPadding() - navBottom).coerceAtLeast(0.dp),
+                ),
+            ) {
+                // 横滑时 NavHost 整体平移，底下垫一层静止的天空底色：
+                // 透出的是延续的页面背景（surface + 暖辉光），而不是窗口底色。
+                SkyBackground(phase = rememberSkyPhase())
+                appContent()
+            }
         }
     }
 
