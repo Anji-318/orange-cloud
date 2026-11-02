@@ -29,11 +29,16 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import dev.chrisbanes.haze.hazeEffect
+import jiamin.chen.orangecloud.core.design.theme.LocalHazeState
 import jiamin.chen.orangecloud.core.design.theme.LocalIsDark
+import jiamin.chen.orangecloud.core.design.theme.glassStyle
 
 /**
- * 悬浮胶囊导航栏：
- * - 纯净半透明底色，整个胶囊通体一致，绝无任何局部选中色块切断。
+ * 悬浮胶囊导航栏（毛玻璃版）：
+ * - 胶囊通体一块玻璃，对背后页面内容 + 天景背景做实时模糊；
+ * - 选中态只改图标/文字颜色，无任何局部选中色块，五项背景天然统一；
+ * - 系统导航栏区域由 OrangeCloudRoot 底部的玻璃条接管，上下一体同为毛玻璃。
  */
 @Composable
 internal fun TgBottomBar(
@@ -41,8 +46,8 @@ internal fun TgBottomBar(
     onSelect: (TopDestination) -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    val cs = MaterialTheme.colorScheme
     val isDark = LocalIsDark.current
+    val hazeState = LocalHazeState.current
     val shape = RoundedCornerShape(28.dp)
     Surface(
         modifier = modifier
@@ -53,9 +58,13 @@ internal fun TgBottomBar(
                 elevation = if (isDark) 0.dp else 6.dp,
                 shape = shape,
                 clip = false,
-            ),
+            )
+            // 毛玻璃：模糊整棵 hazeSource 子树（页面内容 + SkyBackground）
+            .hazeEffect(hazeState) { glassStyle(isDark) },
         shape = shape,
-        color = cs.surfaceContainerHigh.copy(alpha = if (isDark) 0.82f else 0.94f),
+        // 颜色必须 Transparent —— 半透明叠色已由 glassStyle 承担，
+        // 这里再上色会与 blur 结果二次相乘，胶囊发灰。
+        color = Color.Transparent,
         border = BorderStroke(
             width = 1.dp,
             color = if (isDark) Color.White.copy(alpha = 0.10f) else Color.Black.copy(alpha = 0.06f),

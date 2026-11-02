@@ -61,6 +61,13 @@ class MainActivity : ComponentActivity() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
             window.isNavigationBarContrastEnforced = false
         }
+        // 窗口级毛玻璃（API 31+）：把「窗口背后的桌面」也模糊掉，
+        // 冷启动 / 多任务切换时与 App 内玻璃质感一致。App 内容自身的
+        // 毛玻璃由 Compose 侧 Haze 实现，与此处互补、互不影响。
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            window.setBlurBehindEnabled(true)
+            window.attributes.blurBehindRadius = 40
+        }
         billingGateway.connect()
         handleOAuthRedirect(intent)
         handleRedeemRedirect(intent)

@@ -12,8 +12,11 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.asPaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.navigationBars
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.statusBars
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Apps
 import androidx.compose.material.icons.outlined.Bolt
@@ -29,6 +32,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.adaptive.navigationsuite.ExperimentalMaterial3AdaptiveNavigationSuiteApi
 import androidx.compose.material3.adaptive.navigationsuite.NavigationSuiteScaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -51,6 +55,9 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import dev.chrisbanes.haze.HazeState
+import dev.chrisbanes.haze.hazeEffect
+import dev.chrisbanes.haze.hazeSource
 import jiamin.chen.orangecloud.core.util.launchCustomTab
 import jiamin.chen.orangecloud.ui.dnssettings.DnsSettingsScreen
 import jiamin.chen.orangecloud.ui.managedheaders.ManagedHeadersScreen
@@ -74,6 +81,9 @@ import jiamin.chen.orangecloud.R
 import jiamin.chen.orangecloud.core.design.SkyBackground
 import jiamin.chen.orangecloud.core.design.SkyPhase
 import jiamin.chen.orangecloud.core.design.rememberSkyPhase
+import jiamin.chen.orangecloud.core.design.theme.LocalHazeState
+import jiamin.chen.orangecloud.core.design.theme.LocalIsDark
+import jiamin.chen.orangecloud.core.design.theme.glassStyle
 import jiamin.chen.orangecloud.ui.analytics.ZoneAnalyticsScreen
 import jiamin.chen.orangecloud.ui.dashboard.DashboardResourceType
 import jiamin.chen.orangecloud.ui.dashboard.DashboardScreen
@@ -406,715 +416,732 @@ private fun MainScaffold(onOpenToolbox: () -> Unit) {
     // 窄屏（手机）换成 Telegram 风格的悬浮胶囊底栏。
     val isWideLayout = LocalConfiguration.current.screenWidthDp >= 600
 
-    // 两种布局共用同一份页面内容（顶部标签横滑 + NavHost）。
-    val appContent: @Composable () -> Unit = {
-        // 顶级标签页左右滑动切换：手指拖动时内容跟手平移，松手后按位移/速度决定翻页或回弹。
-        // 仅在顶级起点页生效（下钻页横滑交给页面自身，如返回手势），避免与子路由冲突。
-        val scope = rememberCoroutineScope()
-        val swipeOffset = remember { Animatable(0f) } // 屏宽比例，负 = 向左滑
-        val topRoutes = remember { TopDestination.entries.map { Dest.startRoute(it) }.toSet() }
-        val swipeTo: (TopDestination) -> Unit = { dest ->
-            navController.navigate(Dest.startRoute(dest)) {
-                popUpTo(navController.graph.findStartDestination().id) { saveState = true }
-                launchSingleTop = true
-                restoreState = true
-            }
-        }
-        // —— 横滑切标签 ——
-        // 跟手平移：手指拖动时内容整体跟随，松手后按位移/速度决定翻页或回弹。
-        // 提交翻页时先把当前页滑出到边界，导航落位后新页从另一侧滑入，
-        // 两段动画接力，视觉上就是「新页从右滑入 / 旧页向左滑出」。
-        Box(
-            Modifier
-                .fillMaxSize()
-                .graphicsLayer {
-                    translationX = swipeOffset.value * size.width
-                    // 平移时裁掉图层边界外的内容：否则仍在合成中的旧页面会随平移露出残影
-                    clip = true
-                }
-                .pointerInput(currentRoute) {
-                    if (currentRoute !in topRoutes) return@pointerInput
-                    val entries = TopDestination.entries
-                    val idx = entries.indexOf(Dest.topOf(currentRoute))
-                    val widthPx = { size.width.toFloat().coerceAtLeast(1f) }
-                    var velocity = 0f // px/s，供快速轻扫（flick）判定
-                    detectHorizontalDragGestures(
-                        onDragStart = {
-                            velocity = 0f
-                            scope.launch { swipeOffset.stop() }
-                        },
-                        onDragCancel = { scope.launch { swipeOffset.animateTo(0f, tween(180)) } },
-                        onDragEnd = {
-                            val off = swipeOffset.value
-                            val v = velocity / widthPx() // 换算成屏宽/s
-                            scope.launch {
-                                when {
-                                    // 左滑超过阈值或快速轻扫 → 下一标签。
-                                    // 当前页先滑出左边界，导航落位后新页从右边界滑入。
-                                    (off < -0.30f || v < -1.5f) && off <= 0f && idx < entries.lastIndex -> {
-                                        swipeOffset.animateTo(-1f, tween(160))
-                                        swipeTo(entries[idx + 1])
-                                        swipeOffset.snapTo(1f)
-                                        swipeOffset.animateTo(0f, tween(160))
-                                    }
-                                    (off > 0.30f || v > 1.5f) && off >= 0f && idx > 0 -> {
-                                        swipeOffset.animateTo(1f, tween(160))
-                                        swipeTo(entries[idx - 1])
-                                        swipeOffset.snapTo(-1f)
-                                        swipeOffset.animateTo(0f, tween(160))
-                                    }
-                                    else -> swipeOffset.animateTo(0f, tween(180))
-                                }
-                            }
-                        },
-                    ) { change, dragAmount ->
-                        change.consume()
-                        val dt = change.uptimeMillis - change.previousUptimeMillis
-                        if (dt > 0) velocity = dragAmount / (dt / 1000f)
-                        // 首尾两端的越界拖动施加阻尼（橡皮筋），提示已到边界
-                        val next = swipeOffset.value + dragAmount / widthPx()
-                        val clamped = when {
-                            idx <= 0 && next > 0f -> next * 0.25f
-                            idx >= entries.lastIndex && next < 0f -> next * 0.25f
-                            else -> next.coerceIn(-1f, 1f)
-                        }
-                        scope.launch { swipeOffset.snapTo(clamped) }
-                    }
-                },
-        ) {
-            // Navigation Compose 默认过渡是 700ms 淡入淡出。按返回键后立刻横滑时，正在淡出的
-            // 旧页面会半透明叠在新页面上，看起来就是"上一页的残影"；而整页横滑又把 NavHost
-            // 一起平移，叠加层跟着动，残影更明显。顶部标签切换已由横滑动画承担，这里直接关掉
-            // 淡入淡出，页面切换瞬时完成。
-            NavHost(
-                navController = navController,
-                startDestination = Dest.DASHBOARD,
-                enterTransition = { EnterTransition.None },
-                exitTransition = { ExitTransition.None },
-                popEnterTransition = { EnterTransition.None },
-                popExitTransition = { ExitTransition.None },
-            ) {
-            composable(Dest.DASHBOARD) {
-                DashboardScreen(
-                    onOpenTunnels = { navController.navigate(Dest.TUNNELS) },
-                    onOpenTurnstile = { navController.navigate(Dest.TURNSTILE) },
-                    onOpenRegistrar = { navController.navigate(Dest.REGISTRAR) },
-                    onOpenTracer = { navController.navigate(Dest.TRACER) },
-                    onOpenUrlScanner = { navController.navigate(Dest.URL_SCANNER) },
-                    onOpenZones = {
-                        navController.navigate(Dest.ZONES) {
-                            popUpTo(navController.graph.findStartDestination().id) { saveState = true }
-                            launchSingleTop = true
-                            restoreState = true
-                        }
-                    },
-                    onOpenZone = { zone -> navController.navigate(Dest.zoneDetail(zone.id, zone.name)) },
-                    onAddAccount = onAddAccount,
-                    onOpenRedirects = { navController.navigate(Dest.REDIRECTS) },
-                    onOpenZeroTrust = { navController.navigate(Dest.ZERO_TRUST) },
-                    onOpenResource = openResource,
-                )
-            }
-            composable(Dest.ZERO_TRUST) {
-                ProGate {
-                    ZeroTrustHubScreen(
-                        onBack = { navController.popBackStack() },
-                        onOpenAccess = { navController.navigate(Dest.ZT_ACCESS) },
-                        onOpenGateway = { navController.navigate(Dest.ZT_GATEWAY) },
-                    )
-                }
-            }
-            composable(Dest.ZT_ACCESS) {
-                AccessAppsScreen(onBack = { navController.popBackStack() })
-            }
-            composable(Dest.ZT_GATEWAY) {
-                GatewayRulesScreen(onBack = { navController.popBackStack() })
-            }
-            composable(Dest.PAGES) {
-                ProGate {
-                    PagesListScreen(
-                        onBack = { navController.popBackStack() },
-                        onOpenProject = { project -> navController.navigate(Dest.pagesDetail(project)) },
-                    )
-                }
-            }
-            composable(
-                route = Dest.PAGES_DETAIL_ROUTE,
-                arguments = listOf(navArgument("project") { type = NavType.StringType }),
-            ) {
-                ProGate { PagesProjectDetailScreen(onBack = { navController.popBackStack() }) }
-            }
-            composable(Dest.REDIRECTS) {
-                RedirectListsScreen(
-                    onBack = { navController.popBackStack() },
-                    onOpenList = { id, name -> navController.navigate(Dest.redirectItems(id, name)) },
-                )
-            }
-            composable(
-                route = Dest.REDIRECT_ITEMS_ROUTE,
-                arguments = listOf(
-                    navArgument("listId") { type = NavType.StringType },
-                    navArgument("listName") { type = NavType.StringType; defaultValue = "" },
-                ),
-            ) {
-                RedirectItemsScreen(onBack = { navController.popBackStack() })
-            }
-            composable(Dest.PAYWALL) {
-                PaywallScreen()
-            }
-            composable(Dest.URL_SCANNER) {
-                URLScannerScreen(onBack = { navController.popBackStack() })
-            }
-            composable(Dest.TRACER) {
-                RequestTracerScreen(onBack = { navController.popBackStack() })
-            }
-            composable(Dest.REGISTRAR) {
-                RegistrarScreen(onBack = { navController.popBackStack() })
-            }
-            composable(Dest.TUNNELS) {
-                ProGate {
-                    TunnelListScreen(
-                        onBack = { navController.popBackStack() },
-                        onOpenTunnel = { id, name -> navController.navigate(Dest.tunnelDetail(id, name)) },
-                    )
-                }
-            }
-            composable(
-                route = Dest.TUNNEL_DETAIL_ROUTE,
-                arguments = listOf(
-                    navArgument("tunnelId") { type = NavType.StringType },
-                    navArgument("tunnelName") { type = NavType.StringType; defaultValue = "" },
-                ),
-            ) {
-                ProGate { TunnelDetailScreen(onBack = { navController.popBackStack() }) }
-            }
-            composable(Dest.TURNSTILE) {
-                ProGate {
-                    TurnstileListScreen(
-                        onBack = { navController.popBackStack() },
-                        onOpenWidget = { sitekey -> navController.navigate(Dest.turnstileDetail(sitekey)) },
-                    )
-                }
-            }
-            composable(
-                route = Dest.TURNSTILE_DETAIL_ROUTE,
-                arguments = listOf(navArgument("sitekey") { type = NavType.StringType }),
-            ) {
-                ProGate { TurnstileDetailScreen(onBack = { navController.popBackStack() }) }
-            }
-            composable(
-                Dest.ZONES,
-                deepLinks = listOf(navDeepLink { uriPattern = "orangecloud://open/zones" }),
-            ) {
-                ZonesPaneScreen(
-                    onOpenDns = { id, name -> navController.navigate(Dest.dns(id, name)) },
-                    onOpenAnalytics = { id, name -> navController.navigate(Dest.analytics(id, name)) },
-                    onOpenWaf = { id, name -> navController.navigate(Dest.waf(id, name)) },
-                    onOpenSnippets = { id, name -> navController.navigate(Dest.snippets(id, name)) },
-                    onOpenSsl = { id, name -> navController.navigate(Dest.ssl(id, name)) },
-                    onOpenSslCerts = { id, name -> navController.navigate(Dest.sslCerts(id, name)) },
-                    onOpenTransform = { id, name -> navController.navigate(Dest.transform(id, name)) },
-                    onOpenAccessRules = { id, name -> navController.navigate(Dest.accessRules(id, name)) },
-                    onOpenPerformance = { id, name -> navController.navigate(Dest.performance(id, name)) },
-                    onOpenSettings = { id, name -> navController.navigate(Dest.zoneSettings(id, name)) },
-                    onOpenZoneTool = openZoneTool,
-                )
-            }
-            composable(
-                route = Dest.ZONE_DETAIL_ROUTE,
-                arguments = zoneArgs(),
-            ) { entry ->
-                val zoneId = entry.arguments?.getString("zoneId").orEmpty()
-                val zoneName = entry.arguments?.getString("zoneName").orEmpty()
-                ZoneDetailScreen(
-                    zoneId = zoneId,
-                    zoneName = zoneName,
-                    onBack = { navController.popBackStack() },
-                    onOpenDns = { navController.navigate(Dest.dns(zoneId, zoneName)) },
-                    onOpenAnalytics = { navController.navigate(Dest.analytics(zoneId, zoneName)) },
-                    onOpenWaf = { navController.navigate(Dest.waf(zoneId, zoneName)) },
-                    onOpenSnippets = { navController.navigate(Dest.snippets(zoneId, zoneName)) },
-                    onOpenSsl = { navController.navigate(Dest.ssl(zoneId, zoneName)) },
-                    onOpenSslCerts = { navController.navigate(Dest.sslCerts(zoneId, zoneName)) },
-                    onOpenTransform = { navController.navigate(Dest.transform(zoneId, zoneName)) },
-                    onOpenAccessRules = { navController.navigate(Dest.accessRules(zoneId, zoneName)) },
-                    onOpenPerformance = { navController.navigate(Dest.performance(zoneId, zoneName)) },
-                    onOpenSettings = { navController.navigate(Dest.zoneSettings(zoneId, zoneName)) },
-                    onOpenZoneTool = { tool -> openZoneTool(zoneId, zoneName, tool) },
-                )
-            }
-            composable(
-                route = Dest.WAF_ROUTE,
-                arguments = zoneArgs(),
-            ) {
-                ProGate { WafRulesScreen(onBack = { navController.popBackStack() }) }
-            }
-            composable(
-                route = Dest.CACHE_ROUTE,
-                arguments = zoneArgs(),
-            ) {
-                ProGate { ZoneCacheRulesScreen(onBack = { navController.popBackStack() }) }
-            }
-            composable(
-                route = Dest.RATE_LIMIT_ROUTE,
-                arguments = zoneArgs(),
-            ) {
-                ProGate { ZoneRateLimitScreen(onBack = { navController.popBackStack() }) }
-            }
-            composable(
-                route = Dest.EMAIL_ROUTE,
-                arguments = zoneArgs(),
-            ) {
-                EmailRoutingScreen(onBack = { navController.popBackStack() })
-            }
-            composable(
-                route = Dest.HEALTHCHECK_ROUTE,
-                arguments = zoneArgs(),
-            ) {
-                HealthCheckScreen(onBack = { navController.popBackStack() })
-            }
-            composable(
-                route = Dest.DNS_SETTINGS_ROUTE,
-                arguments = zoneArgs(),
-            ) {
-                DnsSettingsScreen(onBack = { navController.popBackStack() })
-            }
-            composable(
-                route = Dest.MANAGED_HEADERS_ROUTE,
-                arguments = zoneArgs(),
-            ) {
-                ManagedHeadersScreen(onBack = { navController.popBackStack() })
-            }
-            composable(
-                route = Dest.LOAD_BALANCER_ROUTE,
-                arguments = zoneArgs(),
-            ) {
-                ProGate {
-                    ZoneLoadBalancerScreen(
-                        onBack = { navController.popBackStack() },
-                        onOpenPools = { navController.navigate(Dest.LB_POOLS) },
-                        onOpenMonitors = { navController.navigate(Dest.LB_MONITORS) },
-                    )
-                }
-            }
-            composable(Dest.LB_POOLS) {
-                PoolListScreen(onBack = { navController.popBackStack() })
-            }
-            composable(Dest.LB_MONITORS) {
-                MonitorListScreen(onBack = { navController.popBackStack() })
-            }
-            composable(
-                route = Dest.SNIPPETS_ROUTE,
-                arguments = zoneArgs(),
-            ) { entry ->
-                val zoneId = entry.arguments?.getString("zoneId").orEmpty()
-                val zoneName = entry.arguments?.getString("zoneName").orEmpty()
-                ProGate {
-                    SnippetsListScreen(
-                        onBack = { navController.popBackStack() },
-                        onOpenSnippet = { name -> navController.navigate(Dest.snippetEdit(zoneId, zoneName, name)) },
-                        onCreate = { navController.navigate(Dest.snippetEdit(zoneId, zoneName, "")) },
-                    )
-                }
-            }
-            composable(
-                route = Dest.SNIPPET_EDIT_ROUTE,
-                arguments = listOf(
-                    navArgument("zoneId") { type = NavType.StringType },
-                    navArgument("zoneName") { type = NavType.StringType; defaultValue = "" },
-                    navArgument("name") { type = NavType.StringType; defaultValue = "" },
-                ),
-            ) {
-                ProGate {
-                    SnippetEditorScreen(
-                        onBack = { navController.popBackStack() },
-                        onClosed = { navController.popBackStack() },
-                    )
-                }
-            }
-            composable(
-                route = Dest.ZONE_SETTINGS_ROUTE,
-                arguments = zoneArgs(),
-            ) {
-                ZoneSettingsScreen(onBack = { navController.popBackStack() })
-            }
-            composable(
-                route = Dest.SSL_ROUTE,
-                arguments = zoneArgs(),
-            ) {
-                ZoneSslSettingsScreen(onBack = { navController.popBackStack() })
-            }
-            composable(
-                route = Dest.SSL_CERTS_ROUTE,
-                arguments = zoneArgs(),
-            ) {
-                ZoneSslCertsScreen(onBack = { navController.popBackStack() })
-            }
-            composable(
-                route = Dest.PERFORMANCE_ROUTE,
-                arguments = zoneArgs(),
-            ) {
-                ZonePerformanceScreen(onBack = { navController.popBackStack() })
-            }
-            composable(
-                route = Dest.TRANSFORM_ROUTE,
-                arguments = zoneArgs(),
-            ) {
-                ZoneTransformScreen(onBack = { navController.popBackStack() })
-            }
-            composable(
-                route = Dest.ACCESS_RULES_ROUTE,
-                arguments = zoneArgs(),
-            ) {
-                ZoneAccessRulesScreen(onBack = { navController.popBackStack() })
-            }
-            composable(
-                route = Dest.DNS_ROUTE,
-                arguments = zoneArgs(),
-                deepLinks = listOf(
-                    navDeepLink { uriPattern = "orangecloud://zone/{zoneId}/dns?zoneName={zoneName}" },
-                ),
-            ) {
-                DnsListScreen(onBack = { navController.popBackStack() })
-            }
-            composable(
-                route = Dest.ANALYTICS_ROUTE,
-                arguments = zoneArgs(),
-            ) {
-                ZoneAnalyticsScreen(
-                    onBack = { navController.popBackStack() },
-                    onShowPaywall = { navController.navigate(Dest.PAYWALL) },
-                )
-            }
-            composable(Dest.DEV_HUB) {
-                DeveloperHubScreen(
-                    onOpenWorkers = { navController.navigate(Dest.WORKERS) },
-                    onOpenWorkersAI = { navController.navigate(Dest.DEV_WORKERS_AI) },
-                    onOpenAIGateway = { navController.navigate(Dest.DEV_AI_GATEWAY) },
-                    onOpenQueues = { navController.navigate(Dest.DEV_QUEUES) },
-                    onOpenHyperdrive = { navController.navigate(Dest.DEV_HYPERDRIVE) },
-                    onOpenDurableObjects = { navController.navigate(Dest.DEV_DO) },
-                    onOpenPages = { navController.navigate(Dest.PAGES) },
-                    onOpenAssistant = { navController.navigate(Dest.DEV_ASSISTANT) },
-                )
-            }
-            composable(Dest.DEV_ASSISTANT) {
-                AssistantScreen(onBack = { navController.popBackStack() })
-            }
-            composable(
-                Dest.WORKERS,
-                deepLinks = listOf(navDeepLink { uriPattern = "orangecloud://open/workers" }),
-            ) {
-                WorkerListScreen(
-                    onWorkerClick = { name -> navController.navigate(Dest.worker(name)) },
-                    onCreate = { navController.navigate(Dest.WORKER_CREATE) },
-                )
-            }
-            composable(Dest.WORKER_CREATE) {
-                // 新建 Worker 进 Pro（查看免费）
-                ProGate {
-                    WorkerCreateScreen(
-                        onBack = { navController.popBackStack() },
-                        onCreated = { navController.popBackStack() },
-                    )
-                }
-            }
-            composable(
-                route = Dest.WORKER_EDIT_ROUTE,
-                arguments = listOf(navArgument("editScript") { type = NavType.StringType }),
-            ) {
-                // 编辑代码进 Pro（查看免费）
-                ProGate {
-                    WorkerCreateScreen(
-                        onBack = { navController.popBackStack() },
-                        onCreated = { navController.popBackStack() },
-                    )
-                }
-            }
-            composable(Dest.DEV_WORKERS_AI) {
-                ProGate {
-                    WorkersAIScreen(
-                        onBack = { navController.popBackStack() },
-                        onOpenModel = { m -> navController.navigate(Dest.aiModel(m.name ?: m.id, m.taskName, m.description.orEmpty())) },
-                    )
-                }
-            }
-            composable(
-                route = Dest.AI_RUN_ROUTE,
-                arguments = listOf(
-                    navArgument("model") { type = NavType.StringType },
-                    navArgument("task") { type = NavType.StringType; defaultValue = "" },
-                    navArgument("desc") { type = NavType.StringType; defaultValue = "" },
-                ),
-            ) {
-                ProGate { AIRunScreen(onBack = { navController.popBackStack() }) }
-            }
-            composable(Dest.DEV_AI_GATEWAY) {
-                ProGate { AIGatewayScreen(onBack = { navController.popBackStack() }) }
-            }
-            composable(Dest.DEV_QUEUES) {
-                ProGate { QueuesScreen(onBack = { navController.popBackStack() }) }
-            }
-            composable(Dest.DEV_HYPERDRIVE) {
-                ProGate { HyperdriveScreen(onBack = { navController.popBackStack() }) }
-            }
-            composable(Dest.DEV_DO) {
-                ProGate { DurableObjectsScreen(onBack = { navController.popBackStack() }) }
-            }
-            composable(
-                route = Dest.WORKER_ROUTE,
-                arguments = listOf(navArgument("scriptName") { type = NavType.StringType }),
-                deepLinks = listOf(
-                    navDeepLink { uriPattern = "orangecloud://worker/{scriptName}" },
-                ),
-            ) { entry ->
-                val scriptName = entry.arguments?.getString("scriptName").orEmpty()
-                WorkerDetailScreen(
-                    onBack = { navController.popBackStack() },
-                    onOpenTail = { navController.navigate(Dest.tail(scriptName)) },
-                    onOpenSecrets = { navController.navigate(Dest.workerSecrets(scriptName)) },
-                    onOpenTriggers = { navController.navigate(Dest.workerTriggers(scriptName)) },
-                    onOpenDomains = { navController.navigate(Dest.workerDomains(scriptName)) },
-                    onOpenDeployments = { navController.navigate(Dest.workerDeployments(scriptName)) },
-                    onOpenBuilds = { navController.navigate(Dest.workerBuilds(scriptName)) },
-                    onEditCode = { navController.navigate(Dest.workerEdit(scriptName)) },
-                    // 查看详情免费；删除按 isPro 拦到付费墙（编辑/新建走各自路由的 ProGate）
-                    isPro = isPro,
-                    onShowPaywall = { navController.navigate(Dest.PAYWALL) },
-                )
-            }
-            composable(
-                route = Dest.WORKER_SECRETS_ROUTE,
-                arguments = listOf(navArgument("scriptName") { type = NavType.StringType }),
-            ) {
-                ProGate { WorkerSecretsScreen(onBack = { navController.popBackStack() }) }
-            }
-            composable(
-                route = Dest.WORKER_TRIGGERS_ROUTE,
-                arguments = listOf(navArgument("scriptName") { type = NavType.StringType }),
-            ) {
-                ProGate { WorkerTriggersScreen(onBack = { navController.popBackStack() }) }
-            }
-            composable(
-                route = Dest.WORKER_DOMAINS_ROUTE,
-                arguments = listOf(navArgument("scriptName") { type = NavType.StringType }),
-            ) {
-                ProGate { WorkerRoutesScreen(onBack = { navController.popBackStack() }) }
-            }
-            composable(
-                route = Dest.WORKER_DEPLOYMENTS_ROUTE,
-                arguments = listOf(navArgument("scriptName") { type = NavType.StringType }),
-            ) {
-                ProGate { WorkerDeploymentsScreen(onBack = { navController.popBackStack() }) }
-            }
-            composable(
-                route = Dest.WORKER_BUILDS_ROUTE,
-                arguments = listOf(navArgument("scriptName") { type = NavType.StringType }),
-            ) {
-                WorkerBuildsScreen(onBack = { navController.popBackStack() })
-            }
-            composable(
-                route = Dest.TAIL_ROUTE,
-                arguments = listOf(navArgument("scriptName") { type = NavType.StringType }),
-            ) {
-                ProGate { WorkerTailScreen(onBack = { navController.popBackStack() }) }
-            }
-            composable(
-                Dest.STORAGE,
-                deepLinks = listOf(navDeepLink { uriPattern = "orangecloud://open/storage" }),
-            ) {
-                ProGate {
-                    StorageHubScreen(
-                        onOpenR2 = { navController.navigate(Dest.R2_BUCKETS) },
-                        onOpenD1 = { navController.navigate(Dest.D1_DATABASES) },
-                        onOpenKV = { navController.navigate(Dest.KV_NAMESPACES) },
-                    )
-                }
-            }
-            composable(Dest.R2_BUCKETS) {
-                R2BucketListScreen(
-                    onBack = { navController.popBackStack() },
-                    onOpenBucket = { navController.navigate(Dest.r2Objects(it)) },
-                )
-            }
-            composable(
-                route = Dest.R2_OBJECTS_ROUTE,
-                arguments = listOf(navArgument("bucket") { type = NavType.StringType }),
-            ) { entry ->
-                val bucket = entry.arguments?.getString("bucket").orEmpty()
-                R2ObjectListScreen(
-                    onBack = { navController.popBackStack() },
-                    onOpenSettings = { navController.navigate(Dest.r2Settings(bucket)) },
-                )
-            }
-            composable(
-                route = Dest.R2_BUCKET_SETTINGS_ROUTE,
-                arguments = listOf(navArgument("bucket") { type = NavType.StringType }),
-            ) {
-                R2BucketSettingsScreen(
-                    onBack = { navController.popBackStack() },
-                    onOpenSql = { bucket -> navController.navigate(Dest.r2Sql(bucket)) },
-                )
-            }
-            composable(
-                route = Dest.R2_SQL_ROUTE,
-                arguments = listOf(navArgument("bucket") { type = NavType.StringType }),
-            ) {
-                R2SqlQueryScreen(onBack = { navController.popBackStack() })
-            }
-            composable(Dest.D1_DATABASES) {
-                D1DatabaseListScreen(
-                    onBack = { navController.popBackStack() },
-                    onOpenDatabase = { id, name -> navController.navigate(Dest.d1Query(id, name)) },
-                )
-            }
-            composable(
-                route = Dest.D1_QUERY_ROUTE,
-                arguments = listOf(
-                    navArgument("dbId") { type = NavType.StringType },
-                    navArgument("dbName") { type = NavType.StringType; defaultValue = "" },
-                ),
-            ) { entry ->
-                val dbId = entry.arguments?.getString("dbId").orEmpty()
-                D1QueryScreen(
-                    onBack = { navController.popBackStack() },
-                    onOpenTable = { table -> navController.navigate(Dest.d1Table(dbId, table)) },
-                )
-            }
-            composable(
-                route = Dest.D1_TABLE_ROUTE,
-                arguments = listOf(
-                    navArgument("dbId") { type = NavType.StringType },
-                    navArgument("table") { type = NavType.StringType; defaultValue = "" },
-                ),
-            ) {
-                D1TableScreen(onBack = { navController.popBackStack() })
-            }
-            composable(Dest.KV_NAMESPACES) {
-                KVNamespaceListScreen(
-                    onBack = { navController.popBackStack() },
-                    onOpenNamespace = { id, title -> navController.navigate(Dest.kvKeys(id, title)) },
-                )
-            }
-            composable(
-                route = Dest.KV_KEYS_ROUTE,
-                arguments = listOf(
-                    navArgument("nsId") { type = NavType.StringType },
-                    navArgument("nsTitle") { type = NavType.StringType; defaultValue = "" },
-                ),
-            ) {
-                KVKeyListScreen(onBack = { navController.popBackStack() })
-            }
-            composable(Dest.SETTINGS) {
-                SettingsScreen(
-                    onOpenStatus = { navController.navigate(Dest.STATUS) },
-                    onOpenIdentity = { sessionId -> navController.navigate(Dest.identity(sessionId)) },
-                    onAddAccount = onAddAccount,
-                    onOpenPaywall = { navController.navigate(Dest.PAYWALL) },
-                    onOpenAudit = { navController.navigate(Dest.AUDIT) },
-                    onOpenToolbox = onOpenToolbox,
-                    onOpenAlerting = { navController.navigate(Dest.ALERTING) },
-                )
-            }
-            composable(
-                route = Dest.IDENTITY_ROUTE,
-                arguments = listOf(navArgument("sessionId") { type = NavType.StringType }),
-            ) { entry ->
-                val sessionId = entry.arguments?.getString("sessionId").orEmpty()
-                IdentityDetailScreen(
-                    sessionId = sessionId,
-                    onBack = { navController.popBackStack() },
-                )
-            }
-            composable(Dest.STATUS) {
-                StatusScreen(onBack = { navController.popBackStack() })
-            }
-            composable(Dest.AUDIT) {
-                AuditLogScreen(onBack = { navController.popBackStack() })
-            }
-            composable(Dest.ALERTING) {
-                CFAlertingScreen(onBack = { navController.popBackStack() })
-            }
-            }
-        }
-    }
+    // Haze 毛玻璃统一源：状态栏玻璃条 / 胶囊底栏 / 系统导航条玻璃条都从这一份
+    // 内容里采样，保证透出内容与页面背景一致；TgBottomBar 通过 LocalHazeState 取到它。
+    val hazeState = remember { HazeState() }
+    val statusH = WindowInsets.statusBars.asPaddingValues().calculateTopPadding()
+    val navH = WindowInsets.navigationBars.asPaddingValues().calculateBottomPadding()
 
-    if (isWideLayout) {
-        NavigationSuiteScaffold(
-            navigationSuiteItems = {
-                TopDestination.entries.forEach { dest ->
-                    item(
-                        selected = selectedTop == dest,
-                        onClick = {
-                            navController.navigate(Dest.startRoute(dest)) {
-                                // 切顶级标签：弹回起点并保存/恢复各自子栈状态
-                                popUpTo(navController.graph.findStartDestination().id) { saveState = true }
-                                launchSingleTop = true
-                                restoreState = true
-                            }
-                        },
-                        icon = { Icon(dest.icon, contentDescription = null) },
-                        label = {
-                            // 五标签下长文本（如「开发者平台」）换行会挤压图标：
-                            // 1) 字号用 dp 转 sp，不随系统字体缩放，任何系统字号下都保持同一物理大小；
-                            // 2) 强制单行 + 省略号兜底，极端窄屏也不会换行挤压图标。
-                            Text(
-                                stringResource(dest.labelRes),
-                                maxLines = 1,
-                                softWrap = false,
-                                overflow = TextOverflow.Ellipsis,
-                                fontSize = with(LocalDensity.current) { 11.dp.toSp() },
-                            )
-                        },
-                    )
+    CompositionLocalProvider(LocalHazeState provides hazeState) {
+        Box(Modifier.fillMaxSize().hazeSource(hazeState)) {
+
+            // 两种布局共用同一份页面内容（顶部标签横滑 + NavHost）。
+            val appContent: @Composable () -> Unit = {
+                // 顶级标签页左右滑动切换：手指拖动时内容跟手平移，松手后按位移/速度决定翻页或回弹。
+                // 仅在顶级起点页生效（下钻页横滑交给页面自身，如返回手势），避免与子路由冲突。
+                val scope = rememberCoroutineScope()
+                val swipeOffset = remember { Animatable(0f) } // 屏宽比例，负 = 向左滑
+                val topRoutes = remember { TopDestination.entries.map { Dest.startRoute(it) }.toSet() }
+                val swipeTo: (TopDestination) -> Unit = { dest ->
+                    navController.navigate(Dest.startRoute(dest)) {
+                        popUpTo(navController.graph.findStartDestination().id) { saveState = true }
+                        launchSingleTop = true
+                        restoreState = true
+                    }
                 }
-            },
-        ) {
-            Box(Modifier.fillMaxSize()) {
-                // 与窄屏同源的背景层：铺满窗口，保证宽屏下也没有窗口底色露出来。
-                SkyBackground(phase = rememberSkyPhase())
-                appContent()
-            }
-        }
-    } else {
-        Scaffold(
-            containerColor = Color.Transparent,
-            // 与 NavigationSuiteScaffold 一致：内容自行处理系统栏内边距，这里不额外叠加
-            contentWindowInsets = WindowInsets(0, 0, 0, 0),
-            bottomBar = {
-                TgBottomBar(
-                    selected = selectedTop,
-                    onSelect = { dest ->
-                        navController.navigate(Dest.startRoute(dest)) {
-                            popUpTo(navController.graph.findStartDestination().id) { saveState = true }
-                            launchSingleTop = true
-                            restoreState = true
-                        }
-                    },
-                )
-            },
-        ) { padding ->
-            // 胶囊底栏已用 navigationBars 内边距浮到系统导航栏之上，Scaffold 给的 bottom
-            // padding 里含这段系统栏高度；把它扣掉，页面内容仍延伸到系统栏后方，
-            // 底部不会多出一条空档（与改造前的行为一致）。
-            val navBottom = WindowInsets.navigationBars.asPaddingValues().calculateBottomPadding()
-            Box(Modifier.fillMaxSize()) {
-                // 背景必须铺满「整个窗口」，包括胶囊底栏与系统导航栏覆盖的那一段。
-                // 系统导航栏本身是全透明的，App 若不把背景画到那里，透出来的就是
-                // 窗口底色（浅色 #F5F2ED / 深色 #0A0A0E）——就是那条突兀的色带，
-                // 深色模式下尤其难看（一道白带压在黑底上）。
-                // 它同时充当横滑垫层：NavHost 整体平移时，透出的是延续的页面背景。
-                SkyBackground(phase = rememberSkyPhase())
+                // —— 横滑切标签 ——
+                // 跟手平移：手指拖动时内容整体跟随，松手后按位移/速度决定翻页或回弹。
+                // 提交翻页时先把当前页滑出到边界，导航落位后新页从另一侧滑入，
+                // 两段动画接力，视觉上就是「新页从右滑入 / 旧页向左滑出」。
                 Box(
                     Modifier
                         .fillMaxSize()
-                        .padding(
-                            bottom = (padding.calculateBottomPadding() - navBottom).coerceAtLeast(0.dp),
-                        ),
+                        .graphicsLayer {
+                            translationX = swipeOffset.value * size.width
+                            // 平移时裁掉图层边界外的内容：否则仍在合成中的旧页面会随平移露出残影
+                            clip = true
+                        }
+                        .pointerInput(currentRoute) {
+                            if (currentRoute !in topRoutes) return@pointerInput
+                            val entries = TopDestination.entries
+                            val idx = entries.indexOf(Dest.topOf(currentRoute))
+                            val widthPx = { size.width.toFloat().coerceAtLeast(1f) }
+                            var velocity = 0f // px/s，供快速轻扫（flick）判定
+                            detectHorizontalDragGestures(
+                                onDragStart = {
+                                    velocity = 0f
+                                    scope.launch { swipeOffset.stop() }
+                                },
+                                onDragCancel = { scope.launch { swipeOffset.animateTo(0f, tween(180)) } },
+                                onDragEnd = {
+                                    val off = swipeOffset.value
+                                    val v = velocity / widthPx() // 换算成屏宽/s
+                                    scope.launch {
+                                        when {
+                                            // 左滑超过阈值或快速轻扫 → 下一标签。
+                                            // 当前页先滑出左边界，导航落位后新页从右边界滑入。
+                                            (off < -0.30f || v < -1.5f) && off <= 0f && idx < entries.lastIndex -> {
+                                                swipeOffset.animateTo(-1f, tween(160))
+                                                swipeTo(entries[idx + 1])
+                                                swipeOffset.snapTo(1f)
+                                                swipeOffset.animateTo(0f, tween(160))
+                                            }
+                                            (off > 0.30f || v > 1.5f) && off >= 0f && idx > 0 -> {
+                                                swipeOffset.animateTo(1f, tween(160))
+                                                swipeTo(entries[idx - 1])
+                                                swipeOffset.snapTo(-1f)
+                                                swipeOffset.animateTo(0f, tween(160))
+                                            }
+                                            else -> swipeOffset.animateTo(0f, tween(180))
+                                        }
+                                    }
+                                },
+                            ) { change, dragAmount ->
+                                change.consume()
+                                val dt = change.uptimeMillis - change.previousUptimeMillis
+                                if (dt > 0) velocity = dragAmount / (dt / 1000f)
+                                // 首尾两端的越界拖动施加阻尼（橡皮筋），提示已到边界
+                                val next = swipeOffset.value + dragAmount / widthPx()
+                                val clamped = when {
+                                    idx <= 0 && next > 0f -> next * 0.25f
+                                    idx >= entries.lastIndex && next < 0f -> next * 0.25f
+                                    else -> next.coerceIn(-1f, 1f)
+                                }
+                                scope.launch { swipeOffset.snapTo(clamped) }
+                            }
+                        },
                 ) {
-                    appContent()
+                    // Navigation Compose 默认过渡是 700ms 淡入淡出。按返回键后立刻横滑时，正在淡出的
+                    // 旧页面会半透明叠在新页面上，看起来就是"上一页的残影"；而整页横滑又把 NavHost
+                    // 一起平移，叠加层跟着动，残影更明显。顶部标签切换已由横滑动画承担，这里直接关掉
+                    // 淡入淡出，页面切换瞬时完成。
+                    NavHost(
+                        navController = navController,
+                        startDestination = Dest.DASHBOARD,
+                        enterTransition = { EnterTransition.None },
+                        exitTransition = { ExitTransition.None },
+                        popEnterTransition = { EnterTransition.None },
+                        popExitTransition = { ExitTransition.None },
+                    ) {
+                    composable(Dest.DASHBOARD) {
+                        DashboardScreen(
+                            onOpenTunnels = { navController.navigate(Dest.TUNNELS) },
+                            onOpenTurnstile = { navController.navigate(Dest.TURNSTILE) },
+                            onOpenRegistrar = { navController.navigate(Dest.REGISTRAR) },
+                            onOpenTracer = { navController.navigate(Dest.TRACER) },
+                            onOpenUrlScanner = { navController.navigate(Dest.URL_SCANNER) },
+                            onOpenZones = {
+                                navController.navigate(Dest.ZONES) {
+                                    popUpTo(navController.graph.findStartDestination().id) { saveState = true }
+                                    launchSingleTop = true
+                                    restoreState = true
+                                }
+                            },
+                            onOpenZone = { zone -> navController.navigate(Dest.zoneDetail(zone.id, zone.name)) },
+                            onAddAccount = onAddAccount,
+                            onOpenRedirects = { navController.navigate(Dest.REDIRECTS) },
+                            onOpenZeroTrust = { navController.navigate(Dest.ZERO_TRUST) },
+                            onOpenResource = openResource,
+                        )
+                    }
+                    composable(Dest.ZERO_TRUST) {
+                        ProGate {
+                            ZeroTrustHubScreen(
+                                onBack = { navController.popBackStack() },
+                                onOpenAccess = { navController.navigate(Dest.ZT_ACCESS) },
+                                onOpenGateway = { navController.navigate(Dest.ZT_GATEWAY) },
+                            )
+                        }
+                    }
+                    composable(Dest.ZT_ACCESS) {
+                        AccessAppsScreen(onBack = { navController.popBackStack() })
+                    }
+                    composable(Dest.ZT_GATEWAY) {
+                        GatewayRulesScreen(onBack = { navController.popBackStack() })
+                    }
+                    composable(Dest.PAGES) {
+                        ProGate {
+                            PagesListScreen(
+                                onBack = { navController.popBackStack() },
+                                onOpenProject = { project -> navController.navigate(Dest.pagesDetail(project)) },
+                            )
+                        }
+                    }
+                    composable(
+                        route = Dest.PAGES_DETAIL_ROUTE,
+                        arguments = listOf(navArgument("project") { type = NavType.StringType }),
+                    ) {
+                        ProGate { PagesProjectDetailScreen(onBack = { navController.popBackStack() }) }
+                    }
+                    composable(Dest.REDIRECTS) {
+                        RedirectListsScreen(
+                            onBack = { navController.popBackStack() },
+                            onOpenList = { id, name -> navController.navigate(Dest.redirectItems(id, name)) },
+                        )
+                    }
+                    composable(
+                        route = Dest.REDIRECT_ITEMS_ROUTE,
+                        arguments = listOf(
+                            navArgument("listId") { type = NavType.StringType },
+                            navArgument("listName") { type = NavType.StringType; defaultValue = "" },
+                        ),
+                    ) {
+                        RedirectItemsScreen(onBack = { navController.popBackStack() })
+                    }
+                    composable(Dest.PAYWALL) {
+                        PaywallScreen()
+                    }
+                    composable(Dest.URL_SCANNER) {
+                        URLScannerScreen(onBack = { navController.popBackStack() })
+                    }
+                    composable(Dest.TRACER) {
+                        RequestTracerScreen(onBack = { navController.popBackStack() })
+                    }
+                    composable(Dest.REGISTRAR) {
+                        RegistrarScreen(onBack = { navController.popBackStack() })
+                    }
+                    composable(Dest.TUNNELS) {
+                        ProGate {
+                            TunnelListScreen(
+                                onBack = { navController.popBackStack() },
+                                onOpenTunnel = { id, name -> navController.navigate(Dest.tunnelDetail(id, name)) },
+                            )
+                        }
+                    }
+                    composable(
+                        route = Dest.TUNNEL_DETAIL_ROUTE,
+                        arguments = listOf(
+                            navArgument("tunnelId") { type = NavType.StringType },
+                            navArgument("tunnelName") { type = NavType.StringType; defaultValue = "" },
+                        ),
+                    ) {
+                        ProGate { TunnelDetailScreen(onBack = { navController.popBackStack() }) }
+                    }
+                    composable(Dest.TURNSTILE) {
+                        ProGate {
+                            TurnstileListScreen(
+                                onBack = { navController.popBackStack() },
+                                onOpenWidget = { sitekey -> navController.navigate(Dest.turnstileDetail(sitekey)) },
+                            )
+                        }
+                    }
+                    composable(
+                        route = Dest.TURNSTILE_DETAIL_ROUTE,
+                        arguments = listOf(navArgument("sitekey") { type = NavType.StringType }),
+                    ) {
+                        ProGate { TurnstileDetailScreen(onBack = { navController.popBackStack() }) }
+                    }
+                    composable(
+                        Dest.ZONES,
+                        deepLinks = listOf(navDeepLink { uriPattern = "orangecloud://open/zones" }),
+                    ) {
+                        ZonesPaneScreen(
+                            onOpenDns = { id, name -> navController.navigate(Dest.dns(id, name)) },
+                            onOpenAnalytics = { id, name -> navController.navigate(Dest.analytics(id, name)) },
+                            onOpenWaf = { id, name -> navController.navigate(Dest.waf(id, name)) },
+                            onOpenSnippets = { id, name -> navController.navigate(Dest.snippets(id, name)) },
+                            onOpenSsl = { id, name -> navController.navigate(Dest.ssl(id, name)) },
+                            onOpenSslCerts = { id, name -> navController.navigate(Dest.sslCerts(id, name)) },
+                            onOpenTransform = { id, name -> navController.navigate(Dest.transform(id, name)) },
+                            onOpenAccessRules = { id, name -> navController.navigate(Dest.accessRules(id, name)) },
+                            onOpenPerformance = { id, name -> navController.navigate(Dest.performance(id, name)) },
+                            onOpenSettings = { id, name -> navController.navigate(Dest.zoneSettings(id, name)) },
+                            onOpenZoneTool = openZoneTool,
+                        )
+                    }
+                    composable(
+                        route = Dest.ZONE_DETAIL_ROUTE,
+                        arguments = zoneArgs(),
+                    ) { entry ->
+                        val zoneId = entry.arguments?.getString("zoneId").orEmpty()
+                        val zoneName = entry.arguments?.getString("zoneName").orEmpty()
+                        ZoneDetailScreen(
+                            zoneId = zoneId,
+                            zoneName = zoneName,
+                            onBack = { navController.popBackStack() },
+                            onOpenDns = { navController.navigate(Dest.dns(zoneId, zoneName)) },
+                            onOpenAnalytics = { navController.navigate(Dest.analytics(zoneId, zoneName)) },
+                            onOpenWaf = { navController.navigate(Dest.waf(zoneId, zoneName)) },
+                            onOpenSnippets = { navController.navigate(Dest.snippets(zoneId, zoneName)) },
+                            onOpenSsl = { navController.navigate(Dest.ssl(zoneId, zoneName)) },
+                            onOpenSslCerts = { navController.navigate(Dest.sslCerts(zoneId, zoneName)) },
+                            onOpenTransform = { navController.navigate(Dest.transform(zoneId, zoneName)) },
+                            onOpenAccessRules = { navController.navigate(Dest.accessRules(zoneId, zoneName)) },
+                            onOpenPerformance = { navController.navigate(Dest.performance(zoneId, zoneName)) },
+                            onOpenSettings = { navController.navigate(Dest.zoneSettings(zoneId, zoneName)) },
+                            onOpenZoneTool = { tool -> openZoneTool(zoneId, zoneName, tool) },
+                        )
+                    }
+                    composable(
+                        route = Dest.WAF_ROUTE,
+                        arguments = zoneArgs(),
+                    ) {
+                        ProGate { WafRulesScreen(onBack = { navController.popBackStack() }) }
+                    }
+                    composable(
+                        route = Dest.CACHE_ROUTE,
+                        arguments = zoneArgs(),
+                    ) {
+                        ProGate { ZoneCacheRulesScreen(onBack = { navController.popBackStack() }) }
+                    }
+                    composable(
+                        route = Dest.RATE_LIMIT_ROUTE,
+                        arguments = zoneArgs(),
+                    ) {
+                        ProGate { ZoneRateLimitScreen(onBack = { navController.popBackStack() }) }
+                    }
+                    composable(
+                        route = Dest.EMAIL_ROUTE,
+                        arguments = zoneArgs(),
+                    ) {
+                        EmailRoutingScreen(onBack = { navController.popBackStack() })
+                    }
+                    composable(
+                        route = Dest.HEALTHCHECK_ROUTE,
+                        arguments = zoneArgs(),
+                    ) {
+                        HealthCheckScreen(onBack = { navController.popBackStack() })
+                    }
+                    composable(
+                        route = Dest.DNS_SETTINGS_ROUTE,
+                        arguments = zoneArgs(),
+                    ) {
+                        DnsSettingsScreen(onBack = { navController.popBackStack() })
+                    }
+                    composable(
+                        route = Dest.MANAGED_HEADERS_ROUTE,
+                        arguments = zoneArgs(),
+                    ) {
+                        ManagedHeadersScreen(onBack = { navController.popBackStack() })
+                    }
+                    composable(
+                        route = Dest.LOAD_BALANCER_ROUTE,
+                        arguments = zoneArgs(),
+                    ) {
+                        ProGate {
+                            ZoneLoadBalancerScreen(
+                                onBack = { navController.popBackStack() },
+                                onOpenPools = { navController.navigate(Dest.LB_POOLS) },
+                                onOpenMonitors = { navController.navigate(Dest.LB_MONITORS) },
+                            )
+                        }
+                    }
+                    composable(Dest.LB_POOLS) {
+                        PoolListScreen(onBack = { navController.popBackStack() })
+                    }
+                    composable(Dest.LB_MONITORS) {
+                        MonitorListScreen(onBack = { navController.popBackStack() })
+                    }
+                    composable(
+                        route = Dest.SNIPPETS_ROUTE,
+                        arguments = zoneArgs(),
+                    ) { entry ->
+                        val zoneId = entry.arguments?.getString("zoneId").orEmpty()
+                        val zoneName = entry.arguments?.getString("zoneName").orEmpty()
+                        ProGate {
+                            SnippetsListScreen(
+                                onBack = { navController.popBackStack() },
+                                onOpenSnippet = { name -> navController.navigate(Dest.snippetEdit(zoneId, zoneName, name)) },
+                                onCreate = { navController.navigate(Dest.snippetEdit(zoneId, zoneName, "")) },
+                            )
+                        }
+                    }
+                    composable(
+                        route = Dest.SNIPPET_EDIT_ROUTE,
+                        arguments = listOf(
+                            navArgument("zoneId") { type = NavType.StringType },
+                            navArgument("zoneName") { type = NavType.StringType; defaultValue = "" },
+                            navArgument("name") { type = NavType.StringType; defaultValue = "" },
+                        ),
+                    ) {
+                        ProGate {
+                            SnippetEditorScreen(
+                                onBack = { navController.popBackStack() },
+                                onClosed = { navController.popBackStack() },
+                            )
+                        }
+                    }
+                    composable(
+                        route = Dest.ZONE_SETTINGS_ROUTE,
+                        arguments = zoneArgs(),
+                    ) {
+                        ZoneSettingsScreen(onBack = { navController.popBackStack() })
+                    }
+                    composable(
+                        route = Dest.SSL_ROUTE,
+                        arguments = zoneArgs(),
+                    ) {
+                        ZoneSslSettingsScreen(onBack = { navController.popBackStack() })
+                    }
+                    composable(
+                        route = Dest.SSL_CERTS_ROUTE,
+                        arguments = zoneArgs(),
+                    ) {
+                        ZoneSslCertsScreen(onBack = { navController.popBackStack() })
+                    }
+                    composable(
+                        route = Dest.PERFORMANCE_ROUTE,
+                        arguments = zoneArgs(),
+                    ) {
+                        ZonePerformanceScreen(onBack = { navController.popBackStack() })
+                    }
+                    composable(
+                        route = Dest.TRANSFORM_ROUTE,
+                        arguments = zoneArgs(),
+                    ) {
+                        ZoneTransformScreen(onBack = { navController.popBackStack() })
+                    }
+                    composable(
+                        route = Dest.ACCESS_RULES_ROUTE,
+                        arguments = zoneArgs(),
+                    ) {
+                        ZoneAccessRulesScreen(onBack = { navController.popBackStack() })
+                    }
+                    composable(
+                        route = Dest.DNS_ROUTE,
+                        arguments = zoneArgs(),
+                        deepLinks = listOf(
+                            navDeepLink { uriPattern = "orangecloud://zone/{zoneId}/dns?zoneName={zoneName}" },
+                        ),
+                    ) {
+                        DnsListScreen(onBack = { navController.popBackStack() })
+                    }
+                    composable(
+                        route = Dest.ANALYTICS_ROUTE,
+                        arguments = zoneArgs(),
+                    ) {
+                        ZoneAnalyticsScreen(
+                            onBack = { navController.popBackStack() },
+                            onShowPaywall = { navController.navigate(Dest.PAYWALL) },
+                        )
+                    }
+                    composable(Dest.DEV_HUB) {
+                        DeveloperHubScreen(
+                            onOpenWorkers = { navController.navigate(Dest.WORKERS) },
+                            onOpenWorkersAI = { navController.navigate(Dest.DEV_WORKERS_AI) },
+                            onOpenAIGateway = { navController.navigate(Dest.DEV_AI_GATEWAY) },
+                            onOpenQueues = { navController.navigate(Dest.DEV_QUEUES) },
+                            onOpenHyperdrive = { navController.navigate(Dest.DEV_HYPERDRIVE) },
+                            onOpenDurableObjects = { navController.navigate(Dest.DEV_DO) },
+                            onOpenPages = { navController.navigate(Dest.PAGES) },
+                            onOpenAssistant = { navController.navigate(Dest.DEV_ASSISTANT) },
+                        )
+                    }
+                    composable(Dest.DEV_ASSISTANT) {
+                        AssistantScreen(onBack = { navController.popBackStack() })
+                    }
+                    composable(
+                        Dest.WORKERS,
+                        deepLinks = listOf(navDeepLink { uriPattern = "orangecloud://open/workers" }),
+                    ) {
+                        WorkerListScreen(
+                            onWorkerClick = { name -> navController.navigate(Dest.worker(name)) },
+                            onCreate = { navController.navigate(Dest.WORKER_CREATE) },
+                        )
+                    }
+                    composable(Dest.WORKER_CREATE) {
+                        // 新建 Worker 进 Pro（查看免费）
+                        ProGate {
+                            WorkerCreateScreen(
+                                onBack = { navController.popBackStack() },
+                                onCreated = { navController.popBackStack() },
+                            )
+                        }
+                    }
+                    composable(
+                        route = Dest.WORKER_EDIT_ROUTE,
+                        arguments = listOf(navArgument("editScript") { type = NavType.StringType }),
+                    ) {
+                        // 编辑代码进 Pro（查看免费）
+                        ProGate {
+                            WorkerCreateScreen(
+                                onBack = { navController.popBackStack() },
+                                onCreated = { navController.popBackStack() },
+                            )
+                        }
+                    }
+                    composable(Dest.DEV_WORKERS_AI) {
+                        ProGate {
+                            WorkersAIScreen(
+                                onBack = { navController.popBackStack() },
+                                onOpenModel = { m -> navController.navigate(Dest.aiModel(m.name ?: m.id, m.taskName, m.description.orEmpty())) },
+                            )
+                        }
+                    }
+                    composable(
+                        route = Dest.AI_RUN_ROUTE,
+                        arguments = listOf(
+                            navArgument("model") { type = NavType.StringType },
+                            navArgument("task") { type = NavType.StringType; defaultValue = "" },
+                            navArgument("desc") { type = NavType.StringType; defaultValue = "" },
+                        ),
+                    ) {
+                        ProGate { AIRunScreen(onBack = { navController.popBackStack() }) }
+                    }
+                    composable(Dest.DEV_AI_GATEWAY) {
+                        ProGate { AIGatewayScreen(onBack = { navController.popBackStack() }) }
+                    }
+                    composable(Dest.DEV_QUEUES) {
+                        ProGate { QueuesScreen(onBack = { navController.popBackStack() }) }
+                    }
+                    composable(Dest.DEV_HYPERDRIVE) {
+                        ProGate { HyperdriveScreen(onBack = { navController.popBackStack() }) }
+                    }
+                    composable(Dest.DEV_DO) {
+                        ProGate { DurableObjectsScreen(onBack = { navController.popBackStack() }) }
+                    }
+                    composable(
+                        route = Dest.WORKER_ROUTE,
+                        arguments = listOf(navArgument("scriptName") { type = NavType.StringType }),
+                        deepLinks = listOf(
+                            navDeepLink { uriPattern = "orangecloud://worker/{scriptName}" },
+                        ),
+                    ) { entry ->
+                        val scriptName = entry.arguments?.getString("scriptName").orEmpty()
+                        WorkerDetailScreen(
+                            onBack = { navController.popBackStack() },
+                            onOpenTail = { navController.navigate(Dest.tail(scriptName)) },
+                            onOpenSecrets = { navController.navigate(Dest.workerSecrets(scriptName)) },
+                            onOpenTriggers = { navController.navigate(Dest.workerTriggers(scriptName)) },
+                            onOpenDomains = { navController.navigate(Dest.workerDomains(scriptName)) },
+                            onOpenDeployments = { navController.navigate(Dest.workerDeployments(scriptName)) },
+                            onOpenBuilds = { navController.navigate(Dest.workerBuilds(scriptName)) },
+                            onEditCode = { navController.navigate(Dest.workerEdit(scriptName)) },
+                            // 查看详情免费；删除按 isPro 拦到付费墙（编辑/新建走各自路由的 ProGate）
+                            isPro = isPro,
+                            onShowPaywall = { navController.navigate(Dest.PAYWALL) },
+                        )
+                    }
+                    composable(
+                        route = Dest.WORKER_SECRETS_ROUTE,
+                        arguments = listOf(navArgument("scriptName") { type = NavType.StringType }),
+                    ) {
+                        ProGate { WorkerSecretsScreen(onBack = { navController.popBackStack() }) }
+                    }
+                    composable(
+                        route = Dest.WORKER_TRIGGERS_ROUTE,
+                        arguments = listOf(navArgument("scriptName") { type = NavType.StringType }),
+                    ) {
+                        ProGate { WorkerTriggersScreen(onBack = { navController.popBackStack() }) }
+                    }
+                    composable(
+                        route = Dest.WORKER_DOMAINS_ROUTE,
+                        arguments = listOf(navArgument("scriptName") { type = NavType.StringType }),
+                    ) {
+                        ProGate { WorkerRoutesScreen(onBack = { navController.popBackStack() }) }
+                    }
+                    composable(
+                        route = Dest.WORKER_DEPLOYMENTS_ROUTE,
+                        arguments = listOf(navArgument("scriptName") { type = NavType.StringType }),
+                    ) {
+                        ProGate { WorkerDeploymentsScreen(onBack = { navController.popBackStack() }) }
+                    }
+                    composable(
+                        route = Dest.WORKER_BUILDS_ROUTE,
+                        arguments = listOf(navArgument("scriptName") { type = NavType.StringType }),
+                    ) {
+                        WorkerBuildsScreen(onBack = { navController.popBackStack() })
+                    }
+                    composable(
+                        route = Dest.TAIL_ROUTE,
+                        arguments = listOf(navArgument("scriptName") { type = NavType.StringType }),
+                    ) {
+                        ProGate { WorkerTailScreen(onBack = { navController.popBackStack() }) }
+                    }
+                    composable(
+                        Dest.STORAGE,
+                        deepLinks = listOf(navDeepLink { uriPattern = "orangecloud://open/storage" }),
+                    ) {
+                        ProGate {
+                            StorageHubScreen(
+                                onOpenR2 = { navController.navigate(Dest.R2_BUCKETS) },
+                                onOpenD1 = { navController.navigate(Dest.D1_DATABASES) },
+                                onOpenKV = { navController.navigate(Dest.KV_NAMESPACES) },
+                            )
+                        }
+                    }
+                    composable(Dest.R2_BUCKETS) {
+                        R2BucketListScreen(
+                            onBack = { navController.popBackStack() },
+                            onOpenBucket = { navController.navigate(Dest.r2Objects(it)) },
+                        )
+                    }
+                    composable(
+                        route = Dest.R2_OBJECTS_ROUTE,
+                        arguments = listOf(navArgument("bucket") { type = NavType.StringType }),
+                    ) { entry ->
+                        val bucket = entry.arguments?.getString("bucket").orEmpty()
+                        R2ObjectListScreen(
+                            onBack = { navController.popBackStack() },
+                            onOpenSettings = { navController.navigate(Dest.r2Settings(bucket)) },
+                        )
+                    }
+                    composable(
+                        route = Dest.R2_BUCKET_SETTINGS_ROUTE,
+                        arguments = listOf(navArgument("bucket") { type = NavType.StringType }),
+                    ) {
+                        R2BucketSettingsScreen(
+                            onBack = { navController.popBackStack() },
+                            onOpenSql = { bucket -> navController.navigate(Dest.r2Sql(bucket)) },
+                        )
+                    }
+                    composable(
+                        route = Dest.R2_SQL_ROUTE,
+                        arguments = listOf(navArgument("bucket") { type = NavType.StringType }),
+                    ) {
+                        R2SqlQueryScreen(onBack = { navController.popBackStack() })
+                    }
+                    composable(Dest.D1_DATABASES) {
+                        D1DatabaseListScreen(
+                            onBack = { navController.popBackStack() },
+                            onOpenDatabase = { id, name -> navController.navigate(Dest.d1Query(id, name)) },
+                        )
+                    }
+                    composable(
+                        route = Dest.D1_QUERY_ROUTE,
+                        arguments = listOf(
+                            navArgument("dbId") { type = NavType.StringType },
+                            navArgument("dbName") { type = NavType.StringType; defaultValue = "" },
+                        ),
+                    ) { entry ->
+                        val dbId = entry.arguments?.getString("dbId").orEmpty()
+                        D1QueryScreen(
+                            onBack = { navController.popBackStack() },
+                            onOpenTable = { table -> navController.navigate(Dest.d1Table(dbId, table)) },
+                        )
+                    }
+                    composable(
+                        route = Dest.D1_TABLE_ROUTE,
+                        arguments = listOf(
+                            navArgument("dbId") { type = NavType.StringType },
+                            navArgument("table") { type = NavType.StringType; defaultValue = "" },
+                        ),
+                    ) {
+                        D1TableScreen(onBack = { navController.popBackStack() })
+                    }
+                    composable(Dest.KV_NAMESPACES) {
+                        KVNamespaceListScreen(
+                            onBack = { navController.popBackStack() },
+                            onOpenNamespace = { id, title -> navController.navigate(Dest.kvKeys(id, title)) },
+                        )
+                    }
+                    composable(
+                        route = Dest.KV_KEYS_ROUTE,
+                        arguments = listOf(
+                            navArgument("nsId") { type = NavType.StringType },
+                            navArgument("nsTitle") { type = NavType.StringType; defaultValue = "" },
+                        ),
+                    ) {
+                        KVKeyListScreen(onBack = { navController.popBackStack() })
+                    }
+                    composable(Dest.SETTINGS) {
+                        SettingsScreen(
+                            onOpenStatus = { navController.navigate(Dest.STATUS) },
+                            onOpenIdentity = { sessionId -> navController.navigate(Dest.identity(sessionId)) },
+                            onAddAccount = onAddAccount,
+                            onOpenPaywall = { navController.navigate(Dest.PAYWALL) },
+                            onOpenAudit = { navController.navigate(Dest.AUDIT) },
+                            onOpenToolbox = onOpenToolbox,
+                            onOpenAlerting = { navController.navigate(Dest.ALERTING) },
+                        )
+                    }
+                    composable(
+                        route = Dest.IDENTITY_ROUTE,
+                        arguments = listOf(navArgument("sessionId") { type = NavType.StringType }),
+                    ) { entry ->
+                        val sessionId = entry.arguments?.getString("sessionId").orEmpty()
+                        IdentityDetailScreen(
+                            sessionId = sessionId,
+                            onBack = { navController.popBackStack() },
+                        )
+                    }
+                    composable(Dest.STATUS) {
+                        StatusScreen(onBack = { navController.popBackStack() })
+                    }
+                    composable(Dest.AUDIT) {
+                        AuditLogScreen(onBack = { navController.popBackStack() })
+                    }
+                    composable(Dest.ALERTING) {
+                        CFAlertingScreen(onBack = { navController.popBackStack() })
+                    }
+                    }
                 }
             }
+
+            if (isWideLayout) {
+                NavigationSuiteScaffold(
+                    navigationSuiteItems = {
+                        TopDestination.entries.forEach { dest ->
+                            item(
+                                selected = selectedTop == dest,
+                                onClick = {
+                                    navController.navigate(Dest.startRoute(dest)) {
+                                        // 切顶级标签：弹回起点并保存/恢复各自子栈状态
+                                        popUpTo(navController.graph.findStartDestination().id) { saveState = true }
+                                        launchSingleTop = true
+                                        restoreState = true
+                                    }
+                                },
+                                icon = { Icon(dest.icon, contentDescription = null) },
+                                label = {
+                                    // 五标签下长文本（如「开发者平台」）换行会挤压图标：
+                                    // 1) 字号用 dp 转 sp，不随系统字体缩放，任何系统字号下都保持同一物理大小；
+                                    // 2) 强制单行 + 省略号兜底，极端窄屏也不会换行挤压图标。
+                                    Text(
+                                        stringResource(dest.labelRes),
+                                        maxLines = 1,
+                                        softWrap = false,
+                                        overflow = TextOverflow.Ellipsis,
+                                        fontSize = with(LocalDensity.current) { 11.dp.toSp() },
+                                    )
+                                },
+                            )
+                        }
+                    },
+                ) {
+                    Box(Modifier.fillMaxSize()) {
+                        // 与窄屏同源的背景层：铺满窗口，保证宽屏下也没有窗口底色露出来。
+                        SkyBackground(phase = rememberSkyPhase())
+                        appContent()
+                    }
+                }
+            } else {
+                Scaffold(
+                    containerColor = Color.Transparent,
+                    // 与 NavigationSuiteScaffold 一致：内容自行处理系统栏内边距，这里不额外叠加
+                    contentWindowInsets = WindowInsets(0, 0, 0, 0),
+                    bottomBar = {
+                        TgBottomBar(
+                            selected = selectedTop,
+                            onSelect = { dest ->
+                                navController.navigate(Dest.startRoute(dest)) {
+                                    popUpTo(navController.graph.findStartDestination().id) { saveState = true }
+                                    launchSingleTop = true
+                                    restoreState = true
+                                }
+                            },
+                        )
+                    },
+                ) { _ ->
+                    Box(Modifier.fillMaxSize()) {
+                        // 背景必须铺满「整个窗口」，包括胶囊底栏与系统导航栏覆盖的那一段。
+                        // 系统导航栏本身是全透明的，App 若不把背景画到那里，透出来的就是
+                        // 窗口底色（浅色 #F5F2ED / 深色 #0A0A0E）——就是那条突兀的色带，
+                        // 深色模式下尤其难看（一道白带压在黑底上）。
+                        // 它同时充当横滑垫层：NavHost 整体平移时，透出的是延续的页面背景。
+                        SkyBackground(phase = rememberSkyPhase())
+                        Box(Modifier.fillMaxSize()) {
+                            appContent()
+                        }
+                    }
+                }
+            }
+
+            // 状态栏玻璃条：覆盖系统状态栏区域，透出被模糊的页面顶部内容
+            Box(
+                Modifier
+                    .fillMaxWidth()
+                    .height(statusH)
+                    .hazeEffect(hazeState, style = glassStyle),
+            )
+            // 系统导航栏玻璃条：覆盖三键 / 手势条区域，与胶囊底栏玻璃风格一致
+            Box(
+                Modifier
+                    .fillMaxWidth()
+                    .height(navH)
+                    .align(Alignment.BottomStart)
+                    .hazeEffect(hazeState, style = glassStyle),
+            )
         }
     }
 
@@ -1123,7 +1150,7 @@ private fun MainScaffold(onOpenToolbox: () -> Unit) {
 
 @Composable
 private fun SplashScreen() {
-    val isDark = jiamin.chen.orangecloud.core.design.theme.LocalIsDark.current
+    val isDark = LocalIsDark.current
     val phase = remember(isDark) { SkyPhase.current(isDark, LocalTime.now().hour) }
     SkyBackground(phase = phase) {
         Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {

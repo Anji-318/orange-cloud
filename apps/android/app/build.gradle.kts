@@ -209,6 +209,7 @@ dependencies {
     implementation(libs.androidx.work.runtime.ktx)
     implementation(libs.coil.compose)
     implementation(libs.androidx.glance.appwidget)   // 桌面小组件（Glance）
+    implementation(libs.haze)                       // 毛玻璃（状态栏 / 胶囊底栏 / 系统导航条玻璃条）
 
     // 推送（FCM）：全风味依赖；运行时按 BuildConfig.FCM_* 是否填齐决定是否初始化。
     implementation(platform(libs.firebase.bom))
