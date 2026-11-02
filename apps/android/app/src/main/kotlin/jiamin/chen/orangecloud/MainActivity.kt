@@ -39,16 +39,23 @@ class MainActivity : ComponentActivity() {
     @Inject
     lateinit var appPrefs: AppPrefs
 
+    /** 已应用到窗口的底色资源，避免每次重组都重建 Drawable。 */
+    private var appliedWindowBackground = 0
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        // TG 风格：系统导航栏完全透明，三键/手势浮在应用内容之上。
+        // TG 风格：状态栏 / 系统导航栏完全透明，三键/手势浮在应用内容之上。
         // 默认的 enableEdgeToEdge() 会给导航栏盖一层 0xE6 半透明遮罩
         // （浅色显灰、深色显黑），就是底栏下方那条突兀的色带。
         enableEdgeToEdge(
+            statusBarStyle = SystemBarStyle.auto(
+                android.graphics.Color.TRANSPARENT,
+                android.graphics.Color.TRANSPARENT,
+            ),
             navigationBarStyle = SystemBarStyle.auto(
                 android.graphics.Color.TRANSPARENT,
                 android.graphics.Color.TRANSPARENT,
-            )
+            ),
         )
         // 三键导航下系统会强制叠一层对比度遮罩（API 29+），关掉才能真透明
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
@@ -71,6 +78,15 @@ class MainActivity : ComponentActivity() {
                     WindowCompat.getInsetsController(window, view).apply {
                         isAppearanceLightStatusBars = !darkTheme
                         isAppearanceLightNavigationBars = !darkTheme
+                    }
+                    // 窗口底色必须跟随「App 生效主题」，而不是系统主题：
+                    // App 内强制深色时系统可能仍是浅色，values-night 不生效，
+                    // android:windowBackground 取到的还是浅色 #F5F2ED ——
+                    // 系统导航栏（透明）后面就会露出一条白带，深色下尤其刺眼。
+                    val bgRes = if (darkTheme) R.color.oc_window_dark else R.color.oc_window_light
+                    if (bgRes != appliedWindowBackground) {
+                        appliedWindowBackground = bgRes
+                        window.setBackgroundDrawableResource(bgRes)
                     }
                 }
                 OrangeCloudRoot()

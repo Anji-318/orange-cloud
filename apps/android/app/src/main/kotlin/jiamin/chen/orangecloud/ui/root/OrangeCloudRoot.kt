@@ -7,7 +7,6 @@ import androidx.compose.animation.EnterTransition
 import androidx.compose.animation.ExitTransition
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.tween
-import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.gestures.detectHorizontalDragGestures
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.WindowInsets
@@ -37,23 +36,15 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.drawWithContent
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.graphics.graphicsLayer
-import androidx.compose.ui.graphics.layer.drawLayer
-import androidx.compose.ui.graphics.rememberGraphicsLayer
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.runtime.rememberCoroutineScope
 import kotlinx.coroutines.launch
-import kotlin.math.abs
-import kotlin.math.roundToInt
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.unit.IntOffset
-import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.platform.LocalContext
@@ -83,7 +74,6 @@ import jiamin.chen.orangecloud.R
 import jiamin.chen.orangecloud.core.design.SkyBackground
 import jiamin.chen.orangecloud.core.design.SkyPhase
 import jiamin.chen.orangecloud.core.design.rememberSkyPhase
-import jiamin.chen.orangecloud.core.design.theme.LocalIsDark
 import jiamin.chen.orangecloud.ui.analytics.ZoneAnalyticsScreen
 import jiamin.chen.orangecloud.ui.dashboard.DashboardResourceType
 import jiamin.chen.orangecloud.ui.dashboard.DashboardScreen
@@ -430,14 +420,10 @@ private fun MainScaffold(onOpenToolbox: () -> Unit) {
                 restoreState = true
             }
         }
-        // —— pager 式邻页快照 ——
-        // NavHost 单目的地无法同屏渲染两页；改为在每次拖动开始时对当前页采集一张
-        // 位图快照（GPU 回读，异步不阻塞手势），拖动时把邻页标签最近一次的快照
-        // 拼在当前页旁边，得到 Viewpager 那种紧密拼接的滑动观感。
-        val tabSnapshots = remember { mutableMapOf<TopDestination, ImageBitmap>() }
-        val pageCaptureLayer = rememberGraphicsLayer()
-        // 主题切换后旧快照明暗全错，清空待下次拖动重采
-        LaunchedEffect(LocalIsDark.current) { tabSnapshots.clear() }
+        // —— 横滑切标签 ——
+        // 跟手平移：手指拖动时内容整体跟随，松手后按位移/速度决定翻页或回弹。
+        // 提交翻页时先把当前页滑出到边界，导航落位后新页从另一侧滑入，
+        // 两段动画接力，视觉上就是「新页从右滑入 / 旧页向左滑出」。
         Box(
             Modifier
                 .fillMaxSize()
@@ -456,12 +442,6 @@ private fun MainScaffold(onOpenToolbox: () -> Unit) {
                         onDragStart = {
                             velocity = 0f
                             scope.launch { swipeOffset.stop() }
-                            // 当前页快照重采（异步回读，几帧后可用，不影响本次拖动）
-                            scope.launch {
-                                entries.getOrNull(idx)?.let { tab ->
-                                    tabSnapshots[tab] = pageCaptureLayer.toImageBitmap()
-                                }
-                            }
                         },
                         onDragCancel = { scope.launch { swipeOffset.animateTo(0f, tween(180)) } },
                         onDragEnd = {
@@ -470,17 +450,18 @@ private fun MainScaffold(onOpenToolbox: () -> Unit) {
                             scope.launch {
                                 when {
                                     // 左滑超过阈值或快速轻扫 → 下一标签。
-                                    // 邻页快照已随平移铺满屏幕，导航落位后直接归零即可——
-                                    // 快照与真实页面在原地无缝交接，不再需要第二段入场动画。
+                                    // 当前页先滑出左边界，导航落位后新页从右边界滑入。
                                     (off < -0.30f || v < -1.5f) && off <= 0f && idx < entries.lastIndex -> {
                                         swipeOffset.animateTo(-1f, tween(160))
                                         swipeTo(entries[idx + 1])
-                                        swipeOffset.snapTo(0f)
+                                        swipeOffset.snapTo(1f)
+                                        swipeOffset.animateTo(0f, tween(160))
                                     }
                                     (off > 0.30f || v > 1.5f) && off >= 0f && idx > 0 -> {
                                         swipeOffset.animateTo(1f, tween(160))
                                         swipeTo(entries[idx - 1])
-                                        swipeOffset.snapTo(0f)
+                                        swipeOffset.snapTo(-1f)
+                                        swipeOffset.animateTo(0f, tween(160))
                                     }
                                     else -> swipeOffset.animateTo(0f, tween(180))
                                 }
@@ -501,33 +482,6 @@ private fun MainScaffold(onOpenToolbox: () -> Unit) {
                     }
                 },
         ) {
-            // 邻页快照：随拖动方向把上一/下一标签的缓存位图拼在当前页旁边。
-            // 读取 swipeOffset 与 currentRoute 发生在 draw 阶段，不触发重组。
-            Canvas(Modifier.fillMaxSize()) {
-                val off = swipeOffset.value
-                if (abs(off) < 0.005f) return@Canvas
-                val entries = TopDestination.entries
-                val idx = entries.indexOf(Dest.topOf(currentRoute))
-                if (idx < 0) return@Canvas
-                val neighbor = if (off < 0f) entries.getOrNull(idx + 1) else entries.getOrNull(idx - 1)
-                val bmp = neighbor?.let { tabSnapshots[it] } ?: return@Canvas
-                val x = if (off < 0f) size.width else -size.width
-                drawImage(
-                    bmp,
-                    dstOffset = IntOffset(x.roundToInt(), 0),
-                    dstSize = IntSize(size.width.roundToInt(), size.height.roundToInt()),
-                )
-            }
-            // 快照采集容器：每帧把 NavHost 内容录进 layer（GPU 显示列表，开销可忽略），
-            // 拖动开始时异步读出位图。真实内容仍由 drawLayer 原样绘制。
-            Box(
-                Modifier
-                    .matchParentSize()
-                    .drawWithContent {
-                        pageCaptureLayer.record { this@drawWithContent.drawContent() }
-                        drawLayer(pageCaptureLayer)
-                    },
-            ) {
             // Navigation Compose 默认过渡是 700ms 淡入淡出。按返回键后立刻横滑时，正在淡出的
             // 旧页面会半透明叠在新页面上，看起来就是"上一页的残影"；而整页横滑又把 NavHost
             // 一起平移，叠加层跟着动，残影更明显。顶部标签切换已由横滑动画承担，这里直接关掉
@@ -1082,7 +1036,6 @@ private fun MainScaffold(onOpenToolbox: () -> Unit) {
                 CFAlertingScreen(onBack = { navController.popBackStack() })
             }
             }
-            } // 快照采集 Box 结束
         }
     }
 
@@ -1117,7 +1070,11 @@ private fun MainScaffold(onOpenToolbox: () -> Unit) {
                 }
             },
         ) {
-            appContent()
+            Box(Modifier.fillMaxSize()) {
+                // 与窄屏同源的背景层：铺满窗口，保证宽屏下也没有窗口底色露出来。
+                SkyBackground(phase = rememberSkyPhase())
+                appContent()
+            }
         }
     } else {
         Scaffold(
@@ -1141,15 +1098,22 @@ private fun MainScaffold(onOpenToolbox: () -> Unit) {
             // padding 里含这段系统栏高度；把它扣掉，页面内容仍延伸到系统栏后方，
             // 底部不会多出一条空档（与改造前的行为一致）。
             val navBottom = WindowInsets.navigationBars.asPaddingValues().calculateBottomPadding()
-            Box(
-                Modifier.fillMaxSize().padding(
-                    bottom = (padding.calculateBottomPadding() - navBottom).coerceAtLeast(0.dp),
-                ),
-            ) {
-                // 横滑时 NavHost 整体平移，底下垫一层静止的天空底色：
-                // 透出的是延续的页面背景（surface + 暖辉光），而不是窗口底色。
+            Box(Modifier.fillMaxSize()) {
+                // 背景必须铺满「整个窗口」，包括胶囊底栏与系统导航栏覆盖的那一段。
+                // 系统导航栏本身是全透明的，App 若不把背景画到那里，透出来的就是
+                // 窗口底色（浅色 #F5F2ED / 深色 #0A0A0E）——就是那条突兀的色带，
+                // 深色模式下尤其难看（一道白带压在黑底上）。
+                // 它同时充当横滑垫层：NavHost 整体平移时，透出的是延续的页面背景。
                 SkyBackground(phase = rememberSkyPhase())
-                appContent()
+                Box(
+                    Modifier
+                        .fillMaxSize()
+                        .padding(
+                            bottom = (padding.calculateBottomPadding() - navBottom).coerceAtLeast(0.dp),
+                        ),
+                ) {
+                    appContent()
+                }
             }
         }
     }

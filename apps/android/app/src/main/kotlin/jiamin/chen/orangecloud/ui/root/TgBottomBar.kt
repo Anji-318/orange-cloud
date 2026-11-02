@@ -1,5 +1,6 @@
 package jiamin.chen.orangecloud.ui.root
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
@@ -55,17 +56,23 @@ internal fun TgBottomBar(
             // 浮在系统导航栏（手势条 / 三键）之上，避免被系统按键压住
             .windowInsetsPadding(WindowInsets.navigationBars)
             .padding(horizontal = 12.dp, vertical = 8.dp)
-            // TG 半透明磨砂观感：浅色留一道轻投影；深色不加投影
+            // 玻璃胶囊：浅色留一道轻投影勾出悬浮感；深色不加投影
             // （深色下投影几乎不可见，只会糊出一条硬边），
-            // 靠半透明底与滚动内容形成层次
+            // 靠半透明底 + 描边分层
             .shadow(
-                elevation = if (isDark) 0.dp else 6.dp,
+                elevation = if (isDark) 0.dp else 8.dp,
                 shape = shape,
                 clip = false,
             ),
         shape = shape,
-        // 半透明：列表滚动时从胶囊下方隐约透出，不再是实心色块
-        color = cs.surfaceContainerHigh.copy(alpha = if (isDark) 0.82f else 0.94f),
+        // 半透明底：胶囊不再是实心色块，页面背景（晨昏天景）从底下透上来。
+        // 深色用 68%、浅色 86%——再低就会跟背景糊成一片，胶囊边界读不出来。
+        color = cs.surfaceContainerHigh.copy(alpha = if (isDark) 0.68f else 0.86f),
+        // 一圈极淡描边模拟玻璃边缘高光：没有它，半透明胶囊在浅色页面上会「消失」
+        border = BorderStroke(
+            width = 1.dp,
+            color = if (isDark) Color.White.copy(alpha = 0.10f) else Color.Black.copy(alpha = 0.06f),
+        ),
         tonalElevation = 0.dp,
     ) {
         Row(
@@ -96,12 +103,22 @@ private fun TgBottomBarItem(
     modifier: Modifier = Modifier,
 ) {
     val cs = MaterialTheme.colorScheme
+    val isDark = LocalIsDark.current
     val tint = if (selected) cs.primary else cs.onSurfaceVariant
     val interaction = remember { MutableInteractionSource() }
     Column(
         modifier = modifier
             .clip(RoundedCornerShape(18.dp))
-            .background(if (selected) cs.primaryContainer.copy(alpha = 0.55f) else Color.Transparent)
+            // 选中药丸：浅色用 primaryContainer 淡染；深色改用亮橙淡染——
+            // 深色下 primaryContainer 是深棕，叠在深色胶囊上会糊成一团脏色
+            .background(
+                if (selected) {
+                    if (isDark) cs.primary.copy(alpha = 0.20f)
+                    else cs.primaryContainer.copy(alpha = 0.55f)
+                } else {
+                    Color.Transparent
+                }
+            )
             // 去掉涟漪：药丸底色已经表达了选中态，再叠一层涟漪会显脏
             .clickable(interactionSource = interaction, indication = null) { onClick() }
             .padding(vertical = 6.dp),
