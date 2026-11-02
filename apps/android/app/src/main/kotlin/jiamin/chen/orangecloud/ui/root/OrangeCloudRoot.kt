@@ -7,6 +7,7 @@ import androidx.compose.animation.EnterTransition
 import androidx.compose.animation.ExitTransition
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.tween
+import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.gestures.detectHorizontalDragGestures
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.WindowInsets
@@ -36,15 +37,23 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.drawWithContent
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.graphics.layer.drawLayer
+import androidx.compose.ui.graphics.rememberGraphicsLayer
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.runtime.rememberCoroutineScope
 import kotlinx.coroutines.launch
+import kotlin.math.abs
+import kotlin.math.roundToInt
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.unit.IntOffset
+import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.platform.LocalContext
@@ -74,6 +83,7 @@ import jiamin.chen.orangecloud.R
 import jiamin.chen.orangecloud.core.design.SkyBackground
 import jiamin.chen.orangecloud.core.design.SkyPhase
 import jiamin.chen.orangecloud.core.design.rememberSkyPhase
+import jiamin.chen.orangecloud.core.design.theme.LocalIsDark
 import jiamin.chen.orangecloud.ui.analytics.ZoneAnalyticsScreen
 import jiamin.chen.orangecloud.ui.dashboard.DashboardResourceType
 import jiamin.chen.orangecloud.ui.dashboard.DashboardScreen
@@ -420,6 +430,14 @@ private fun MainScaffold(onOpenToolbox: () -> Unit) {
                 restoreState = true
             }
         }
+        // —— pager 式邻页快照 ——
+        // NavHost 单目的地无法同屏渲染两页；改为在每次拖动开始时对当前页采集一张
+        // 位图快照（GPU 回读，异步不阻塞手势），拖动时把邻页标签最近一次的快照
+        // 拼在当前页旁边，得到 Viewpager 那种紧密拼接的滑动观感。
+        val tabSnapshots = remember { mutableMapOf<TopDestination, ImageBitmap>() }
+        val pageCaptureLayer = rememberGraphicsLayer()
+        // 主题切换后旧快照明暗全错，清空待下次拖动重采
+        LaunchedEffect(LocalIsDark.current) { tabSnapshots.clear() }
         Box(
             Modifier
                 .fillMaxSize()
@@ -438,6 +456,12 @@ private fun MainScaffold(onOpenToolbox: () -> Unit) {
                         onDragStart = {
                             velocity = 0f
                             scope.launch { swipeOffset.stop() }
+                            // 当前页快照重采（异步回读，几帧后可用，不影响本次拖动）
+                            scope.launch {
+                                entries.getOrNull(idx)?.let { tab ->
+                                    tabSnapshots[tab] = pageCaptureLayer.toImageBitmap()
+                                }
+                            }
                         },
                         onDragCancel = { scope.launch { swipeOffset.animateTo(0f, tween(180)) } },
                         onDragEnd = {
@@ -445,18 +469,18 @@ private fun MainScaffold(onOpenToolbox: () -> Unit) {
                             val v = velocity / widthPx() // 换算成屏宽/s
                             scope.launch {
                                 when {
-                                    // 左滑超过阈值或快速轻扫 → 下一标签
+                                    // 左滑超过阈值或快速轻扫 → 下一标签。
+                                    // 邻页快照已随平移铺满屏幕，导航落位后直接归零即可——
+                                    // 快照与真实页面在原地无缝交接，不再需要第二段入场动画。
                                     (off < -0.30f || v < -1.5f) && off <= 0f && idx < entries.lastIndex -> {
                                         swipeOffset.animateTo(-1f, tween(160))
                                         swipeTo(entries[idx + 1])
-                                        swipeOffset.snapTo(1f)
-                                        swipeOffset.animateTo(0f, tween(160))
+                                        swipeOffset.snapTo(0f)
                                     }
                                     (off > 0.30f || v > 1.5f) && off >= 0f && idx > 0 -> {
                                         swipeOffset.animateTo(1f, tween(160))
                                         swipeTo(entries[idx - 1])
-                                        swipeOffset.snapTo(-1f)
-                                        swipeOffset.animateTo(0f, tween(160))
+                                        swipeOffset.snapTo(0f)
                                     }
                                     else -> swipeOffset.animateTo(0f, tween(180))
                                 }
@@ -477,6 +501,33 @@ private fun MainScaffold(onOpenToolbox: () -> Unit) {
                     }
                 },
         ) {
+            // 邻页快照：随拖动方向把上一/下一标签的缓存位图拼在当前页旁边。
+            // 读取 swipeOffset 与 currentRoute 发生在 draw 阶段，不触发重组。
+            Canvas(Modifier.fillMaxSize()) {
+                val off = swipeOffset.value
+                if (abs(off) < 0.005f) return@Canvas
+                val entries = TopDestination.entries
+                val idx = entries.indexOf(Dest.topOf(currentRoute))
+                if (idx < 0) return@Canvas
+                val neighbor = if (off < 0f) entries.getOrNull(idx + 1) else entries.getOrNull(idx - 1)
+                val bmp = neighbor?.let { tabSnapshots[it] } ?: return@Canvas
+                val x = if (off < 0f) size.width else -size.width
+                drawImage(
+                    bmp,
+                    dstOffset = IntOffset(x.roundToInt(), 0),
+                    dstSize = IntSize(size.width.roundToInt(), size.height.roundToInt()),
+                )
+            }
+            // 快照采集容器：每帧把 NavHost 内容录进 layer（GPU 显示列表，开销可忽略），
+            // 拖动开始时异步读出位图。真实内容仍由 drawLayer 原样绘制。
+            Box(
+                Modifier
+                    .matchParentSize()
+                    .drawWithContent {
+                        pageCaptureLayer.record { this@drawWithContent.drawContent() }
+                        drawLayer(pageCaptureLayer)
+                    },
+            ) {
             // Navigation Compose 默认过渡是 700ms 淡入淡出。按返回键后立刻横滑时，正在淡出的
             // 旧页面会半透明叠在新页面上，看起来就是"上一页的残影"；而整页横滑又把 NavHost
             // 一起平移，叠加层跟着动，残影更明显。顶部标签切换已由横滑动画承担，这里直接关掉
@@ -1031,6 +1082,7 @@ private fun MainScaffold(onOpenToolbox: () -> Unit) {
                 CFAlertingScreen(onBack = { navController.popBackStack() })
             }
             }
+            } // 快照采集 Box 结束
         }
     }
 
