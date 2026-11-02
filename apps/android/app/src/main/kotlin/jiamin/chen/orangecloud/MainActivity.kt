@@ -65,10 +65,10 @@ class MainActivity : ComponentActivity() {
         // 冷启动 / 多任务切换时与 App 内玻璃质感一致。App 内容自身的
         // 毛玻璃由 Compose 侧 Haze 实现，与此处互补、互不影响。
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-            // setBlurBehindEnabled / blurBehindRadius 定义在 WindowManager.LayoutParams 上（API 31+），
-            // Window 本身没有这些方法；改完 attributes 必须回写才会生效。
+            // 窗口背后模糊（API 31+，跨窗口毛玻璃）：公开 SDK 只有 blurBehindRadius 属性，
+            // 设为正值即开启，无需也不存在 setBlurBehindEnabled(...) 这类方法；
+            // 改完 attributes 必须回写才会生效。
             window.attributes = window.attributes.apply {
-                setBlurBehindEnabled(true)
                 blurBehindRadius = 40
             }
         }
