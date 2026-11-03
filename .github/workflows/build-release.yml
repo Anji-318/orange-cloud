@@ -8,7 +8,7 @@ on:
         required: true
         type: string
       version_code:
-        description: 'Android versionCode（留空则按版本号自动计算：2.1.3 → 20103）'
+        description: 'Android versionCode（留空则取 apps/android/app/build.gradle.kts 里的值，与本地构建一致）'
         required: false
         type: string
         default: ''

@@ -424,12 +424,15 @@ private fun MainScaffold(onOpenToolbox: () -> Unit) {
     val isDark = LocalIsDark.current
     val statusH = WindowInsets.statusBars.asPaddingValues().calculateTopPadding()
     val navH = WindowInsets.navigationBars.asPaddingValues().calculateBottomPadding()
-    // 悬浮胶囊底栏的真实占位（系统导航栏高度 + 胶囊自身高度），用 onSizeChanged 实测。
+    // 悬浮胶囊底栏的真实占位（系统导航栏高度 + 胶囊自身高度），用 onSizeChanged 实测胶囊高度。
+    // 必须再加上 navH：Scaffold 把 bottomBar 摆在系统导航栏「上方」，胶囊实测高度里
+    // 并不含系统导航栏那一截。早期只按胶囊高度留白，少算了 navH（约 48dp），
+    // 结果内容被提前裁掉、导航栏上方多出一条死白带（就是截图里被切掉一半的卡片）。
     // 全屏页面根已统一改用 statusBarsPadding（只避让顶部状态栏，不再重复扣底部导航栏），
-    // 故这里扣掉胶囊实测高度即可——所有页面为底栏预留的背景高度严格等于底栏高度，全局统一。
+    // 故这里保证内容底边正好贴在胶囊顶边——全局统一，且紧贴不留空隙。
     val density = LocalDensity.current
     var bottomBarHeight by remember { mutableStateOf(0.dp) }
-    val bottomBarInset = if (bottomBarHeight > 0.dp) bottomBarHeight else navH + 78.dp
+    val bottomBarInset = if (bottomBarHeight > 0.dp) navH + bottomBarHeight else navH + 78.dp
 
     CompositionLocalProvider(LocalHazeState provides hazeState) {
         // 注意：这里的外层 Box 刻意「不」挂 hazeSource。

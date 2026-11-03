@@ -134,7 +134,6 @@ fun DeveloperHubScreen(
                 StorageRow(Icons.Outlined.Storage, stringResource(R.string.dev_hyperdrive), stringResource(R.string.dev_hyperdrive_sub), onClick = onOpenHyperdrive)
                 StorageRow(Icons.Outlined.Memory, stringResource(R.string.dev_durable_objects), stringResource(R.string.dev_durable_objects_sub), onClick = onOpenDurableObjects)
                 StorageRow(Icons.Outlined.Web, stringResource(R.string.pages_title), stringResource(R.string.dev_pages_sub), onClick = onOpenPages)
-                Spacer(Modifier.height(100.dp))
             }
         }
     }
