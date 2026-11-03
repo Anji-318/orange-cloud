@@ -49,7 +49,7 @@ internal fun TgBottomBar(
         modifier = modifier
             .fillMaxWidth()
             .windowInsetsPadding(WindowInsets.navigationBars)
-            .padding(horizontal = 12.dp, vertical = 8.dp),
+            .padding(horizontal = 12.dp, vertical = 6.dp),
         shape = shape,
         color = if (isDark) Color(0xFF151210) else Color(0xFFFFFBF7),
         border = BorderStroke(
@@ -62,7 +62,7 @@ internal fun TgBottomBar(
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(horizontal = 6.dp, vertical = 6.dp),
+                .padding(horizontal = 6.dp, vertical = 4.dp),
             horizontalArrangement = Arrangement.spacedBy(2.dp),
             verticalAlignment = Alignment.CenterVertically,
         ) {
@@ -92,7 +92,7 @@ private fun TgBottomBarItem(
     Column(
         modifier = modifier
             .clickable(interactionSource = interaction, indication = null) { onClick() }
-            .padding(vertical = 6.dp),
+            .padding(vertical = 4.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         Icon(
