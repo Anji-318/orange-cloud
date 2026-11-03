@@ -9,7 +9,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.systemBarsPadding
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.selection.selectable
@@ -64,7 +64,7 @@ fun ZonePerformanceScreen(
     }
 
     SkyBackground(phase = phase) {
-        Box(Modifier.fillMaxSize().systemBarsPadding()) {
+        Box(Modifier.fillMaxSize().statusBarsPadding()) {
             Column(Modifier.fillMaxSize()) {
                 SkyHeader(
                     title = stringResource(R.string.perf_title),

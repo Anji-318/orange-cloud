@@ -12,7 +12,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.systemBarsPadding
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -72,7 +72,7 @@ fun ZoneListScreen(
     val addSheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
 
     SkyBackground(phase = phase) {
-        Column(Modifier.fillMaxSize().systemBarsPadding()) {
+        Column(Modifier.fillMaxSize().statusBarsPadding()) {
             Row(
                 modifier = Modifier.fillMaxWidth().padding(start = 24.dp, end = 12.dp, top = 14.dp),
                 verticalAlignment = Alignment.CenterVertically,
@@ -115,7 +115,7 @@ fun ZoneListScreen(
                     EmptyZones(onSky, viewModel.canWrite, onAdd = { showAdd = true }) { viewModel.refresh() }
 
                 else -> LazyColumn(
-                    contentPadding = PaddingValues(start = 16.dp, end = 16.dp, top = 12.dp, bottom = 96.dp),
+                    contentPadding = PaddingValues(start = 16.dp, end = 16.dp, top = 12.dp, bottom = 8.dp),
                     verticalArrangement = Arrangement.spacedBy(10.dp),
                 ) {
                     items(uiState.zones, key = { it.id }) { zone ->

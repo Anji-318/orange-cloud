@@ -10,7 +10,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.systemBarsPadding
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -100,7 +100,7 @@ fun EmailRoutingScreen(
 
     SkyBackground(phase = phase) {
         Box(Modifier.fillMaxSize()) {
-            Column(Modifier.fillMaxSize().systemBarsPadding()) {
+            Column(Modifier.fillMaxSize().statusBarsPadding()) {
                 SkyHeader(
                     title = stringResource(R.string.email_title),
                     onSky = onSky,
@@ -169,7 +169,7 @@ fun EmailRoutingScreen(
                     }
                 }
             }
-            SnackbarHost(snackbarHostState, Modifier.align(Alignment.BottomCenter).systemBarsPadding())
+            SnackbarHost(snackbarHostState, Modifier.align(Alignment.BottomCenter).statusBarsPadding())
         }
     }
 

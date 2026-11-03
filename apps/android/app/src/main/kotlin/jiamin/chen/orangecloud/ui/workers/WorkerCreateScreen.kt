@@ -7,7 +7,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.systemBarsPadding
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.border
 import androidx.compose.foundation.rememberScrollState
@@ -100,7 +100,7 @@ fun WorkerCreateScreen(
         !isUploading && !sourceState.isLoading && !sourceState.uneditable
 
     SkyBackground(phase = phase) {
-        Column(Modifier.fillMaxSize().systemBarsPadding()) {
+        Column(Modifier.fillMaxSize().statusBarsPadding()) {
             SkyHeader(
                 title = if (isEdit) stringResource(R.string.worker_edit_title) else stringResource(R.string.worker_create_title),
                 onSky = onSky,

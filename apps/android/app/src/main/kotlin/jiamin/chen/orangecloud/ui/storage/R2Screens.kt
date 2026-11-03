@@ -17,7 +17,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.systemBarsPadding
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -115,7 +115,7 @@ fun R2BucketListScreen(
     }
 
     SkyBackground(phase = phase) {
-        Box(Modifier.fillMaxSize().systemBarsPadding()) {
+        Box(Modifier.fillMaxSize().statusBarsPadding()) {
             Column(Modifier.fillMaxSize()) {
                 SkyHeader(
                     title = stringResource(R.string.storage_r2),
@@ -257,7 +257,7 @@ fun R2ObjectListScreen(
 
     SkyBackground(phase = phase) {
         Box(Modifier.fillMaxSize()) {
-            Column(Modifier.fillMaxSize().systemBarsPadding()) {
+            Column(Modifier.fillMaxSize().statusBarsPadding()) {
                 SkyHeader(
                     title = viewModel.bucket,
                     onSky = onSky,
@@ -283,7 +283,7 @@ fun R2ObjectListScreen(
                         SkyEmptyState(Icons.AutoMirrored.Outlined.InsertDriveFile, stringResource(R.string.r2_objects_empty), onSky, stringResource(R.string.common_refresh)) { viewModel.loadFirst() }
 
                     else -> LazyColumn(
-                        contentPadding = PaddingValues(start = 16.dp, end = 16.dp, top = 8.dp, bottom = 96.dp),
+                        contentPadding = PaddingValues(start = 16.dp, end = 16.dp, top = 8.dp, bottom = 8.dp),
                         verticalArrangement = Arrangement.spacedBy(10.dp),
                     ) {
                         if (state.prefix.isEmpty()) {
@@ -327,7 +327,7 @@ fun R2ObjectListScreen(
                     onClick = { if (!state.isUploading) picker.launch(arrayOf("*/*")) },
                     containerColor = OcOrange,
                     contentColor = Color.White,
-                    modifier = Modifier.align(Alignment.BottomEnd).padding(20.dp).systemBarsPadding(),
+                    modifier = Modifier.align(Alignment.BottomEnd).padding(20.dp).statusBarsPadding(),
                 ) {
                     if (state.isUploading) {
                         CircularProgressIndicator(Modifier.height(22.dp).width(22.dp), strokeWidth = 2.dp, color = Color.White)
@@ -336,7 +336,7 @@ fun R2ObjectListScreen(
                     }
                 }
             }
-            SnackbarHost(snackbarHostState, Modifier.align(Alignment.BottomCenter).systemBarsPadding())
+            SnackbarHost(snackbarHostState, Modifier.align(Alignment.BottomCenter).statusBarsPadding())
         }
     }
 

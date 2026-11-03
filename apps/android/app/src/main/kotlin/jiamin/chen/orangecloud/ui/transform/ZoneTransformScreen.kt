@@ -10,7 +10,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.systemBarsPadding
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -102,7 +102,7 @@ fun ZoneTransformScreen(
     }
 
     SkyBackground(phase = phase) {
-        Box(Modifier.fillMaxSize().systemBarsPadding()) {
+        Box(Modifier.fillMaxSize().statusBarsPadding()) {
             Column(Modifier.fillMaxSize()) {
                 SkyHeader(
                     title = stringResource(R.string.tf_title),
@@ -271,7 +271,7 @@ private fun TransformEditor(
     }
 
     SkyBackground(phase = skyPhase) {
-        Column(Modifier.fillMaxSize().systemBarsPadding()) {
+        Column(Modifier.fillMaxSize().statusBarsPadding()) {
             SkyHeader(
                 title = stringResource(if (rule == null) R.string.tf_new else R.string.tf_edit),
                 onSky = onSky,

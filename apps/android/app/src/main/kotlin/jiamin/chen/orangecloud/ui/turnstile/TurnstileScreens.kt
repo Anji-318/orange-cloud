@@ -12,7 +12,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.systemBarsPadding
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -99,7 +99,7 @@ fun TurnstileListScreen(
     }
 
     SkyBackground(phase = phase) {
-        Box(Modifier.fillMaxSize().systemBarsPadding()) {
+        Box(Modifier.fillMaxSize().statusBarsPadding()) {
             Column(Modifier.fillMaxSize()) {
                 SkyHeader(
                     title = stringResource(R.string.ts_title),
@@ -216,7 +216,7 @@ fun TurnstileDetailScreen(
     }
 
     SkyBackground(phase = phase) {
-        Box(Modifier.fillMaxSize().systemBarsPadding()) {
+        Box(Modifier.fillMaxSize().statusBarsPadding()) {
             Column(Modifier.fillMaxSize()) {
                 SkyHeader(
                     title = state.widget?.name ?: stringResource(R.string.ts_title),

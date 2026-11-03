@@ -13,7 +13,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.systemBarsPadding
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -108,7 +108,7 @@ private fun BrandView(error: String?, onSignIn: () -> Unit, onOpenToolbox: () ->
     val cs = MaterialTheme.colorScheme
 
     SkyBackground(phase = phase) {
-        Column(Modifier.fillMaxSize().systemBarsPadding().padding(horizontal = 24.dp)) {
+        Column(Modifier.fillMaxSize().statusBarsPadding().padding(horizontal = 24.dp)) {
             Column(
                 modifier = Modifier.fillMaxWidth().weight(1f),
                 horizontalAlignment = Alignment.CenterHorizontally,
@@ -202,7 +202,7 @@ private fun AuthorizeView(onCancel: () -> Unit, onContinue: (Map<String, Boolean
     val count = levels.size
 
     SkyBackground(phase = phase) {
-        Box(Modifier.fillMaxSize().systemBarsPadding()) {
+        Box(Modifier.fillMaxSize().statusBarsPadding()) {
             Column(Modifier.fillMaxSize()) {
                 Row(Modifier.fillMaxWidth().padding(start = 8.dp, end = 16.dp, top = 8.dp), verticalAlignment = Alignment.CenterVertically) {
                     IconButton(onClick = onCancel) { Icon(Icons.Outlined.Close, contentDescription = stringResource(R.string.dns_cancel), tint = cs.onSurface) }

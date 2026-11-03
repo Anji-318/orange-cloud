@@ -10,7 +10,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.systemBarsPadding
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
@@ -84,7 +84,7 @@ fun KVNamespaceListScreen(
     }
 
     SkyBackground(phase = phase) {
-        Box(Modifier.fillMaxSize().systemBarsPadding()) {
+        Box(Modifier.fillMaxSize().statusBarsPadding()) {
             Column(Modifier.fillMaxSize()) {
                 SkyHeader(
                     title = stringResource(R.string.storage_kv),
@@ -167,7 +167,7 @@ fun KVKeyListScreen(
     }
 
     SkyBackground(phase = phase) {
-        Box(Modifier.fillMaxSize().systemBarsPadding()) {
+        Box(Modifier.fillMaxSize().statusBarsPadding()) {
             Column(Modifier.fillMaxSize()) {
                 SkyHeader(
                     title = viewModel.namespaceTitle.ifBlank { stringResource(R.string.storage_kv) },
@@ -193,7 +193,7 @@ fun KVKeyListScreen(
                         SkyEmptyState(Icons.Outlined.Key, stringResource(R.string.kv_keys_empty), onSky, stringResource(R.string.common_refresh)) { viewModel.loadFirst() }
 
                     else -> LazyColumn(
-                        contentPadding = PaddingValues(start = 16.dp, end = 16.dp, top = 8.dp, bottom = 96.dp),
+                        contentPadding = PaddingValues(start = 16.dp, end = 16.dp, top = 8.dp, bottom = 8.dp),
                         verticalArrangement = Arrangement.spacedBy(10.dp),
                     ) {
                         items(state.keys, key = { it.name }) { kvKey ->

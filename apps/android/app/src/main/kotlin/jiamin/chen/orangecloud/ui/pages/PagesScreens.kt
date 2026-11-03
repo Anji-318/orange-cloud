@@ -9,7 +9,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.systemBarsPadding
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -117,7 +117,7 @@ fun PagesListScreen(
 
     SkyBackground(phase = phase) {
         Box(Modifier.fillMaxSize()) {
-            Column(Modifier.fillMaxSize().systemBarsPadding()) {
+            Column(Modifier.fillMaxSize().statusBarsPadding()) {
                 SkyHeader(
                     title = stringResource(R.string.pages_title),
                     onSky = onSky,
@@ -152,10 +152,10 @@ fun PagesListScreen(
                     onClick = { showCreate = true },
                     containerColor = OcOrange,
                     contentColor = Color.White,
-                    modifier = Modifier.align(Alignment.BottomEnd).padding(20.dp).systemBarsPadding(),
+                    modifier = Modifier.align(Alignment.BottomEnd).padding(20.dp).statusBarsPadding(),
                 ) { Icon(Icons.Outlined.Add, contentDescription = stringResource(R.string.pages_create)) }
             }
-            SnackbarHost(snackbar, Modifier.align(Alignment.BottomCenter).systemBarsPadding())
+            SnackbarHost(snackbar, Modifier.align(Alignment.BottomCenter).statusBarsPadding())
         }
     }
 
@@ -257,7 +257,7 @@ fun PagesProjectDetailScreen(
 
     SkyBackground(phase = phase) {
         Box(Modifier.fillMaxSize()) {
-            Column(Modifier.fillMaxSize().systemBarsPadding()) {
+            Column(Modifier.fillMaxSize().statusBarsPadding()) {
                 SkyHeader(
                     title = state.projectName,
                     onSky = onSky,
@@ -347,7 +347,7 @@ fun PagesProjectDetailScreen(
                     }
                 }
             }
-            SnackbarHost(snackbarHostState, Modifier.align(Alignment.BottomCenter).systemBarsPadding())
+            SnackbarHost(snackbarHostState, Modifier.align(Alignment.BottomCenter).statusBarsPadding())
         }
     }
 

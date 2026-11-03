@@ -10,7 +10,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.systemBarsPadding
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -88,7 +88,7 @@ fun ZeroTrustHubScreen(
     val phase = rememberSkyPhase()
     val onSky = phase.onSky
     SkyBackground(phase = phase) {
-        Column(Modifier.fillMaxSize().systemBarsPadding()) {
+        Column(Modifier.fillMaxSize().statusBarsPadding()) {
             SkyHeader(
                 title = stringResource(R.string.zt_title),
                 onSky = onSky,
@@ -123,7 +123,7 @@ fun AccessAppsScreen(
 
     SkyBackground(phase = phase) {
         Box(Modifier.fillMaxSize()) {
-            Column(Modifier.fillMaxSize().systemBarsPadding()) {
+            Column(Modifier.fillMaxSize().statusBarsPadding()) {
                 SkyHeader(
                     title = stringResource(R.string.zt_access_apps), onSky = onSky,
                     isLoading = state.isLoading || busy, onRefresh = { viewModel.load() }, onBack = onBack,
@@ -134,11 +134,11 @@ fun AccessAppsScreen(
                 }
             }
             if (viewModel.canWrite && !state.missingScope) {
-                FloatingActionButton(onClick = { editing = AppEdit(null) }, containerColor = OcOrange, contentColor = Color.White, modifier = Modifier.align(Alignment.BottomEnd).padding(20.dp).systemBarsPadding()) {
+                FloatingActionButton(onClick = { editing = AppEdit(null) }, containerColor = OcOrange, contentColor = Color.White, modifier = Modifier.align(Alignment.BottomEnd).padding(20.dp).statusBarsPadding()) {
                     Icon(Icons.Outlined.Add, contentDescription = stringResource(R.string.zt_app_create))
                 }
             }
-            SnackbarHost(snackbar, Modifier.align(Alignment.BottomCenter).systemBarsPadding())
+            SnackbarHost(snackbar, Modifier.align(Alignment.BottomCenter).statusBarsPadding())
         }
     }
 
@@ -238,7 +238,7 @@ fun GatewayRulesScreen(
 
     SkyBackground(phase = phase) {
         Box(Modifier.fillMaxSize()) {
-            Column(Modifier.fillMaxSize().systemBarsPadding()) {
+            Column(Modifier.fillMaxSize().statusBarsPadding()) {
                 SkyHeader(
                     title = stringResource(R.string.zt_gateway), onSky = onSky,
                     isLoading = state.isLoading || busy, onRefresh = { viewModel.load() }, onBack = onBack,
@@ -265,11 +265,11 @@ fun GatewayRulesScreen(
                 }
             }
             if (state.canWrite && !state.missingScope) {
-                FloatingActionButton(onClick = { editing = GwEdit(null) }, containerColor = OcOrange, contentColor = Color.White, modifier = Modifier.align(Alignment.BottomEnd).padding(20.dp).systemBarsPadding()) {
+                FloatingActionButton(onClick = { editing = GwEdit(null) }, containerColor = OcOrange, contentColor = Color.White, modifier = Modifier.align(Alignment.BottomEnd).padding(20.dp).statusBarsPadding()) {
                     Icon(Icons.Outlined.Add, contentDescription = stringResource(R.string.zt_gw_create))
                 }
             }
-            SnackbarHost(snackbarHostState, Modifier.align(Alignment.BottomCenter).systemBarsPadding())
+            SnackbarHost(snackbarHostState, Modifier.align(Alignment.BottomCenter).statusBarsPadding())
         }
     }
 

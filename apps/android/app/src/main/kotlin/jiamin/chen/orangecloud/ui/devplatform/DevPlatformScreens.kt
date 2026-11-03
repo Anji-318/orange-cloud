@@ -25,7 +25,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.systemBarsPadding
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -117,7 +117,7 @@ fun DeveloperHubScreen(
     val phase = rememberSkyPhase()
     val onSky = phase.onSky
     SkyBackground(phase = phase) {
-        Column(Modifier.fillMaxSize().systemBarsPadding().verticalScroll(rememberScrollState())) {
+        Column(Modifier.fillMaxSize().statusBarsPadding().verticalScroll(rememberScrollState())) {
             Text(
                 stringResource(R.string.nav_dev_platform),
                 color = onSky,
@@ -430,7 +430,7 @@ fun AIRunScreen(onBack: () -> Unit, viewModel: AIRunViewModel = hiltViewModel())
     val phase = rememberSkyPhase()
     val onSky = phase.onSky
     SkyBackground(phase = phase) {
-        Column(Modifier.fillMaxSize().systemBarsPadding()) {
+        Column(Modifier.fillMaxSize().statusBarsPadding()) {
             SkyHeader(
                 title = state.model.substringAfterLast('/'),
                 onSky = onSky,
@@ -605,7 +605,7 @@ private fun WritableScaffold(
     val onSky = phase.onSky
     SkyBackground(phase = phase) {
         Box(Modifier.fillMaxSize()) {
-            Column(Modifier.fillMaxSize().systemBarsPadding()) {
+            Column(Modifier.fillMaxSize().statusBarsPadding()) {
                 SkyHeader(
                     title = title,
                     onSky = onSky,
@@ -623,10 +623,10 @@ private fun WritableScaffold(
                     onClick = onCreate,
                     containerColor = OcOrange,
                     contentColor = Color.White,
-                    modifier = Modifier.align(Alignment.BottomEnd).padding(20.dp).systemBarsPadding(),
+                    modifier = Modifier.align(Alignment.BottomEnd).padding(20.dp).statusBarsPadding(),
                 ) { Icon(Icons.Outlined.Add, contentDescription = createDescription) }
             }
-            SnackbarHost(snackbar, Modifier.align(Alignment.BottomCenter).systemBarsPadding())
+            SnackbarHost(snackbar, Modifier.align(Alignment.BottomCenter).statusBarsPadding())
         }
     }
 }
@@ -731,7 +731,7 @@ private fun DevListScaffold(
     val phase = rememberSkyPhase()
     val onSky = phase.onSky
     SkyBackground(phase = phase) {
-        Column(Modifier.fillMaxSize().systemBarsPadding()) {
+        Column(Modifier.fillMaxSize().statusBarsPadding()) {
             SkyHeader(
                 title = title,
                 onSky = onSky,

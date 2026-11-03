@@ -11,7 +11,7 @@ import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.systemBarsPadding
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -130,7 +130,7 @@ fun WorkerSecretsScreen(
     var showBulkSheet by remember { mutableStateOf(false) }
 
     SkyBackground(phase = phase) {
-        Column(Modifier.fillMaxSize().systemBarsPadding()) {
+        Column(Modifier.fillMaxSize().statusBarsPadding()) {
             SkyHeader(
                 title = stringResource(R.string.worker_secrets_title),
                 onSky = onSky,
@@ -550,7 +550,7 @@ fun WorkerTriggersScreen(
     var showAdd by remember { mutableStateOf(false) }
 
     SkyBackground(phase = phase) {
-        Column(Modifier.fillMaxSize().systemBarsPadding()) {
+        Column(Modifier.fillMaxSize().statusBarsPadding()) {
             SkyHeader(
                 title = stringResource(R.string.worker_triggers_title),
                 onSky = onSky,
@@ -701,7 +701,7 @@ fun WorkerRoutesScreen(
     var routeSheet by remember { mutableStateOf<RouteSheetKind?>(null) }
 
     SkyBackground(phase = phase) {
-        Column(Modifier.fillMaxSize().systemBarsPadding()) {
+        Column(Modifier.fillMaxSize().statusBarsPadding()) {
             SkyHeader(
                 title = stringResource(R.string.worker_domains_title),
                 onSky = onSky,

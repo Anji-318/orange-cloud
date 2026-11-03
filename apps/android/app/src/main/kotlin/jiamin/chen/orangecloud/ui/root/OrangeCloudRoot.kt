@@ -11,6 +11,7 @@ import androidx.compose.foundation.gestures.detectHorizontalDragGestures
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.asPaddingValues
+import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -423,10 +424,12 @@ private fun MainScaffold(onOpenToolbox: () -> Unit) {
     val isDark = LocalIsDark.current
     val statusH = WindowInsets.statusBars.asPaddingValues().calculateTopPadding()
     val navH = WindowInsets.navigationBars.asPaddingValues().calculateBottomPadding()
-    // 悬浮胶囊底栏占用的底部安全区：系统导航栏高度 + 胶囊自身高度(约 75.dp) + 留白。
-    // 把它从内容可视区的底部扣除，所有可滚动页面滚到底时，最后一项就能完整停在胶囊上方，
-    // 而不是被胶囊压住、卡在它下面上不来。
-    val bottomBarInset = navH + 88.dp
+    // 悬浮胶囊底栏的真实占位（系统导航栏高度 + 胶囊自身高度），用 onSizeChanged 实测。
+    // 全屏页面根已统一改用 statusBarsPadding（只避让顶部状态栏，不再重复扣底部导航栏），
+    // 故这里扣掉胶囊实测高度即可——所有页面为底栏预留的背景高度严格等于底栏高度，全局统一。
+    val density = LocalDensity.current
+    var bottomBarHeight by remember { mutableStateOf(0.dp) }
+    val bottomBarInset = if (bottomBarHeight > 0.dp) bottomBarHeight else navH + 78.dp
 
     CompositionLocalProvider(LocalHazeState provides hazeState) {
         // 注意：这里的外层 Box 刻意「不」挂 hazeSource。
@@ -1120,6 +1123,9 @@ private fun MainScaffold(onOpenToolbox: () -> Unit) {
                                     launchSingleTop = true
                                     restoreState = true
                                 }
+                            },
+                            modifier = Modifier.onSizeChanged { size ->
+                                with(density) { bottomBarHeight = size.height.toDp() }
                             },
                         )
                     },

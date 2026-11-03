@@ -12,7 +12,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.systemBarsPadding
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -117,7 +117,7 @@ fun ZoneLoadBalancerScreen(
 
     SkyBackground(phase = phase) {
         Box(Modifier.fillMaxSize()) {
-            Column(Modifier.fillMaxSize().systemBarsPadding()) {
+            Column(Modifier.fillMaxSize().statusBarsPadding()) {
                 SkyHeader(
                     title = stringResource(R.string.lb_title), onSky = onSky,
                     isLoading = state.isLoading || state.isBusy, onRefresh = { viewModel.load() }, onBack = onBack,
@@ -137,11 +137,11 @@ fun ZoneLoadBalancerScreen(
                 }
             }
             if (state.canWrite && !state.missingScope) {
-                FloatingActionButton(onClick = { editing = LbEdit(null) }, containerColor = OcOrange, contentColor = Color.White, modifier = Modifier.align(Alignment.BottomEnd).padding(20.dp).systemBarsPadding()) {
+                FloatingActionButton(onClick = { editing = LbEdit(null) }, containerColor = OcOrange, contentColor = Color.White, modifier = Modifier.align(Alignment.BottomEnd).padding(20.dp).statusBarsPadding()) {
                     Icon(Icons.Outlined.Add, contentDescription = stringResource(R.string.lb_create))
                 }
             }
-            SnackbarHost(snackbar, Modifier.align(Alignment.BottomCenter).systemBarsPadding())
+            SnackbarHost(snackbar, Modifier.align(Alignment.BottomCenter).statusBarsPadding())
         }
     }
 
@@ -219,7 +219,7 @@ fun PoolListScreen(onBack: () -> Unit, viewModel: PoolListViewModel = hiltViewMo
 
     SkyBackground(phase = phase) {
         Box(Modifier.fillMaxSize()) {
-            Column(Modifier.fillMaxSize().systemBarsPadding()) {
+            Column(Modifier.fillMaxSize().statusBarsPadding()) {
                 SkyHeader(stringResource(R.string.lb_pools), onSky, state.isLoading || state.isBusy, { viewModel.load() }, onBack = onBack, titleSize = 22, backDescription = stringResource(R.string.common_back), refreshDescription = stringResource(R.string.common_refresh))
                 when {
                     state.missingScope -> SkyEmptyState(Icons.Outlined.Lock, stringResource(R.string.scope_missing), onSky, stringResource(R.string.common_refresh)) { viewModel.load() }
@@ -231,9 +231,9 @@ fun PoolListScreen(onBack: () -> Unit, viewModel: PoolListViewModel = hiltViewMo
                 }
             }
             if (state.canWrite && !state.missingScope) {
-                FloatingActionButton(onClick = { editing = PoolEdit(null) }, containerColor = OcOrange, contentColor = Color.White, modifier = Modifier.align(Alignment.BottomEnd).padding(20.dp).systemBarsPadding()) { Icon(Icons.Outlined.Add, contentDescription = stringResource(R.string.lb_pool_create)) }
+                FloatingActionButton(onClick = { editing = PoolEdit(null) }, containerColor = OcOrange, contentColor = Color.White, modifier = Modifier.align(Alignment.BottomEnd).padding(20.dp).statusBarsPadding()) { Icon(Icons.Outlined.Add, contentDescription = stringResource(R.string.lb_pool_create)) }
             }
-            SnackbarHost(snackbar, Modifier.align(Alignment.BottomCenter).systemBarsPadding())
+            SnackbarHost(snackbar, Modifier.align(Alignment.BottomCenter).statusBarsPadding())
         }
     }
 
@@ -330,7 +330,7 @@ fun MonitorListScreen(onBack: () -> Unit, viewModel: MonitorListViewModel = hilt
 
     SkyBackground(phase = phase) {
         Box(Modifier.fillMaxSize()) {
-            Column(Modifier.fillMaxSize().systemBarsPadding()) {
+            Column(Modifier.fillMaxSize().statusBarsPadding()) {
                 SkyHeader(stringResource(R.string.lb_monitors), onSky, state.isLoading || state.isBusy, { viewModel.load() }, onBack = onBack, titleSize = 22, backDescription = stringResource(R.string.common_back), refreshDescription = stringResource(R.string.common_refresh))
                 when {
                     state.missingScope -> SkyEmptyState(Icons.Outlined.Lock, stringResource(R.string.scope_missing), onSky, stringResource(R.string.common_refresh)) { viewModel.load() }
@@ -342,9 +342,9 @@ fun MonitorListScreen(onBack: () -> Unit, viewModel: MonitorListViewModel = hilt
                 }
             }
             if (state.canWrite && !state.missingScope) {
-                FloatingActionButton(onClick = { editing = MonEdit(null) }, containerColor = OcOrange, contentColor = Color.White, modifier = Modifier.align(Alignment.BottomEnd).padding(20.dp).systemBarsPadding()) { Icon(Icons.Outlined.Add, contentDescription = stringResource(R.string.lb_monitor_create)) }
+                FloatingActionButton(onClick = { editing = MonEdit(null) }, containerColor = OcOrange, contentColor = Color.White, modifier = Modifier.align(Alignment.BottomEnd).padding(20.dp).statusBarsPadding()) { Icon(Icons.Outlined.Add, contentDescription = stringResource(R.string.lb_monitor_create)) }
             }
-            SnackbarHost(snackbar, Modifier.align(Alignment.BottomCenter).systemBarsPadding())
+            SnackbarHost(snackbar, Modifier.align(Alignment.BottomCenter).statusBarsPadding())
         }
     }
 

@@ -23,23 +23,19 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import dev.chrisbanes.haze.hazeEffect
-import jiamin.chen.orangecloud.core.design.theme.LocalHazeState
 import jiamin.chen.orangecloud.core.design.theme.LocalIsDark
-import jiamin.chen.orangecloud.core.design.theme.glassStyle
 
 /**
- * 悬浮胶囊导航栏（毛玻璃版）：
- * - 胶囊通体一块玻璃，对背后页面内容 + 天景背景做实时模糊；
- * - 选中态只改图标/文字颜色，无任何局部选中色块，五项背景天然统一；
- * - 系统导航栏区域由 OrangeCloudRoot 底部的玻璃条接管，上下一体同为毛玻璃。
+ * 悬浮胶囊导航栏（实色描边版）：
+ * - 不透明实色背景，不做毛玻璃、不透明；
+ * - 无任何立体阴影（shadowElevation / tonalElevation 均为 0）；
+ * - 仅保留 1dp 描边作为视觉边界；
+ * - 系统导航栏区域由 OrangeCloudRoot 底部的玻璃条接管，上下风格统一。
  */
 @Composable
 internal fun TgBottomBar(
@@ -48,32 +44,20 @@ internal fun TgBottomBar(
     modifier: Modifier = Modifier,
 ) {
     val isDark = LocalIsDark.current
-    val hazeState = LocalHazeState.current
     val shape = RoundedCornerShape(28.dp)
     Surface(
         modifier = modifier
             .fillMaxWidth()
             .windowInsetsPadding(WindowInsets.navigationBars)
-            .padding(horizontal = 12.dp, vertical = 8.dp)
-            .shadow(
-                elevation = if (isDark) 0.dp else 6.dp,
-                shape = shape,
-                clip = false,
-            )
-            // 玻璃必须裁进胶囊圆角内：hazeEffect 画的是矩形，
-            // 不裁的话玻璃会溢出圆角变成方块，和圆角描边对不上。
-            .clip(shape)
-            // 毛玻璃：模糊整棵 hazeSource 子树（页面内容 + SkyBackground）
-            .hazeEffect(hazeState) { glassStyle(isDark) },
+            .padding(horizontal = 12.dp, vertical = 8.dp),
         shape = shape,
-        // 颜色必须 Transparent —— 半透明叠色已由 glassStyle 承担，
-        // 这里再上色会与 blur 结果二次相乘，胶囊发灰。
-        color = Color.Transparent,
+        color = if (isDark) Color(0xFF151210) else Color(0xFFFFFBF7),
         border = BorderStroke(
             width = 1.dp,
-            color = if (isDark) Color.White.copy(alpha = 0.14f) else Color.Black.copy(alpha = 0.10f),
+            color = if (isDark) Color.White.copy(alpha = 0.18f) else Color.Black.copy(alpha = 0.12f),
         ),
         tonalElevation = 0.dp,
+        shadowElevation = 0.dp,
     ) {
         Row(
             modifier = Modifier

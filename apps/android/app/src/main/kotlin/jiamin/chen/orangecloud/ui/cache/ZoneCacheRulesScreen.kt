@@ -12,7 +12,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.systemBarsPadding
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -117,7 +117,7 @@ fun ZoneCacheRulesScreen(
 
     SkyBackground(phase = phase) {
         Box(Modifier.fillMaxSize()) {
-            Column(Modifier.fillMaxSize().systemBarsPadding()) {
+            Column(Modifier.fillMaxSize().statusBarsPadding()) {
                 SkyHeader(
                     title = stringResource(R.string.cache_title),
                     onSky = onSky,
@@ -170,12 +170,12 @@ fun ZoneCacheRulesScreen(
                     onClick = { editing = CacheEditTarget(null) },
                     containerColor = OcOrange,
                     contentColor = Color.White,
-                    modifier = Modifier.align(Alignment.BottomEnd).padding(20.dp).systemBarsPadding(),
+                    modifier = Modifier.align(Alignment.BottomEnd).padding(20.dp).statusBarsPadding(),
                 ) {
                     Icon(Icons.Outlined.Add, contentDescription = stringResource(R.string.cache_add_title))
                 }
             }
-            SnackbarHost(snackbarHostState, Modifier.align(Alignment.BottomCenter).systemBarsPadding())
+            SnackbarHost(snackbarHostState, Modifier.align(Alignment.BottomCenter).statusBarsPadding())
         }
     }
 
