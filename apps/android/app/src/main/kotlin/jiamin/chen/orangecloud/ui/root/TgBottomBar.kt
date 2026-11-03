@@ -49,7 +49,11 @@ internal fun TgBottomBar(
         modifier = modifier
             .fillMaxWidth()
             .windowInsetsPadding(WindowInsets.navigationBars)
-            .padding(horizontal = 12.dp, vertical = 6.dp),
+            // 水平留白 + 胶囊底边到系统导航栏的额外间距（垂直方向只留 bottom）。
+            // 不设顶部留白：整个底栏（含 windowInsetsPadding 带来的系统导航栏高度）的实测高度，
+            // 正好等于「胶囊顶边到窗口底部的距离」，内容区留白可直接用这个实测值，
+            // 无需再额外加 navH，从而消除导航栏上方那条空白带。
+            .padding(start = 12.dp, end = 12.dp, bottom = 6.dp),
         shape = shape,
         color = if (isDark) Color(0xFF151210) else Color(0xFFFFFBF7),
         border = BorderStroke(

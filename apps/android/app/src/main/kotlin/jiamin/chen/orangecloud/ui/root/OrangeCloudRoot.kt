@@ -424,15 +424,18 @@ private fun MainScaffold(onOpenToolbox: () -> Unit) {
     val isDark = LocalIsDark.current
     val statusH = WindowInsets.statusBars.asPaddingValues().calculateTopPadding()
     val navH = WindowInsets.navigationBars.asPaddingValues().calculateBottomPadding()
-    // 悬浮胶囊底栏的真实占位（系统导航栏高度 + 胶囊自身高度），用 onSizeChanged 实测胶囊高度。
-    // 必须再加上 navH：Scaffold 把 bottomBar 摆在系统导航栏「上方」，胶囊实测高度里
-    // 并不含系统导航栏那一截。早期只按胶囊高度留白，少算了 navH（约 48dp），
-    // 结果内容被提前裁掉、导航栏上方多出一条死白带（就是截图里被切掉一半的卡片）。
-    // 全屏页面根已统一改用 statusBarsPadding（只避让顶部状态栏，不再重复扣底部导航栏），
-    // 故这里保证内容底边正好贴在胶囊顶边——全局统一，且紧贴不留空隙。
+    // 悬浮胶囊底栏的真实占位，用 onSizeChanged 实测。
+    // 关键点：TgBottomBar 的 Surface 修饰符链是
+    //   onSizeChanged -> fillMaxWidth -> windowInsetsPadding(navigationBars) -> padding(...)
+    // 所以实测到的高度里【已经包含】windowInsetsPadding 带来的系统导航栏高度 navH
+    // （Scaffold 不会为 bottomBar 预留内容区，它浮在内容之上）。
+    // 因此这里得到的就是「胶囊顶边到窗口底部的距离」，直接当内容区底部留白即可，
+    // 不能再额外加 navH——之前就是多算了一次 navH，导致导航栏上方多出整整一条
+    // 系统导航栏高度的空白带（截图里卡片与胶囊之间的那段空白）。
+    // 与系统导航栏的间距由 TgBottomBar 内的 windowInsetsPadding(navigationBars) 负责，保持不变。
     val density = LocalDensity.current
     var bottomBarHeight by remember { mutableStateOf(0.dp) }
-    val bottomBarInset = if (bottomBarHeight > 0.dp) navH + bottomBarHeight else navH + 78.dp
+    val bottomBarInset = if (bottomBarHeight > 0.dp) bottomBarHeight else navH + 63.dp
 
     CompositionLocalProvider(LocalHazeState provides hazeState) {
         // 注意：这里的外层 Box 刻意「不」挂 hazeSource。
