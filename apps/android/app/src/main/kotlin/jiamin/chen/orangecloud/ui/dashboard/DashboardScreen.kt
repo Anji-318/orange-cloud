@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -90,7 +91,7 @@ fun DashboardScreen(
     val openResource: (DashboardResource) -> Unit = { res -> onOpenResource(res.type, res.id, res.title) }
 
     SkyBackground(phase = phase) {
-        Box(Modifier.fillMaxSize()) {
+        Box(Modifier.fillMaxSize().statusBarsPadding()) {
             Column(
                 Modifier
                     .fillMaxSize()
@@ -100,7 +101,7 @@ fun DashboardScreen(
                 Spacer(Modifier.height(0.dp))
                 // 顶栏：账号头像（点开切换菜单）
                 Row(
-                    Modifier.fillMaxWidth().padding(start = 24.dp, end = 16.dp, top = 52.dp),
+                    Modifier.fillMaxWidth().padding(start = 24.dp, end = 16.dp, top = 12.dp),
                     verticalAlignment = Alignment.CenterVertically,
                 ) {
                     Spacer(Modifier.weight(1f))

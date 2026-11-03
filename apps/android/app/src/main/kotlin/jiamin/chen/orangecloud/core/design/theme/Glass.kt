@@ -27,19 +27,26 @@ val LocalHazeState = staticCompositionLocalOf { HazeState() }
  * 所以半透明的 backgroundColor 会被不透明的模糊结果完全盖住 —— 只设它等于「纯模糊」，
  * 背后的页面卡片/文字会原样透出。玻璃的「实体感」必须由 tints 承担：它是画在模糊结果
  * 之上的一层半透明玻璃色，这才是「不透明」的那一层。
+ * 遮盖度取值（系统状态栏 / 系统导航栏玻璃条专用）：
+ * 这两条上面只压着系统图标，不需要靠高遮盖度去遮页面卡片。
+ * 遮盖度一旦接近不透明（早先是 0xB3 = 70% + 不透明底色），
+ * 磨砂就会被彻底压成一条死白带，和「压根没做磨砂」在视觉上毫无区别 ——
+ * 半透明磨砂的前提就是「透得出底下的颜色」。
+ * 压到 35% 才能真正看出「背景被磨砂 + 仍然半透明」。
  */
 fun HazeEffectScope.glassStyle(isDark: Boolean) {
-    // 兜底底色（不透明）：源内容没覆盖到的区域，以及 API < 31 无 RenderEffect 走 scrim 时显示它。
-    backgroundColor = if (isDark) Color(0xFF14110E) else Color(0xFFFBF6EF)
+    // 兜底底色：源内容没覆盖到的区域，以及 API < 31 无 RenderEffect 走 scrim 时显示它。
+    // 保持半透明，API < 31 时页面内容仍能透出来（只是没有模糊），不会退化成一条死白带。
+    backgroundColor = if (isDark) Color(0x4D14110E) else Color(0x4DFBF6EF)
     // 玻璃实体色：半透明玻璃色叠在模糊结果之上（tints 用 BlendMode SRC_IN，alpha 直接生效）。
-    // 70% 左右的遮盖度：既保住「透出背景」的质感，又不会让页面卡片/文字直接透出来干扰导航文字。
+    // 35% 左右的遮盖度：透得出页面天景的颜色，看得见「磨砂」，又不会让系统图标读不清。
     tints = listOf(
         HazeTint(
-            color = if (isDark) Color(0xB3151210) else Color(0xB3FFFBF7),
+            color = if (isDark) Color(0x59151210) else Color(0x59FFFBF7),
         ),
     )
     // 默认 20dp 太小，背后的卡片边缘仍会透出清晰轮廓；加大后才是「磨砂」而不是「半透明贴图」。
-    blurRadius = 28.dp
+    blurRadius = 32.dp
     // 轻微磨砂颗粒感
     noiseFactor = 0.10f
 }
