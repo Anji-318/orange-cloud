@@ -73,6 +73,7 @@ import androidx.core.content.FileProvider
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import jiamin.chen.orangecloud.R
+import jiamin.chen.orangecloud.core.design.LocalBottomBarInset
 import jiamin.chen.orangecloud.core.design.SkyBackground
 import jiamin.chen.orangecloud.core.design.SkyEmptyState
 import jiamin.chen.orangecloud.core.design.SkyHeader
@@ -283,7 +284,7 @@ fun R2ObjectListScreen(
                         SkyEmptyState(Icons.AutoMirrored.Outlined.InsertDriveFile, stringResource(R.string.r2_objects_empty), onSky, stringResource(R.string.common_refresh)) { viewModel.loadFirst() }
 
                     else -> LazyColumn(
-                        contentPadding = PaddingValues(start = 16.dp, end = 16.dp, top = 8.dp, bottom = 8.dp),
+                        contentPadding = PaddingValues(start = 16.dp, end = 16.dp, top = 8.dp, bottom = (8.dp) + LocalBottomBarInset.current),
                         verticalArrangement = Arrangement.spacedBy(10.dp),
                     ) {
                         if (state.prefix.isEmpty()) {
@@ -429,7 +430,7 @@ private fun ObjectDetail(
     Column(
         Modifier
             .fillMaxWidth()
-            .verticalScroll(rememberScrollState())
+            .verticalScroll(rememberScrollState()).padding(bottom = LocalBottomBarInset.current)
             .padding(horizontal = 20.dp)
             .padding(bottom = 32.dp),
         verticalArrangement = Arrangement.spacedBy(10.dp),

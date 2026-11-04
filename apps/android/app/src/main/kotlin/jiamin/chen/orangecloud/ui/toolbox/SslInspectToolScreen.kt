@@ -25,6 +25,7 @@ import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import dagger.hilt.android.lifecycle.HiltViewModel
 import jiamin.chen.orangecloud.R
+import jiamin.chen.orangecloud.core.design.LocalBottomBarInset
 import jiamin.chen.orangecloud.core.design.SkyBackground
 import jiamin.chen.orangecloud.core.design.onSky
 import jiamin.chen.orangecloud.core.design.rememberSkyPhase
@@ -96,7 +97,7 @@ fun SslInspectToolScreen(onBack: () -> Unit, viewModel: SslInspectViewModel = hi
 
 @Composable
 private fun SslResultBody(r: CertInspectResult) {
-    Column(Modifier.verticalScroll(rememberScrollState()).padding(PaddingValues(horizontal = 16.dp))) {
+    Column(Modifier.verticalScroll(rememberScrollState()).padding(bottom = LocalBottomBarInset.current).padding(PaddingValues(horizontal = 16.dp))) {
         // 有效期状态横幅
         val (bannerColor, bannerText) = when {
             r.expired -> Color(0xFFE5484D) to stringResource(R.string.tool_ssl_expired)

@@ -77,6 +77,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import jiamin.chen.orangecloud.R
 import jiamin.chen.orangecloud.core.auth.PermissionCatalog
 import jiamin.chen.orangecloud.core.auth.PermissionFeature
+import jiamin.chen.orangecloud.core.design.LocalBottomBarInset
 import jiamin.chen.orangecloud.core.design.SkyBackground
 import jiamin.chen.orangecloud.core.design.rememberSkyPhase
 import jiamin.chen.orangecloud.core.design.theme.OcOrange
@@ -228,7 +229,7 @@ private fun AuthorizeView(onCancel: () -> Unit, onContinue: (Map<String, Boolean
                 )
                 LazyColumn(
                     modifier = Modifier.weight(1f),
-                    contentPadding = androidx.compose.foundation.layout.PaddingValues(start = 16.dp, end = 16.dp, top = 12.dp, bottom = 16.dp),
+                    contentPadding = androidx.compose.foundation.layout.PaddingValues(start = 16.dp, end = 16.dp, top = 12.dp, bottom = (16.dp) + LocalBottomBarInset.current),
                     verticalArrangement = Arrangement.spacedBy(10.dp),
                 ) {
                     items(PermissionCatalog.features, key = { it.id }) { feature ->

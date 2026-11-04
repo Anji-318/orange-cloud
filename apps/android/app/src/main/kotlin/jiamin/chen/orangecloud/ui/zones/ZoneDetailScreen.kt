@@ -50,6 +50,7 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import jiamin.chen.orangecloud.R
+import jiamin.chen.orangecloud.core.design.LocalBottomBarInset
 import jiamin.chen.orangecloud.core.design.PlanBadge
 import jiamin.chen.orangecloud.core.design.SkyBackground
 import jiamin.chen.orangecloud.core.design.SkyHeader
@@ -102,7 +103,7 @@ fun ZoneDetailScreen(
             Column(
                 modifier = Modifier
                     .fillMaxSize()
-                    .verticalScroll(rememberScrollState())
+                    .verticalScroll(rememberScrollState()).padding(bottom = LocalBottomBarInset.current)
                     .padding(horizontal = 16.dp)
                     .padding(bottom = 24.dp),
                 verticalArrangement = Arrangement.spacedBy(10.dp),

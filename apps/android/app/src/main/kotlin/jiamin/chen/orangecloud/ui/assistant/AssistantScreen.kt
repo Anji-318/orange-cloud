@@ -42,6 +42,7 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import jiamin.chen.orangecloud.R
+import jiamin.chen.orangecloud.core.design.LocalBottomBarInset
 import jiamin.chen.orangecloud.core.design.SkyBackground
 import jiamin.chen.orangecloud.core.design.SkyEmptyState
 import jiamin.chen.orangecloud.core.design.SkyHeader
@@ -98,7 +99,7 @@ fun AssistantScreen(
                 else -> LazyColumn(
                     state = listState,
                     modifier = Modifier.weight(1f),
-                    contentPadding = PaddingValues(16.dp),
+                    contentPadding = PaddingValues(start = 16.dp, top = 16.dp, end = 16.dp, bottom = 16.dp + LocalBottomBarInset.current),
                     verticalArrangement = Arrangement.spacedBy(10.dp),
                 ) {
                     items(state.turns) { turn -> ChatBubble(turn) }

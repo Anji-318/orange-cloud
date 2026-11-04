@@ -47,6 +47,7 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import jiamin.chen.orangecloud.R
+import jiamin.chen.orangecloud.core.design.LocalBottomBarInset
 import jiamin.chen.orangecloud.core.design.SkyBackground
 import jiamin.chen.orangecloud.core.design.SkyEmptyState
 import jiamin.chen.orangecloud.core.design.SkyHeader
@@ -193,7 +194,7 @@ fun KVKeyListScreen(
                         SkyEmptyState(Icons.Outlined.Key, stringResource(R.string.kv_keys_empty), onSky, stringResource(R.string.common_refresh)) { viewModel.loadFirst() }
 
                     else -> LazyColumn(
-                        contentPadding = PaddingValues(start = 16.dp, end = 16.dp, top = 8.dp, bottom = 8.dp),
+                        contentPadding = PaddingValues(start = 16.dp, end = 16.dp, top = 8.dp, bottom = (8.dp) + LocalBottomBarInset.current),
                         verticalArrangement = Arrangement.spacedBy(10.dp),
                     ) {
                         items(state.keys, key = { it.name }) { kvKey ->

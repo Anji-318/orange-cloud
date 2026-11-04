@@ -20,6 +20,7 @@ import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import dagger.hilt.android.lifecycle.HiltViewModel
 import jiamin.chen.orangecloud.R
+import jiamin.chen.orangecloud.core.design.LocalBottomBarInset
 import jiamin.chen.orangecloud.core.design.SkyBackground
 import jiamin.chen.orangecloud.core.design.onSky
 import jiamin.chen.orangecloud.core.design.rememberSkyPhase
@@ -83,7 +84,7 @@ fun GeoIpToolScreen(onBack: () -> Unit, viewModel: GeoIpViewModel = hiltViewMode
                 state.error != null -> ToolHint(toolErrorText(state.error!!), onSky)
                 state.result != null -> {
                     val r = state.result!!
-                    Column(Modifier.verticalScroll(rememberScrollState()).padding(PaddingValues(horizontal = 16.dp))) {
+                    Column(Modifier.verticalScroll(rememberScrollState()).padding(bottom = LocalBottomBarInset.current).padding(PaddingValues(horizontal = 16.dp))) {
                         ToolResultCard {
                             ToolFieldRow("IP", r.ip, mono = true)
                             val location = listOfNotNull(r.city, r.region, r.country).filter { it.isNotBlank() }.joinToString(", ")

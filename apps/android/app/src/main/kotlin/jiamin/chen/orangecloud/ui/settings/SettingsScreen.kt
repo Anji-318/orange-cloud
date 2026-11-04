@@ -67,6 +67,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import jiamin.chen.orangecloud.BuildConfig
 import jiamin.chen.orangecloud.R
+import jiamin.chen.orangecloud.core.design.LocalBottomBarInset
 import jiamin.chen.orangecloud.core.design.SkyBackground
 import jiamin.chen.orangecloud.core.design.TintIcon
 import jiamin.chen.orangecloud.core.design.ZoneAvatar
@@ -150,7 +151,7 @@ fun SettingsScreen(
 
     SkyBackground(phase = phase) {
         Column(
-            modifier = Modifier.fillMaxSize().statusBarsPadding().verticalScroll(rememberScrollState()),
+            modifier = Modifier.fillMaxSize().verticalScroll(rememberScrollState()).statusBarsPadding().padding(bottom = LocalBottomBarInset.current),
         ) {
             Text(
                 text = stringResource(R.string.settings_title),

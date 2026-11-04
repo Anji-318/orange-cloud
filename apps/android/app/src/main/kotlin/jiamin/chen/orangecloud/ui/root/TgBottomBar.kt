@@ -57,8 +57,8 @@ internal fun TgBottomBar(
             // 无需再额外加 navH，从而消除导航栏上方那条空白带。
             .padding(start = 12.dp, end = 12.dp, bottom = 6.dp),
         shape = shape,
-        // 不透明实色底板：底栏区域不穿透内容（系统状态栏 / 导航栏那两条才是半透明磨砂）。
-        color = if (isDark) Color(0xFF151210) else Color(0xFFFFFBF7),
+        // 透明底板：不铺任何实色，页面内容可以从底栏下方滑过并透出来，只靠 1dp 描边勾勒轮廓。
+        color = Color.Transparent,
         border = BorderStroke(
             width = 1.dp,
             color = if (isDark) Color.White.copy(alpha = 0.18f) else Color.Black.copy(alpha = 0.12f),

@@ -20,6 +20,7 @@ import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import dagger.hilt.android.lifecycle.HiltViewModel
 import jiamin.chen.orangecloud.R
+import jiamin.chen.orangecloud.core.design.LocalBottomBarInset
 import jiamin.chen.orangecloud.core.design.SkyBackground
 import jiamin.chen.orangecloud.core.design.onSky
 import jiamin.chen.orangecloud.core.design.rememberSkyPhase
@@ -78,7 +79,7 @@ fun CfTraceToolScreen(onBack: () -> Unit, viewModel: CfTraceViewModel = hiltView
             when {
                 state.error != null -> ToolHint(toolErrorText(state.error!!), onSky)
                 state.result != null -> Column(
-                    Modifier.verticalScroll(rememberScrollState()).padding(PaddingValues(horizontal = 16.dp)),
+                    Modifier.verticalScroll(rememberScrollState()).padding(bottom = LocalBottomBarInset.current).padding(PaddingValues(horizontal = 16.dp)),
                 ) {
                     ToolResultCard {
                         state.result!!.forEach { f -> ToolFieldRow(f.label, f.value, mono = true) }

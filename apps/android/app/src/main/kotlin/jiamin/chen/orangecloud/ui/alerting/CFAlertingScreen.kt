@@ -32,6 +32,7 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import jiamin.chen.orangecloud.R
+import jiamin.chen.orangecloud.core.design.LocalBottomBarInset
 import jiamin.chen.orangecloud.core.design.SkyBackground
 import jiamin.chen.orangecloud.core.design.SkyEmptyState
 import jiamin.chen.orangecloud.core.design.SkyHeader
@@ -81,7 +82,7 @@ fun CFAlertingScreen(onBack: () -> Unit, viewModel: CFAlertingViewModel = hiltVi
                     SkyEmptyState(Icons.Outlined.NotificationsActive, stringResource(R.string.alerting_empty), onSky, stringResource(R.string.common_refresh)) { viewModel.load() }
 
                 else -> LazyColumn(
-                    contentPadding = PaddingValues(16.dp),
+                    contentPadding = PaddingValues(start = 16.dp, top = 16.dp, end = 16.dp, bottom = 16.dp + LocalBottomBarInset.current),
                     verticalArrangement = Arrangement.spacedBy(8.dp),
                 ) {
                     state.groups.forEach { group ->

@@ -44,6 +44,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import jiamin.chen.orangecloud.R
 import androidx.compose.runtime.remember
+import jiamin.chen.orangecloud.core.design.LocalBottomBarInset
 import jiamin.chen.orangecloud.core.design.SkyBackground
 import jiamin.chen.orangecloud.core.design.SkyEmptyState
 import jiamin.chen.orangecloud.core.design.SkyHeader
@@ -98,7 +99,7 @@ fun WorkerListScreen(
                     SkyEmptyState(Icons.Outlined.Bolt, stringResource(R.string.workers_empty), onSky, stringResource(R.string.common_refresh)) { viewModel.refresh() }
 
                 else -> LazyColumn(
-                    contentPadding = PaddingValues(horizontal = 16.dp, vertical = 8.dp),
+                    contentPadding = PaddingValues(start = 16.dp, end = 16.dp, top = 8.dp, bottom = 8.dp + LocalBottomBarInset.current),
                     verticalArrangement = Arrangement.spacedBy(10.dp),
                 ) {
                     items(sortedWorkers, key = { it.id }) { worker ->

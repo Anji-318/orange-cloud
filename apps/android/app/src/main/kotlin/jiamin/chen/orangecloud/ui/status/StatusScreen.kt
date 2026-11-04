@@ -55,6 +55,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import jiamin.chen.orangecloud.R
+import jiamin.chen.orangecloud.core.design.LocalBottomBarInset
 import jiamin.chen.orangecloud.core.design.SkyBackground
 import jiamin.chen.orangecloud.core.design.SkyEmptyState
 import jiamin.chen.orangecloud.core.design.SkyHeader
@@ -129,7 +130,7 @@ fun StatusScreen(
 @Composable
 private fun StatusContent(state: StatusUiState, onIncidentClick: (StatusPageIncident) -> Unit) {
     LazyColumn(
-        contentPadding = PaddingValues(horizontal = 16.dp, vertical = 8.dp),
+        contentPadding = PaddingValues(start = 16.dp, end = 16.dp, top = 8.dp, bottom = 8.dp + LocalBottomBarInset.current),
         verticalArrangement = Arrangement.spacedBy(8.dp),
     ) {
         item { OverallBanner(state.overall!!) }
@@ -303,7 +304,7 @@ private fun IncidentDetailSheet(incident: StatusPageIncident, onDismiss: () -> U
     val cs = MaterialTheme.colorScheme
     ModalBottomSheet(onDismissRequest = onDismiss, sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)) {
         Column(
-            Modifier.fillMaxWidth().verticalScroll(rememberScrollState()).padding(horizontal = 20.dp).padding(bottom = 32.dp),
+            Modifier.fillMaxWidth().verticalScroll(rememberScrollState()).padding(bottom = LocalBottomBarInset.current).padding(horizontal = 20.dp).padding(bottom = 32.dp),
         ) {
             Text(incident.name, fontSize = 19.sp, fontWeight = FontWeight.Bold, color = cs.onSurface)
             Spacer(Modifier.height(16.dp))

@@ -41,6 +41,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import jiamin.chen.orangecloud.R
+import jiamin.chen.orangecloud.core.design.LocalBottomBarInset
 import jiamin.chen.orangecloud.core.design.SkyBackground
 import jiamin.chen.orangecloud.core.design.TintIcon
 import jiamin.chen.orangecloud.core.design.onSky
@@ -81,7 +82,7 @@ fun ToolboxHubScreen(onExit: () -> Unit, onOpenTool: (String) -> Unit) {
                 modifier = Modifier.padding(horizontal = 20.dp, vertical = 4.dp),
             )
             LazyColumn(
-                contentPadding = PaddingValues(16.dp),
+                contentPadding = PaddingValues(start = 16.dp, top = 16.dp, end = 16.dp, bottom = 16.dp + LocalBottomBarInset.current),
                 verticalArrangement = Arrangement.spacedBy(10.dp),
             ) {
                 item { PushFlagshipCard(onClick = { onOpenTool(Routes.PUSH) }) }

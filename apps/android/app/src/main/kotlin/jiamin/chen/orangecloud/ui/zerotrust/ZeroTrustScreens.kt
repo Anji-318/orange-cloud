@@ -68,6 +68,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import jiamin.chen.orangecloud.R
+import jiamin.chen.orangecloud.core.design.LocalBottomBarInset
 import jiamin.chen.orangecloud.core.design.SkyBackground
 import jiamin.chen.orangecloud.core.design.SkyEmptyState
 import jiamin.chen.orangecloud.core.design.SkyHeader
@@ -187,7 +188,7 @@ private fun AccessAppForm(app: AccessApp?, isSaving: Boolean, onSave: (name: Str
     var tick by remember { mutableStateOf(0) }
     val canSave = name.isNotBlank() && domain.isNotBlank() && !isSaving
 
-    Column(Modifier.fillMaxWidth().verticalScroll(rememberScrollState()).padding(horizontal = 20.dp).padding(bottom = 32.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
+    Column(Modifier.fillMaxWidth().verticalScroll(rememberScrollState()).padding(bottom = LocalBottomBarInset.current).padding(horizontal = 20.dp).padding(bottom = 32.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
         Text(stringResource(if (app == null) R.string.zt_app_create else R.string.zt_app_edit), fontSize = 18.sp, fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.onSurface)
         OutlinedTextField(name, { name = it }, label = { Text(stringResource(R.string.zt_field_name)) }, singleLine = true, modifier = Modifier.fillMaxWidth())
         OutlinedTextField(domain, { domain = it }, label = { Text(stringResource(R.string.zt_field_domain)) }, singleLine = true, modifier = Modifier.fillMaxWidth())
@@ -255,7 +256,7 @@ fun GatewayRulesScreen(
                     state.rules.isEmpty() ->
                         SkyEmptyState(Icons.Outlined.Policy, stringResource(R.string.zt_gateway_empty), onSky, stringResource(R.string.common_refresh)) { viewModel.load() }
                     else -> LazyColumn(
-                        contentPadding = PaddingValues(start = 16.dp, end = 16.dp, top = 8.dp, bottom = if (state.canWrite) 96.dp else 8.dp),
+                        contentPadding = PaddingValues(start = 16.dp, end = 16.dp, top = 8.dp, bottom = (if (state.canWrite) 96.dp else 8.dp) + LocalBottomBarInset.current),
                         verticalArrangement = Arrangement.spacedBy(10.dp),
                     ) {
                         items(state.rules, key = { it.id }) { rule ->
@@ -324,7 +325,7 @@ private fun GatewayRuleForm(rule: GatewayRule?, isSaving: Boolean, onSave: (name
     if (action !in ztGwActions(type)) action = ztGwActions(type).first()
     val canSave = name.isNotBlank() && !isSaving
 
-    Column(Modifier.fillMaxWidth().verticalScroll(rememberScrollState()).padding(horizontal = 20.dp).padding(bottom = 32.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
+    Column(Modifier.fillMaxWidth().verticalScroll(rememberScrollState()).padding(bottom = LocalBottomBarInset.current).padding(horizontal = 20.dp).padding(bottom = 32.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
         Text(stringResource(if (rule == null) R.string.zt_gw_create else R.string.zt_gw_edit), fontSize = 18.sp, fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.onSurface)
         OutlinedTextField(name, { name = it }, label = { Text(stringResource(R.string.zt_field_name)) }, singleLine = true, modifier = Modifier.fillMaxWidth())
         ZtDropdown(stringResource(R.string.zt_field_gw_type), type, ZT_GW_TYPES) { type = it; action = ztGwActions(it).first() }

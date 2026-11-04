@@ -71,6 +71,7 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import jiamin.chen.orangecloud.R
+import jiamin.chen.orangecloud.core.design.LocalBottomBarInset
 import jiamin.chen.orangecloud.core.design.SkyBackground
 import jiamin.chen.orangecloud.core.design.SkyEmptyState
 import jiamin.chen.orangecloud.core.design.SkyHeader
@@ -126,7 +127,7 @@ fun ZoneLoadBalancerScreen(
                 when {
                     state.missingScope -> SkyEmptyState(Icons.Outlined.Lock, stringResource(R.string.scope_missing), onSky, stringResource(R.string.common_refresh)) { viewModel.load() }
                     state.loadBalancers.isEmpty() && state.isLoading -> Box(Modifier.fillMaxSize(), Alignment.Center) { CircularProgressIndicator(color = onSky) }
-                    else -> LazyColumn(contentPadding = PaddingValues(start = 16.dp, end = 16.dp, top = 8.dp, bottom = if (state.canWrite) 96.dp else 8.dp), verticalArrangement = Arrangement.spacedBy(10.dp)) {
+                    else -> LazyColumn(contentPadding = PaddingValues(start = 16.dp, end = 16.dp, top = 8.dp, bottom = (if (state.canWrite) 96.dp else 8.dp) + LocalBottomBarInset.current), verticalArrangement = Arrangement.spacedBy(10.dp)) {
                         if (state.loadBalancers.isEmpty()) item { Text(stringResource(R.string.lb_empty), color = onSky.copy(alpha = 0.8f), fontSize = 14.sp, modifier = Modifier.padding(8.dp)) }
                         items(state.loadBalancers, key = { it.id }) { lb ->
                             LbRow(lb, state.canWrite, { viewModel.toggle(lb, it) }, { editing = LbEdit(lb) }, { toDelete = lb })
@@ -183,7 +184,7 @@ private fun LbForm(lb: LoadBalancer?, pools: List<Pool>, isSaving: Boolean, onSa
     var fallback by rememberSaveable { mutableStateOf(lb?.fallbackPool.orEmpty()) }
     val canSave = name.isNotBlank() && selected.isNotEmpty() && fallback.isNotBlank() && !isSaving
 
-    Column(Modifier.fillMaxWidth().verticalScroll(rememberScrollState()).padding(horizontal = 20.dp).padding(bottom = 32.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
+    Column(Modifier.fillMaxWidth().verticalScroll(rememberScrollState()).padding(bottom = LocalBottomBarInset.current).padding(horizontal = 20.dp).padding(bottom = 32.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
         Text(stringResource(if (lb == null) R.string.lb_create else R.string.lb_edit), fontSize = 18.sp, fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.onSurface)
         OutlinedTextField(name, { name = it }, label = { Text(stringResource(R.string.lb_field_name)) }, singleLine = true, modifier = Modifier.fillMaxWidth())
         DropdownField(stringResource(R.string.lb_field_steering), stringResource(steeringLabelRes(steering)), STEERING) { steering = it; }
@@ -225,7 +226,7 @@ fun PoolListScreen(onBack: () -> Unit, viewModel: PoolListViewModel = hiltViewMo
                     state.missingScope -> SkyEmptyState(Icons.Outlined.Lock, stringResource(R.string.scope_missing), onSky, stringResource(R.string.common_refresh)) { viewModel.load() }
                     state.pools.isEmpty() && state.isLoading -> Box(Modifier.fillMaxSize(), Alignment.Center) { CircularProgressIndicator(color = onSky) }
                     state.pools.isEmpty() -> SkyEmptyState(Icons.Outlined.Hub, stringResource(R.string.lb_pools_empty), onSky, stringResource(R.string.common_refresh)) { viewModel.load() }
-                    else -> LazyColumn(contentPadding = PaddingValues(start = 16.dp, end = 16.dp, top = 8.dp, bottom = if (state.canWrite) 96.dp else 8.dp), verticalArrangement = Arrangement.spacedBy(10.dp)) {
+                    else -> LazyColumn(contentPadding = PaddingValues(start = 16.dp, end = 16.dp, top = 8.dp, bottom = (if (state.canWrite) 96.dp else 8.dp) + LocalBottomBarInset.current), verticalArrangement = Arrangement.spacedBy(10.dp)) {
                         items(state.pools, key = { it.id }) { pool -> PoolRow(pool, state.healthByPool[pool.id], state.canWrite, { editing = PoolEdit(pool) }, { toDelete = pool }) }
                     }
                 }
@@ -281,7 +282,7 @@ private fun PoolForm(pool: Pool?, monitors: List<Monitor>, isSaving: Boolean, on
     var tick by remember { mutableStateOf(0) }
     val canSave = name.isNotBlank() && origins.any { it[1].isNotBlank() } && !isSaving
 
-    Column(Modifier.fillMaxWidth().verticalScroll(rememberScrollState()).padding(horizontal = 20.dp).padding(bottom = 32.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
+    Column(Modifier.fillMaxWidth().verticalScroll(rememberScrollState()).padding(bottom = LocalBottomBarInset.current).padding(horizontal = 20.dp).padding(bottom = 32.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
         Text(stringResource(if (pool == null) R.string.lb_pool_create else R.string.lb_pool_edit), fontSize = 18.sp, fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.onSurface)
         OutlinedTextField(name, { name = it }, label = { Text(stringResource(R.string.lb_field_name)) }, singleLine = true, modifier = Modifier.fillMaxWidth())
         if (monitors.isNotEmpty()) {
@@ -336,7 +337,7 @@ fun MonitorListScreen(onBack: () -> Unit, viewModel: MonitorListViewModel = hilt
                     state.missingScope -> SkyEmptyState(Icons.Outlined.Lock, stringResource(R.string.scope_missing), onSky, stringResource(R.string.common_refresh)) { viewModel.load() }
                     state.monitors.isEmpty() && state.isLoading -> Box(Modifier.fillMaxSize(), Alignment.Center) { CircularProgressIndicator(color = onSky) }
                     state.monitors.isEmpty() -> SkyEmptyState(Icons.Outlined.MonitorHeart, stringResource(R.string.lb_monitors_empty), onSky, stringResource(R.string.common_refresh)) { viewModel.load() }
-                    else -> LazyColumn(contentPadding = PaddingValues(start = 16.dp, end = 16.dp, top = 8.dp, bottom = if (state.canWrite) 96.dp else 8.dp), verticalArrangement = Arrangement.spacedBy(10.dp)) {
+                    else -> LazyColumn(contentPadding = PaddingValues(start = 16.dp, end = 16.dp, top = 8.dp, bottom = (if (state.canWrite) 96.dp else 8.dp) + LocalBottomBarInset.current), verticalArrangement = Arrangement.spacedBy(10.dp)) {
                         items(state.monitors, key = { it.id }) { m -> MonitorRow(m, state.canWrite, { editing = MonEdit(m) }, { toDelete = m }) }
                     }
                 }
@@ -392,7 +393,7 @@ private fun MonitorForm(monitor: Monitor?, isSaving: Boolean, onSave: (type: Str
     val isHttp = type == "http" || type == "https"
     val canSave = !isSaving
 
-    Column(Modifier.fillMaxWidth().verticalScroll(rememberScrollState()).padding(horizontal = 20.dp).padding(bottom = 32.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
+    Column(Modifier.fillMaxWidth().verticalScroll(rememberScrollState()).padding(bottom = LocalBottomBarInset.current).padding(horizontal = 20.dp).padding(bottom = 32.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
         Text(stringResource(if (monitor == null) R.string.lb_monitor_create else R.string.lb_monitor_edit), fontSize = 18.sp, fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.onSurface)
         DropdownFieldRaw(stringResource(R.string.lb_field_type), type.uppercase(), MONITOR_TYPES) { type = it }
         if (isHttp) {

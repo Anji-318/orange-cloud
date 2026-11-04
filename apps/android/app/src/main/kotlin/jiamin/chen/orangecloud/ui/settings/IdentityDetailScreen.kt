@@ -46,6 +46,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import jiamin.chen.orangecloud.R
 import jiamin.chen.orangecloud.core.auth.PermissionCatalog
+import jiamin.chen.orangecloud.core.design.LocalBottomBarInset
 import jiamin.chen.orangecloud.core.design.SkyBackground
 import jiamin.chen.orangecloud.core.design.ZoneAvatar
 import jiamin.chen.orangecloud.core.design.onSky
@@ -74,7 +75,7 @@ fun IdentityDetailScreen(
 
     SkyBackground(phase = phase) {
         Column(
-            modifier = Modifier.fillMaxSize().statusBarsPadding().verticalScroll(rememberScrollState()),
+            modifier = Modifier.fillMaxSize().verticalScroll(rememberScrollState()).statusBarsPadding().padding(bottom = LocalBottomBarInset.current),
         ) {
             // 页头：返回 + 标题
             Row(

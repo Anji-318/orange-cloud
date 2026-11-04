@@ -80,6 +80,7 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import androidx.navigation.navDeepLink
 import jiamin.chen.orangecloud.R
+import jiamin.chen.orangecloud.core.design.LocalBottomBarInset
 import jiamin.chen.orangecloud.core.design.SkyBackground
 import jiamin.chen.orangecloud.core.design.SkyPhase
 import jiamin.chen.orangecloud.core.design.rememberSkyPhase
@@ -438,7 +439,11 @@ private fun MainScaffold(onOpenToolbox: () -> Unit) {
     var bottomBarHeight by remember { mutableStateOf(0.dp) }
     val bottomBarInset = if (bottomBarHeight > 0.dp) bottomBarHeight else navH + 63.dp
 
-    CompositionLocalProvider(LocalHazeState provides hazeState) {
+    CompositionLocalProvider(
+        LocalHazeState provides hazeState,
+        // 页面滚动内容用它留出 Dock 的底部空间（Dock 是透明底板，内容会从它下面透出来）
+        LocalBottomBarInset provides bottomBarInset,
+    ) {
         // 注意：这里的外层 Box 刻意「不」挂 hazeSource。
         // 模糊源只登记下面的页面内容（Scaffold content / NavigationSuiteScaffold content），
         // 玻璃层（胶囊底栏、状态栏条、系统导航条）必须留在模糊源之外，
@@ -1147,8 +1152,10 @@ private fun MainScaffold(onOpenToolbox: () -> Unit) {
                         // 深色模式下尤其难看（一道白带压在黑底上）。
                         // 它同时充当横滑垫层：NavHost 整体平移时，透出的是延续的页面背景。
                         SkyBackground(phase = rememberSkyPhase())
-                        // 内容可视区底部扣除胶囊底栏的安全区，保证任意页面滚到底时末项不被胶囊压住。
-                        Box(Modifier.fillMaxSize().padding(bottom = bottomBarInset)) {
+                        // 内容可视区铺满整个窗口（不再从底部扣掉 Dock 高度）：
+                        // 内容可以滑到透明 Dock 与系统导航栏下方，玻璃条 / 透明底板才有东西可透出。
+                        // 各页面用 LocalBottomBarInset 在滚动内容里留出底部空间，最后一项不会压住 Dock 图标。
+                        Box(Modifier.fillMaxSize()) {
                             appContent()
                         }
                     }

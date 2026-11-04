@@ -32,6 +32,7 @@ import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import dagger.hilt.android.lifecycle.HiltViewModel
 import jiamin.chen.orangecloud.R
+import jiamin.chen.orangecloud.core.design.LocalBottomBarInset
 import jiamin.chen.orangecloud.core.design.SkyBackground
 import jiamin.chen.orangecloud.core.design.onSky
 import jiamin.chen.orangecloud.core.design.rememberSkyPhase
@@ -118,7 +119,7 @@ fun DnsLookupToolScreen(onBack: () -> Unit, viewModel: DnsLookupViewModel = hilt
                         ToolHint(r.authorityNote ?: stringResource(R.string.tool_dns_empty), onSky)
                     } else {
                         LazyColumn(
-                            contentPadding = PaddingValues(16.dp),
+                            contentPadding = PaddingValues(start = 16.dp, top = 16.dp, end = 16.dp, bottom = 16.dp + LocalBottomBarInset.current),
                             verticalArrangement = Arrangement.spacedBy(8.dp),
                         ) {
                             items(r.records) { rec -> DnsRecordRow(rec) }

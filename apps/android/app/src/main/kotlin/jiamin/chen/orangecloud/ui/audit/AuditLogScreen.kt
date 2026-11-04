@@ -50,6 +50,7 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import jiamin.chen.orangecloud.R
+import jiamin.chen.orangecloud.core.design.LocalBottomBarInset
 import jiamin.chen.orangecloud.core.design.SkyBackground
 import jiamin.chen.orangecloud.core.design.SkyEmptyState
 import jiamin.chen.orangecloud.core.design.SkyHeader
@@ -110,7 +111,7 @@ fun AuditLogScreen(
 
                 else -> LazyColumn(
                     state = listState,
-                    contentPadding = PaddingValues(horizontal = 16.dp, vertical = 8.dp),
+                    contentPadding = PaddingValues(start = 16.dp, end = 16.dp, top = 8.dp, bottom = 8.dp + LocalBottomBarInset.current),
                     verticalArrangement = Arrangement.spacedBy(8.dp),
                 ) {
                     items(state.entries, key = { it.id ?: it.hashCode().toString() }) { entry ->
@@ -188,7 +189,7 @@ private fun AuditHistorySheet(
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                 )
                 else -> Column(
-                    Modifier.verticalScroll(rememberScrollState()),
+                    Modifier.verticalScroll(rememberScrollState()).padding(bottom = LocalBottomBarInset.current),
                     verticalArrangement = Arrangement.spacedBy(8.dp),
                 ) {
                     entries.forEach { AuditRow(it, onClick = null) }

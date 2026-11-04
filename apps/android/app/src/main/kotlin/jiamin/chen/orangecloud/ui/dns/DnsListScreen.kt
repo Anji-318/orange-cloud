@@ -55,6 +55,7 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import jiamin.chen.orangecloud.R
+import jiamin.chen.orangecloud.core.design.LocalBottomBarInset
 import jiamin.chen.orangecloud.core.design.SkyBackground
 import jiamin.chen.orangecloud.core.design.SkyPhase
 import jiamin.chen.orangecloud.core.design.theme.OcOrange
@@ -158,7 +159,7 @@ fun DnsListScreen(
                         StateMessage(Icons.Outlined.Dns, stringResource(R.string.dns_empty), onSky) { viewModel.refresh() }
 
                     else -> LazyColumn(
-                        contentPadding = PaddingValues(start = 16.dp, end = 16.dp, top = 8.dp, bottom = 8.dp),
+                        contentPadding = PaddingValues(start = 16.dp, end = 16.dp, top = 8.dp, bottom = (8.dp) + LocalBottomBarInset.current),
                         verticalArrangement = Arrangement.spacedBy(10.dp),
                     ) {
                         items(uiState.records, key = { it.id }) { record ->

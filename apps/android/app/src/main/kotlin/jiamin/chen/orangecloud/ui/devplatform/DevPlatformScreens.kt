@@ -87,6 +87,7 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.text.input.KeyboardType
 import jiamin.chen.orangecloud.R
+import jiamin.chen.orangecloud.core.design.LocalBottomBarInset
 import jiamin.chen.orangecloud.core.design.SkyBackground
 import jiamin.chen.orangecloud.core.design.SkyHeader
 import jiamin.chen.orangecloud.core.design.onSky
@@ -120,11 +121,12 @@ fun DeveloperHubScreen(
         Column(
             Modifier
                 .fillMaxSize()
-                .statusBarsPadding()
+                // 状态栏留白放进滚动内容：内容可以从状态栏下方滑过，玻璃条才有东西可模糊。
+                // 底部留白同理放在 verticalScroll 之后（作用于滚动内容）：既让出透明 Dock，
+                // 又给最后一张卡片留 16dp 呼吸空间，滚到底时不会贴着/被切掉。
                 .verticalScroll(rememberScrollState())
-                // 底部留白：padding 放在 verticalScroll 之后 = 作用于滚动内容，
-                // 滚到底时最后一张卡片与悬浮底栏之间才有呼吸空间，不会贴着/被切掉。
-                .padding(bottom = 16.dp),
+                .statusBarsPadding()
+                .padding(bottom = 16.dp + LocalBottomBarInset.current),
         ) {
             Text(
                 stringResource(R.string.nav_dev_platform),
@@ -379,7 +381,7 @@ private fun HyperdriveCreateForm(isSaving: Boolean, onSave: (name: String, schem
     var user by rememberSaveable { mutableStateOf("") }
     var pw by rememberSaveable { mutableStateOf("") }
     val canSave = name.isNotBlank() && host.isNotBlank() && db.isNotBlank() && user.isNotBlank() && pw.isNotBlank() && !isSaving
-    Column(Modifier.fillMaxWidth().verticalScroll(rememberScrollState()).padding(horizontal = 20.dp).padding(bottom = 32.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
+    Column(Modifier.fillMaxWidth().verticalScroll(rememberScrollState()).padding(bottom = LocalBottomBarInset.current).padding(horizontal = 20.dp).padding(bottom = 32.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
         Text(stringResource(R.string.dev_hyperdrive_create), fontSize = 18.sp, fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.onSurface)
         OutlinedTextField(name, { name = it }, label = { Text(stringResource(R.string.dev_hd_name)) }, singleLine = true, modifier = Modifier.fillMaxWidth())
         var expanded by remember { mutableStateOf(false) }
@@ -448,7 +450,7 @@ fun AIRunScreen(onBack: () -> Unit, viewModel: AIRunViewModel = hiltViewModel())
                 backDescription = stringResource(R.string.common_back),
             )
             Column(
-                Modifier.fillMaxSize().verticalScroll(rememberScrollState()).padding(16.dp),
+                Modifier.fillMaxSize().verticalScroll(rememberScrollState()).padding(bottom = LocalBottomBarInset.current).padding(16.dp),
                 verticalArrangement = Arrangement.spacedBy(12.dp),
             ) {
                 // 模型信息卡（说明 / 任务 / 模型 ID，参考 iOS 详情页）

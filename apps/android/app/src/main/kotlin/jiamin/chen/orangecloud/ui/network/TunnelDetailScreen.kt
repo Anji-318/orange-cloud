@@ -65,6 +65,7 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import jiamin.chen.orangecloud.R
+import jiamin.chen.orangecloud.core.design.LocalBottomBarInset
 import jiamin.chen.orangecloud.core.design.SkyBackground
 import jiamin.chen.orangecloud.core.design.SkyEmptyState
 import jiamin.chen.orangecloud.core.design.SkyHeader
@@ -135,7 +136,7 @@ fun TunnelDetailScreen(
                         val tunnel = state.tunnel!!
                         val isRemote = tunnel.remoteConfig == true
                         Column(
-                            modifier = Modifier.fillMaxSize().verticalScroll(rememberScrollState())
+                            modifier = Modifier.fillMaxSize().verticalScroll(rememberScrollState()).padding(bottom = LocalBottomBarInset.current)
                                 .padding(horizontal = 16.dp).padding(bottom = 24.dp),
                             verticalArrangement = Arrangement.spacedBy(12.dp),
                         ) {

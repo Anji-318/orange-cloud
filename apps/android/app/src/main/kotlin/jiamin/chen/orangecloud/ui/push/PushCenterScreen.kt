@@ -36,6 +36,7 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import jiamin.chen.orangecloud.R
+import jiamin.chen.orangecloud.core.design.LocalBottomBarInset
 import jiamin.chen.orangecloud.core.design.SkyBackground
 import jiamin.chen.orangecloud.core.design.onSky
 import jiamin.chen.orangecloud.core.design.rememberSkyPhase
@@ -72,7 +73,7 @@ fun PushCenterScreen(
     SkyBackground(phase = phase) {
         Column(Modifier.fillMaxSize().statusBarsPadding()) {
             ToolHeader(stringResource(R.string.push_title), onSky, onBack)
-            Column(Modifier.verticalScroll(rememberScrollState()).padding(PaddingValues(horizontal = 16.dp))) {
+            Column(Modifier.verticalScroll(rememberScrollState()).padding(bottom = LocalBottomBarInset.current).padding(PaddingValues(horizontal = 16.dp))) {
                 Text(
                     stringResource(R.string.push_subtitle),
                     color = onSky.copy(alpha = 0.85f),

@@ -55,6 +55,7 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import jiamin.chen.orangecloud.R
+import jiamin.chen.orangecloud.core.design.LocalBottomBarInset
 import jiamin.chen.orangecloud.core.design.SkyBackground
 import jiamin.chen.orangecloud.core.design.StatTile
 import jiamin.chen.orangecloud.core.design.StatusDot
@@ -95,7 +96,7 @@ fun DashboardScreen(
             Column(
                 Modifier
                     .fillMaxSize()
-                    .verticalScroll(rememberScrollState())
+                    .verticalScroll(rememberScrollState()).padding(bottom = LocalBottomBarInset.current)
                     .padding(top = 0.dp),
             ) {
                 Spacer(Modifier.height(0.dp))
