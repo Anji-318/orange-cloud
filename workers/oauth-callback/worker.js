@@ -1013,6 +1013,26 @@ function formatDeviceId(raw) {
   return `${v.slice(0, 4)}-${v.slice(4, 8)}-${v.slice(8, 12)}-${v.slice(12, 16)}`;
 }
 
+/* ---------- KV 绑定解析（容忍 Dashboard 里绑定名填错 / 未重新部署） ----------
+ * Dashboard 的「绑定」表有「变量名称」和「KV 命名空间」两列，容易把变量名称
+ * 填成 oss、把命名空间选成 DEVICES；也可能加了绑定却没重新部署（绑定不会
+ * 热更新到已部署版本）。两种情况都表现为 env.DEVICES 不存在：
+ *   /admin/api/devices 抛 500 → 管理页降级成模拟数据 → 看到假设备与假的 "2.1.0"。
+ * 这里按常见名 + KV 结构特征找到真正的绑定，统一挂到 env.DEVICES，
+ * 并把命中的名字交给 /admin/api/health 输出，方便一眼核对配置。
+ */
+const KV_BINDING_NAMES = ["DEVICES", "devices", "oss", "KV", "DEVICES_KV", "DEVICE_KV"];
+function resolveKVBinding(env) {
+  const isKV = v => v && typeof v === "object" && typeof v.get === "function" && typeof v.put === "function";
+  for (const name of KV_BINDING_NAMES) {
+    if (isKV(env?.[name])) return { kv: env[name], name };
+  }
+  for (const [name, value] of Object.entries(env || {})) {
+    if (isKV(value)) return { kv: value, name };
+  }
+  return { kv: null, name: null };
+}
+
 /* ---------- 面板配置（KV 持久化，任意端打开面板均为同一参数） ---------- */
 async function getConfig(env) {
   const cfg = await env.DEVICES.get(CONFIG_KEY, "json");
@@ -1206,9 +1226,17 @@ async function handleAdminHealth(env) {
       kv_namespace: kvOk,
       admin_password: pwdOk,
     },
+    // 只输出绑定变量名（不含 namespace id / 密钥值），用于自证配置是否填对
+    kv_binding: env.__kvBindingName || null,
     config: { limit: cfg.limit },
     devices: { count },
-    hint: kvOk && pwdOk ? "ready" : "KV namespace 或 ADMIN_PASSWORD 未配置，请按 wrangler.toml 注释操作后再部署",
+    hint: kvOk && pwdOk
+      ? "ready"
+      : !kvOk
+        ? (env.__kvBindingName
+            ? "已检测到 KV 绑定，但变量名称是 '" + env.__kvBindingName + "'；建议改成 DEVICES，并点「保存并部署」让绑定生效"
+            : "运行时没有检测到任何 KV 绑定：请在 Dashboard「设置 → 绑定」添加 KV 命名空间绑定，变量名称填 DEVICES，然后点「保存并部署」")
+        : "ADMIN_PASSWORD 未配置，请用 secret 注入",
   }, kvOk && pwdOk ? 200 : 503, { "cache-control": "no-store" });
 }
 
@@ -1804,6 +1832,15 @@ export default {
     const path = url.pathname;
     const method = request.method;
 
+    // KV 绑定归一化：把任意变量名的 KV 绑定统一挂到 env.DEVICES，
+    // 并记下命中的名字供 /admin/api/health 输出（见 resolveKVBinding 注释）。
+    const resolved = resolveKVBinding(env);
+    env = {
+      ...env,
+      DEVICES: resolved.kv || env.DEVICES,
+      __kvBindingName: resolved.name,
+    };
+
     // OAuth 回调中转（原有功能）
     if (path === CALLBACK_PATH) {
       const hasCode = url.searchParams.has("code");
@@ -1821,11 +1858,11 @@ export default {
 
     // 设备 API：缺少 KV 绑定时代码会直接抛错，这里先给明确提示
     if (path === "/api/device/checkin" && method === "POST") {
-      if (!env.DEVICES) return json({ ok: false, error: "kv_not_bound", help: "KV namespace DEVICES 未绑定，请先执行 wrangler kv namespace create DEVICES 并更新 wrangler.toml" }, 503);
+      if (typeof env.DEVICES?.get !== "function") return json({ ok: false, error: "kv_not_bound", help: "Dashboard「设置 → 绑定」添加 KV 命名空间绑定，变量名称必须是 DEVICES，然后点「保存并部署」" }, 503);
       return handleCheckin(request, env);
     }
     if (path === "/api/device/status" && method === "GET") {
-      if (!env.DEVICES) return json({ banned: false, error: "kv_not_bound", help: "KV namespace DEVICES 未绑定" }, 503);
+      if (typeof env.DEVICES?.get !== "function") return json({ banned: false, error: "kv_not_bound", help: "KV 绑定的变量名必须是 DEVICES" }, 503);
       return handleStatus(request, url, env);
     }
 
