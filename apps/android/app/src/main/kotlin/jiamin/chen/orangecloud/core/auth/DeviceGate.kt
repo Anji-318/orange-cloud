@@ -82,10 +82,21 @@ class DeviceGate @Inject constructor(
         return result
     }
 
-    /** 被封禁返回 true；任何异常（无网/Worker 故障）返回 false 放行。 */
+    /**
+     * 被封禁返回 true；任何异常（无网/Worker 故障）返回 false 放行。
+     *
+     * 同时上报当前**完整**版本号与渠道（v / app 参数 + X-App-Version 头）：
+     * Worker 的 handleStatus 据此回写 KV，面板"客户端"列才会跟着变。
+     * 以前这里只带 id，导致版本只在登录时 checkin 更新一次——覆盖安装升级到
+     * 2.1.05-oss 后若不重新登录，控制台会一直停留在旧的短版本号（如 2.1.0）。
+     */
     suspend fun isBanned(): Boolean = withContext(Dispatchers.IO) {
         runCatching {
-            val conn = URL("$baseUrl/api/device/status?id=$deviceId").openConnection() as HttpURLConnection
+            val version = java.net.URLEncoder.encode(BuildConfig.VERSION_NAME, "UTF-8")
+            val app = java.net.URLEncoder.encode(BuildConfig.FLAVOR, "UTF-8")
+            val conn = URL("$baseUrl/api/device/status?id=$deviceId&v=$version&app=$app")
+                .openConnection() as HttpURLConnection
+            conn.setRequestProperty("X-App-Version", BuildConfig.VERSION_NAME)
             conn.connectTimeout = 6_000
             conn.readTimeout = 6_000
             conn.requestMethod = "GET"
