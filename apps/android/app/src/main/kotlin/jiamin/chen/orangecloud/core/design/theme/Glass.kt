@@ -39,10 +39,10 @@ fun HazeEffectScope.glassStyle(isDark: Boolean) {
     // 12% -> 8%：更薄的一层雾，几乎只是轻微压暗/提亮，不会形成一条可见的色带。
     backgroundColor = if (isDark) Color(0x1414110E) else Color(0x14FBF6EF)
     // 玻璃实体色：半透明玻璃色叠在模糊结果之上（tints 用 BlendMode SRC_IN，alpha 直接生效）。
-    // 15% -> 12%：再薄一点，让背后的内容颜色主导，玻璃只做「轻覆」。
+    // 12% -> 8%：更透，背后内容约 92% 原样透出，玻璃只留一层极淡的膜。
     tints = listOf(
         HazeTint(
-            color = if (isDark) Color(0x1F151210) else Color(0x1FFFFBF7),
+            color = if (isDark) Color(0x14151210) else Color(0x14FFFBF7),
         ),
     )
     // 24dp -> 12dp：24dp 会把文字糊成一团白雾（截图里状态栏那道白斑就是它），
