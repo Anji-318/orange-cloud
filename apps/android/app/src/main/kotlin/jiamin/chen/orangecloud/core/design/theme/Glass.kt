@@ -37,16 +37,19 @@ val LocalHazeState = staticCompositionLocalOf { HazeState() }
 fun HazeEffectScope.glassStyle(isDark: Boolean) {
     // 兜底底色：源内容没覆盖到的区域，以及 API < 31 无 RenderEffect 走 scrim 时显示它。
     // 保持半透明，API < 31 时页面内容仍能透出来（只是没有模糊），不会退化成一条死白带。
-    backgroundColor = if (isDark) Color(0x4D14110E) else Color(0x4DFBF6EF)
+    // 30% -> 22%：更透，天景渐变透得更明显，不再像一条实色带。
+    backgroundColor = if (isDark) Color(0x3814110E) else Color(0x38FBF6EF)
     // 玻璃实体色：半透明玻璃色叠在模糊结果之上（tints 用 BlendMode SRC_IN，alpha 直接生效）。
-    // 35% 左右的遮盖度：透得出页面天景的颜色，看得见「磨砂」，又不会让系统图标读不清。
+    // 35% -> 25%：进一步降低遮盖度，让「半透明」成立；磨砂感改由颗粒 + 描边承担。
     tints = listOf(
         HazeTint(
-            color = if (isDark) Color(0x59151210) else Color(0x59FFFBF7),
+            color = if (isDark) Color(0x40151210) else Color(0x40FFFBF7),
         ),
     )
-    // 默认 20dp 太小，背后的卡片边缘仍会透出清晰轮廓；加大后才是「磨砂」而不是「半透明贴图」。
-    blurRadius = 32.dp
-    // 轻微磨砂颗粒感
-    noiseFactor = 0.10f
+    // 32dp -> 40dp：背后一旦有卡片/文字滑过，模糊更彻底，不会露出清晰轮廓。
+    blurRadius = 40.dp
+    // 关键改动：0.10 -> 0.20。状态栏 / 导航栏背后通常只有纯渐变天景，
+    // 模糊纯色等于没变化 —— 磨砂质感只能靠这层颗粒「画」出来，
+    // 让纯色背景上也能看出是磨砂玻璃，而不是一条半透明色带。
+    noiseFactor = 0.20f
 }

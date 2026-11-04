@@ -7,6 +7,7 @@ import androidx.compose.animation.EnterTransition
 import androidx.compose.animation.ExitTransition
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.tween
+import androidx.compose.foundation.border
 import androidx.compose.foundation.gestures.detectHorizontalDragGestures
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.WindowInsets
@@ -1154,12 +1155,18 @@ private fun MainScaffold(onOpenToolbox: () -> Unit) {
                 }
             }
 
-            // 状态栏玻璃条：覆盖系统状态栏区域，透出被模糊的页面顶部内容
+            // 状态栏玻璃条：覆盖系统状态栏区域，透出被模糊的页面顶部内容。
+            // 1dp 描边 = 磨砂玻璃的「高光边」：四条边里只有下沿（贴着内容那侧）可见，
+            // 上/左/右都压在屏幕边缘上，看不出来。
             Box(
                 Modifier
                     .fillMaxWidth()
                     .height(statusH)
-                    .hazeEffect(hazeState) { glassStyle(isDark) },
+                    .hazeEffect(hazeState) { glassStyle(isDark) }
+                    .border(
+                        width = 1.dp,
+                        color = if (isDark) Color.White.copy(alpha = 0.10f) else Color.Black.copy(alpha = 0.05f),
+                    ),
             )
             // 系统导航栏玻璃条：覆盖三键 / 手势条区域，与胶囊底栏玻璃风格一致
             Box(
@@ -1167,7 +1174,11 @@ private fun MainScaffold(onOpenToolbox: () -> Unit) {
                     .fillMaxWidth()
                     .height(navH)
                     .align(Alignment.BottomStart)
-                    .hazeEffect(hazeState) { glassStyle(isDark) },
+                    .hazeEffect(hazeState) { glassStyle(isDark) }
+                    .border(
+                        width = 1.dp,
+                        color = if (isDark) Color.White.copy(alpha = 0.10f) else Color.Black.copy(alpha = 0.05f),
+                    ),
             )
         }
     }
