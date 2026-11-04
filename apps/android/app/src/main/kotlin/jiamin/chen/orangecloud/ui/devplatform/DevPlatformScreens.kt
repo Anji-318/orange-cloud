@@ -117,7 +117,15 @@ fun DeveloperHubScreen(
     val phase = rememberSkyPhase()
     val onSky = phase.onSky
     SkyBackground(phase = phase) {
-        Column(Modifier.fillMaxSize().statusBarsPadding().verticalScroll(rememberScrollState())) {
+        Column(
+            Modifier
+                .fillMaxSize()
+                .statusBarsPadding()
+                .verticalScroll(rememberScrollState())
+                // 底部留白：padding 放在 verticalScroll 之后 = 作用于滚动内容，
+                // 滚到底时最后一张卡片与悬浮底栏之间才有呼吸空间，不会贴着/被切掉。
+                .padding(bottom = 16.dp),
+        ) {
             Text(
                 stringResource(R.string.nav_dev_platform),
                 color = onSky,

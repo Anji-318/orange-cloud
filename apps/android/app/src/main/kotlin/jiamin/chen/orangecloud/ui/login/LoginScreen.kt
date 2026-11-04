@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.statusBarsPadding
@@ -108,7 +109,15 @@ private fun BrandView(error: String?, onSignIn: () -> Unit, onOpenToolbox: () ->
     val cs = MaterialTheme.colorScheme
 
     SkyBackground(phase = phase) {
-        Column(Modifier.fillMaxSize().statusBarsPadding().padding(horizontal = 24.dp)) {
+        Column(
+            Modifier
+                .fillMaxSize()
+                .statusBarsPadding()
+                // 登录页在 Dock 之外（无 Scaffold 底栏占位），必须自己避让系统三键 / 手势导航栏，
+                // 否则底部「免登录·开发者工具箱」按钮会直接压在系统导航栏上。
+                .navigationBarsPadding()
+                .padding(horizontal = 24.dp),
+        ) {
             Column(
                 modifier = Modifier.fillMaxWidth().weight(1f),
                 horizontalAlignment = Alignment.CenterHorizontally,
@@ -121,7 +130,9 @@ private fun BrandView(error: String?, onSignIn: () -> Unit, onOpenToolbox: () ->
                 Text(stringResource(R.string.login_subtitle), fontSize = 16.sp, color = cs.onSurfaceVariant)
             }
             Column(
-                modifier = Modifier.fillMaxWidth().padding(bottom = 28.dp),
+                // 28dp -> 16dp：外层已用 navigationBarsPadding 让出整条系统导航栏高度，
+                // 这里只需要按钮与导航栏之间的一点呼吸空间，否则底部会空太多。
+                modifier = Modifier.fillMaxWidth().padding(bottom = 16.dp),
                 horizontalAlignment = Alignment.CenterHorizontally,
             ) {
                 Button(
@@ -235,7 +246,13 @@ private fun AuthorizeView(onCancel: () -> Unit, onContinue: (Map<String, Boolean
                     }
                 }
                 Surface(color = cs.surfaceContainer, shadowElevation = 3.dp, modifier = Modifier.fillMaxWidth()) {
-                    Column(Modifier.padding(20.dp), horizontalAlignment = Alignment.CenterHorizontally) {
+                    // 底栏背景一直铺到窗口底部，按钮本身抬到系统导航栏上方：
+                    // navigationBarsPadding 放在 Surface 内部，系统导航栏那块仍由底栏底色覆盖，
+                    // 不会露出一条页面背景。否则「继续登录」按钮会压在系统三键导航栏上。
+                    Column(
+                        Modifier.navigationBarsPadding().padding(20.dp),
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                    ) {
                         Text(stringResource(R.string.perm_count, count), fontSize = 14.sp, color = cs.onSurfaceVariant)
                         Spacer(Modifier.height(12.dp))
                         Button(
