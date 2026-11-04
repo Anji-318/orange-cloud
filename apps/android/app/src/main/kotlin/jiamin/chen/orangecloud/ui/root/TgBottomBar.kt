@@ -57,8 +57,9 @@ internal fun TgBottomBar(
             // 无需再额外加 navH，从而消除导航栏上方那条空白带。
             .padding(start = 12.dp, end = 12.dp, bottom = 6.dp),
         shape = shape,
-        // 透明底板：不铺任何实色，页面内容可以从底栏下方滑过并透出来，只靠 1dp 描边勾勒轮廓。
-        color = Color.Transparent,
+        // 胶囊本体恢复实底：内容从下面滑过时被胶囊挡住（不穿透）。
+        // 「透明」只保留在胶囊外面——四周留白与系统导航栏区域仍透出内容。
+        color = if (isDark) Color(0xFF151210) else Color(0xFFFFFBF7),
         border = BorderStroke(
             width = 1.dp,
             color = if (isDark) Color.White.copy(alpha = 0.18f) else Color.Black.copy(alpha = 0.12f),
