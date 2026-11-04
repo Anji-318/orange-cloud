@@ -1126,21 +1126,6 @@ private fun MainScaffold(onOpenToolbox: () -> Unit) {
                     containerColor = Color.Transparent,
                     // 与 NavigationSuiteScaffold 一致：内容自行处理系统栏内边距，这里不额外叠加
                     contentWindowInsets = WindowInsets(0, 0, 0, 0),
-                    bottomBar = {
-                        TgBottomBar(
-                            selected = selectedTop,
-                            onSelect = { dest ->
-                                navController.navigate(Dest.startRoute(dest)) {
-                                    popUpTo(navController.graph.findStartDestination().id) { saveState = true }
-                                    launchSingleTop = true
-                                    restoreState = true
-                                }
-                            },
-                            modifier = Modifier.onSizeChanged { size ->
-                                with(density) { bottomBarHeight = size.height.toDp() }
-                            },
-                        )
-                    },
                 ) { _ ->
                     // 模糊源 = 页面内容本身（不含底栏）：内容铺满整个窗口，
                     // 胶囊底栏与系统导航栏玻璃条都画在源之外，才能透出「页面内容 + 天景背景」，
@@ -1160,6 +1145,29 @@ private fun MainScaffold(onOpenToolbox: () -> Unit) {
                         }
                     }
                 }
+            }
+
+            // 悬浮胶囊底栏：刻意画在内容「之后」——它是外层 Box 的后置子项，
+            // 绘制顺序天然晚于 Scaffold 里的页面内容，所以胶囊永远在内容上层：
+            // 内容滚到胶囊下方时会被胶囊实底遮住，不会透出来。
+            // （不放进 Scaffold 的 bottomBar 槽位，是为了不依赖框架内部的 zIndex 实现。）
+            // 宽屏布局用的是 NavigationSuiteScaffold，自带导航，这里不能再画一遍。
+            if (!isWideLayout) {
+                TgBottomBar(
+                    selected = selectedTop,
+                    onSelect = { dest ->
+                        navController.navigate(Dest.startRoute(dest)) {
+                            popUpTo(navController.graph.findStartDestination().id) { saveState = true }
+                            launchSingleTop = true
+                            restoreState = true
+                        }
+                    },
+                    modifier = Modifier
+                        .align(Alignment.BottomCenter)
+                        .onSizeChanged { size ->
+                            with(density) { bottomBarHeight = size.height.toDp() }
+                        },
+                )
             }
 
             // 状态栏玻璃条：覆盖系统状态栏区域，透出被模糊的页面顶部内容。
