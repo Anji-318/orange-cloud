@@ -31,8 +31,8 @@ import androidx.compose.ui.unit.sp
 import jiamin.chen.orangecloud.core.design.theme.LocalIsDark
 
 /**
- * 悬浮胶囊导航栏（实色描边版）：
- * - 不透明实色背景，不做毛玻璃、不透明；
+ * 悬浮胶囊导航栏（透明背景版）：
+ * - 背景完全透明，直接透出页面背景（浅色 / 深色模式表现一致，均无实色底板）；
  * - 无任何立体阴影（shadowElevation / tonalElevation 均为 0）；
  * - 仅保留 1dp 描边作为视觉边界；
  * - 系统导航栏区域由 OrangeCloudRoot 底部的玻璃条接管，上下风格统一。
@@ -55,7 +55,9 @@ internal fun TgBottomBar(
             // 无需再额外加 navH，从而消除导航栏上方那条空白带。
             .padding(start = 12.dp, end = 12.dp, bottom = 6.dp),
         shape = shape,
-        color = if (isDark) Color(0xFF151210) else Color(0xFFFFFBF7),
+        // 透明背景：不再铺任何实色底板，浅色 / 深色模式一律透明，
+        // 透出的是页面背景（SkyBackground + 内容），只靠 1dp 描边勾勒胶囊轮廓。
+        color = Color.Transparent,
         border = BorderStroke(
             width = 1.dp,
             color = if (isDark) Color.White.copy(alpha = 0.18f) else Color.Black.copy(alpha = 0.12f),
