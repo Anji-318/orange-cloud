@@ -92,11 +92,17 @@ fun DashboardScreen(
     val openResource: (DashboardResource) -> Unit = { res -> onOpenResource(res.type, res.id, res.title) }
 
     SkyBackground(phase = phase) {
-        Box(Modifier.fillMaxSize().statusBarsPadding()) {
+        // 状态栏留白不再放在最外层：挪到滚动内容里（见下方 statusBarsPadding），
+        // 这样顶部卡片/标题可以从状态栏下方滑过，状态栏玻璃条才有真实内容可模糊。
+        // 两个覆盖层不受影响：ResourceSearchSheet 是 ModalBottomSheet（独立窗口），
+        // AccountMenu 自带 top = 96dp，都足够避开状态栏。
+        Box(Modifier.fillMaxSize()) {
             Column(
                 Modifier
                     .fillMaxSize()
-                    .verticalScroll(rememberScrollState()).padding(bottom = LocalBottomBarInset.current)
+                    .verticalScroll(rememberScrollState())
+                    .statusBarsPadding()
+                    .padding(bottom = LocalBottomBarInset.current)
                     .padding(top = 0.dp),
             ) {
                 Spacer(Modifier.height(0.dp))

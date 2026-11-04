@@ -36,17 +36,18 @@ val LocalHazeState = staticCompositionLocalOf { HazeState() }
  */
 fun HazeEffectScope.glassStyle(isDark: Boolean) {
     // 兜底底色：源内容没覆盖到的区域，以及 API < 31 无 RenderEffect 走 scrim 时显示它。
-    // 22% -> 12%：更透，几乎只剩一层薄雾。
-    backgroundColor = if (isDark) Color(0x1F14110E) else Color(0x1FFBF6EF)
+    // 12% -> 8%：更薄的一层雾，几乎只是轻微压暗/提亮，不会形成一条可见的色带。
+    backgroundColor = if (isDark) Color(0x1414110E) else Color(0x14FBF6EF)
     // 玻璃实体色：半透明玻璃色叠在模糊结果之上（tints 用 BlendMode SRC_IN，alpha 直接生效）。
-    // 25% -> 15%：遮盖度再降一档，背后的卡片/文字能真正「隐约可见」，而不是被压成一条色带。
+    // 15% -> 12%：再薄一点，让背后的内容颜色主导，玻璃只做「轻覆」。
     tints = listOf(
         HazeTint(
-            color = if (isDark) Color(0x26151210) else Color(0x26FFFBF7),
+            color = if (isDark) Color(0x1F151210) else Color(0x1FFFFBF7),
         ),
     )
-    // 40dp -> 24dp：太糊会看不出背后是什么，降到 24dp 保留轮廓，才叫「隐约可见」。
-    blurRadius = 24.dp
-    // 颗粒感回调一档：0.20 在更透的底色上会显得脏。
-    noiseFactor = 0.12f
+    // 24dp -> 12dp：24dp 会把文字糊成一团白雾（截图里状态栏那道白斑就是它），
+    // 降到 12dp 才能「隐约」看出背后是卡片还是文字，而不是一片糊。
+    blurRadius = 12.dp
+    // 颗粒感再收一档：更薄的底色上颗粒会显得脏。
+    noiseFactor = 0.08f
 }
